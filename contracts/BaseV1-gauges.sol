@@ -491,11 +491,6 @@ contract Gauge {
         Checkpoint memory cp = checkpoints[account][_endIndex];
         (uint _rewardPerTokenStored,) = getPriorRewardPerToken(token, cp.timestamp);
         reward += cp.balanceOf * (rewardPerToken(token) - Math.max(_rewardPerTokenStored, userRewardPerTokenStored[token][account])) / PRECISION;
-        uint256 ve_mult = voltMultiplier(account);
-
-        if (ve_mult >= 1){
-         reward *= ve_mult;
-        }
         
         return reward;
     }

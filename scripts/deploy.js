@@ -45,8 +45,11 @@ async function main() {
   await token.setMinter(minter.address);
   await ve.setVoter(voter.address);
   await ve_dist.setDepositor(minter.address);
-  await voter.initialize(["0x8A419Ef4941355476cf04933E90Bf3bbF2F73814","0x4cb6cEf87d8cADf966B455E8BD58ffF32aBA49D1",
-  "0x3e5a2a4812d319ded22479a88ed708c6b55ca0b1", "0x1B80E7dA342981314f4032434fE0def21B90Ec20", "0xb0D0410D3D158a9b38c36e5aAB80264BC5272a20",
+  await voter.initialize(["0x8A419Ef4941355476cf04933E90Bf3bbF2F73814",
+  "0x4cb6cEf87d8cADf966B455E8BD58ffF32aBA49D1",
+  "0x3e5a2a4812d319ded22479a88ed708c6b55ca0b1", 
+  "0x1B80E7dA342981314f4032434fE0def21B90Ec20", 
+  "0xb0D0410D3D158a9b38c36e5aAB80264BC5272a20",
 "0x4e5c590D2fa8Aa3bC85342690eCfc33cF1c27eBB"
 ], minter.address);
   await minter.initialize([ve.address], [
