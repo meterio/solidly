@@ -68,6 +68,14 @@ contract Gauge {
     mapping(address => uint) public lastUpdateTime;
     mapping(address => uint) public rewardPerTokenStored;
 
+    // volt related
+    uint256 public ve_needed_for_max_boost = uint256(4e18); // E18. 4e18 means 4 volts must be held by the staker
+     // Constant for various precisions
+    uint256 private constant MULTIPLIER_PRECISION = 1e18;
+    uint256 public ve_max_multiplier = uint256(10e18); // E18. 1x = 1e18
+    address private constant volt = 0x8A419Ef4941355476cf04933E90Bf3bbF2F73814;
+   
+
     mapping(address => mapping(address => uint)) public lastEarn;
     mapping(address => mapping(address => uint)) public userRewardPerTokenStored;
 
@@ -436,6 +444,28 @@ contract Gauge {
         return (reward, _startTimestamp);
     }
 
+     // volt multiplier
+      function voltMultiplier(address account) public view returns (uint256) {
+        if (account != address(0)){
+            uint256 user_ve_balance = erc20(_ve).balanceOf(account) / MULTIPLIER_PRECISION;
+            uint256 ve_total_supply = erc20(_ve).totalSupply() / MULTIPLIER_PRECISION;
+
+          
+            if (user_ve_balance > 0){ 
+
+                if (user_ve_balance >= (ve_needed_for_max_boost / MULTIPLIER_PRECISION)){
+
+                uint256 ve_multiplier = (user_ve_balance / ve_total_supply) * ve_max_multiplier;
+               
+                return ve_multiplier;
+                }
+                else return 0;        
+            }
+            else return 0; // This will happen with the first stake, when user_staked_frax is 0
+        }
+        else return 0;
+    }
+
     // earned is an estimation, it won't be exact till the supply > rewardPerToken calculations have run
     function earned(address token, address account) public view returns (uint) {
         uint _startTimestamp = Math.max(lastEarn[token][account], rewardPerTokenCheckpoints[token][0].timestamp);
@@ -461,7 +491,12 @@ contract Gauge {
         Checkpoint memory cp = checkpoints[account][_endIndex];
         (uint _rewardPerTokenStored,) = getPriorRewardPerToken(token, cp.timestamp);
         reward += cp.balanceOf * (rewardPerToken(token) - Math.max(_rewardPerTokenStored, userRewardPerTokenStored[token][account])) / PRECISION;
+        uint256 ve_mult = voltMultiplier(account);
 
+        if (ve_mult >= 1){
+         reward *= ve_mult;
+        }
+        
         return reward;
     }
 

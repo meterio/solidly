@@ -1,6 +1,6 @@
 require("@nomiclabs/hardhat-waffle");
 require("@float-capital/solidity-coverage");
-
+const {HttpNetworkUserConfig,HardhatUserConfig} = require('hardhat/types')
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
@@ -17,6 +17,8 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
+
+ 
 module.exports = {
   solidity: {
     version: "0.8.11",
@@ -30,9 +32,17 @@ module.exports = {
   networks: {
     hardhat: {
       initialBaseFeePerGas: 0,
+      
     },
-    ftmtest: {
-      url: "https://rpc.testnet.fantom.network/",
+    metertest: {
+      url: "https://rpctest.meter.io/",
+      accounts:[
+        'c3d502d2ecb54e224273488896cc284df0dc94a42ab85a50a9b049a2956ed6fe'
+      ]
+      
     }
   },
+  namedAccounts: {
+    deployer: 0,
+  }
 };

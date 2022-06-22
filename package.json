@@ -1,12 +1,16 @@
 {
   "name": "hardhat-project",
+  "scripts": {
+    "deploy": "npx hardhat run scripts/deploy.js --network metertest",
+    "build": "hardhat compile"
+  },
   "devDependencies": {
     "@float-capital/solidity-coverage": "^0.7.17",
-    "@nomiclabs/hardhat-ethers": "^2.0.3",
+    "@nomiclabs/hardhat-ethers": "^2.0.5",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "chai": "^4.3.4",
     "ethereum-waffle": "^3.4.0",
-    "ethers": "^5.5.2",
+    "ethers": "^5.6.4",
     "hardhat": "^2.8.3"
   }
 }

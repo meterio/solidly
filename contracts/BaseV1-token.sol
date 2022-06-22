@@ -6,7 +6,7 @@ contract BaseV1 {
     string public constant symbol = "SOLID";
     string public constant name = "Solidly";
     uint8 public constant decimals = 18;
-    uint public totalSupply = 0;
+    uint public totalSupply = 100000000000000000000000;
 
     mapping(address => uint) public balanceOf;
     mapping(address => mapping(address => uint)) public allowance;
@@ -18,6 +18,7 @@ contract BaseV1 {
 
     constructor() {
         minter = msg.sender;
+        balanceOf[msg.sender] = 100000000000000000000000;
         _mint(msg.sender, 0);
     }
 

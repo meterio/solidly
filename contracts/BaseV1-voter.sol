@@ -59,6 +59,7 @@ interface IBribe {
 
 interface IMinter {
     function update_period() external returns (uint);
+    function update_period_variant(uint amount, uint duration) external returns (uint);
 }
 
 contract BaseV1Voter {
@@ -351,6 +352,29 @@ contract BaseV1Voter {
     function distributeFees(address[] memory _gauges) external {
         for (uint i = 0; i < _gauges.length; i++) {
             IGauge(_gauges[i]).claimFees();
+        }
+    }
+
+
+    function fundContract(uint amount, uint duration) public lock {
+         IMinter(minter).update_period_variant(amount, duration);
+         distributeVariant(0, pools.length);
+    }
+
+     function distributeVariant(uint start, uint finish) public {
+        for (uint x = start; x < finish; x++) {
+            notifyRewardVariant(gauges[pools[x]]);
+        }
+    }
+
+
+    function notifyRewardVariant(address _gauge) internal {
+      _updateFor(_gauge);
+        uint _claimable = claimable[_gauge];
+        if (_claimable > IGauge(_gauge).left(base) && _claimable / DURATION > 0) {
+            claimable[_gauge] = 0;
+            IGauge(_gauge).notifyRewardAmount(base, _claimable);
+            emit DistributeReward(msg.sender, _gauge, _claimable);
         }
     }
 

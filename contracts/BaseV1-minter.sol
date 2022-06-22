@@ -36,6 +36,7 @@ interface ve_dist {
 contract BaseV1Minter {
 
     uint internal constant week = 86400 * 7; // allows minting once per week (reset every Thursday 00:00 UTC)
+     uint internal constant month = 86400 * 30; 
     uint internal constant emission = 98;
     uint internal constant tail_emission = 2;
     uint internal constant target_base = 100; // 2% per week target emission
@@ -51,6 +52,7 @@ contract BaseV1Minter {
     address internal initializer;
 
     event Mint(address indexed sender, uint weekly, uint circulating_supply, uint circulating_emission);
+    event Funded(address indexed funder, uint amount, uint duration);
 
     constructor(
         address __voter, // the voting & distribution system
@@ -103,6 +105,34 @@ contract BaseV1Minter {
     // calculate inflation and adjust ve balances accordingly
     function calculate_growth(uint _minted) public view returns (uint) {
         return _ve.totalSupply() * _minted / _token.totalSupply();
+    }
+
+    // update pool admin only
+    function update_period_variant(uint amount, uint duration) external returns (uint) {
+        // validate duration
+        require(msg.sender == initializer );
+        require(duration != 0, "Duration: invalid duration");
+        require(amount != 0, "Amount: invalid duration");
+        uint _period = active_period;
+        if (block.timestamp >= _period + month && initializer == address(0)) { // only trigger if new month
+            active_period = duration;
+        
+            uint _required = amount;
+            uint _balanceOf = _token.balanceOf(address(this));
+            if (_balanceOf < _required) {
+                _token.mint(address(this), _required -_balanceOf);
+            }
+
+            _ve_dist.checkpoint_token(); // checkpoint token balance that was just minted in ve_dist
+            _ve_dist.checkpoint_total_supply(); // checkpoint supply
+
+            _token.approve(address(_voter), amount);
+            _voter.notifyRewardAmount(amount);
+
+            emit Funded(msg.sender, amount, duration);
+        }
+        return _period;
+
     }
 
     // update period can only be called once per cycle (1 week)
