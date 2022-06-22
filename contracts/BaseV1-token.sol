@@ -18,7 +18,6 @@ contract BaseV1 {
 
     constructor() {
         minter = msg.sender;
-        balanceOf[msg.sender] = 100000000000000000000000;
         _mint(msg.sender, 0);
     }
 
