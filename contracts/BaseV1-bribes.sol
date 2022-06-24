@@ -26,7 +26,7 @@ interface IBaseV1Voter {
     function _ve() external view returns (address);
 }
 
-// Bribes pay out rewards for a given pool based on the votes that were received from the user (goes hand in hand with BaseV1Gauges.vote())
+// 贿赂根据从用户那里收到的投票为给定池支付奖励（与 BaseV1Gauges.vote() 密切相关）
 contract Bribe {
 
     address public immutable factory; // only factory can modify balances (since it only happens on vote())
@@ -86,9 +86,11 @@ contract Bribe {
     event NotifyReward(address indexed from, address indexed reward, uint amount);
     event ClaimRewards(address indexed from, address indexed reward, uint amount);
 
+
+    // https://ftmscan.com/address/0x2524b2715eec48bc08941a8cdd261eb26650a3d3#code
     constructor(address _factory) {
-        factory = _factory;
-        _ve = IBaseV1Voter(_factory)._ve();
+        factory = _factory; // voter https://ftmscan.com/address/0xdc819f5d05a6859d2facbb4a44e5ab105762dbae
+        _ve = IBaseV1Voter(_factory)._ve(); // https://ftmscan.com/address/0xcbd8fea77c2452255f59743f55a3ea9d83b3c72b
     }
 
     // simple re-entrancy check
@@ -462,6 +464,7 @@ contract Bribe {
     }
 }
 
+// https://ftmscan.com/address/0xD0333A1A1AbFD68B362c5aA71B95392745381379#code
 contract BaseV1BribeFactory {
     address public last_gauge;
 

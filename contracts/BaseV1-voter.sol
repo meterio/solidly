@@ -61,6 +61,7 @@ interface IMinter {
     function update_period() external returns (uint);
 }
 
+// https://ftmscan.com/address/0xdC819F5d05a6859D2faCbB4A44E5aB105762dbaE#code
 contract BaseV1Voter {
 
     address public immutable _ve; // the ve token that governs these contracts
@@ -95,13 +96,14 @@ contract BaseV1Voter {
     event Detach(address indexed owner, address indexed gauge, uint tokenId);
     event Whitelisted(address indexed whitelister, address indexed token);
 
+    // https://ftmscan.com/address/0xdC819F5d05a6859D2faCbB4A44E5aB105762dbaE#code
     constructor(address __ve, address _factory, address  _gauges, address _bribes) {
-        _ve = __ve;
-        factory = _factory;
-        base = ve(__ve).token();
-        gaugefactory = _gauges;
-        bribefactory = _bribes;
-        minter = msg.sender;
+        _ve = __ve; // https://ftmscan.com/address/0xcbd8fea77c2452255f59743f55a3ea9d83b3c72b
+        factory = _factory; // https://ftmscan.com/address/0x3faab499b519fdc5819e3d7ed0c26111904cbc28
+        base = ve(__ve).token(); // Solidly (SOLID) https://ftmscan.com/address/0x888ef71766ca594ded1f0fa3ae64ed2941740a20
+        gaugefactory = _gauges; // https://ftmscan.com/address/0x25d220723ed3d9c55fdb9cfdddf044b52639ccae
+        bribefactory = _bribes; // https://ftmscan.com/address/0xd0333a1a1abfd68b362c5aa71b95392745381379
+        minter = msg.sender; // https://ftmscan.com/address/0xc4209c19b183e72a037b2d1fb11fbe522054a90d
     }
 
     // simple re-entrancy check
@@ -113,6 +115,37 @@ contract BaseV1Voter {
         _unlocked = 1;
     }
 
+    // 0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83 Fantom Finance: Wrapped Fantom Token
+    // 0x04068DA6C83AFCFA0e13ba15A6696662335D5B75 Centre: USD Coin 
+    // 0x321162Cd933E2Be498Cd2267a90534A804051b11 Wrapped BTC Token
+    // 0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E Maker: Dai Stablecoin
+    // 0x82f0B8B456c1A451378467398982d4834b6829c1 MIM Abracadabra.money: MIM Token
+    // 0xdc301622e621166BD8E82f2cA0A26c13Ad0BE355 Frax Finance: FRAX Token
+    // 0x1E4F97b9f9F913c46F1632781732927B9019C68b Curve.fi: CRV Token
+    // 0x29b0Da86e484E1C0029B56e817912d778aC0EC69 Yearn Finance: YFI Token
+    // 0xae75A438b2E0cB8Bb01Ec1E1e376De11D44477CC SushiSwap: SUSHI Token
+    // 0x7d016eec9c25232b01F23EF992D98ca97fc2AF5a Frax Finance: FXS Token
+    // 0x468003B688943977e6130F4F68F23aad939a1040 Abracadabra.Money: Spell Token
+    // 0xE55e19Fb4F2D85af758950957714292DAC1e25B2 Synapse: SYN Token
+    // 0x4cdF39285D7Ca8eB3f090fDA0C069ba5F4145B37 Tomb Finance: TSHARE Token
+    // 0x6c021Ae822BEa943b2E66552bDe1D2696a53fbB7 Tomb Finance: TOMB Token
+    // 0x2A5062D22adCFaAfbd5C541d4dA82E4B450d4212 Keep3r: KP3R Token
+    // 0x841FAD6EAe12c286d1Fd18d1d525DFfA75C7EFFE SpookySwap: BOO Token
+    // 0x5C4FDfc5233f935f20D2aDbA572F770c2E377Ab0 Hector DAO: HEC Token
+    // 0xaD996A45fd2373ed0B10Efa4A8eCB9de445A4302 Alpaca Finance: ALPACA Token
+    // 0xd8321AA83Fb0a4ECd6348D4577431310A6E0814d Geist Finance: GEIST Token 
+    // 0x5Cc61A78F164885776AA610fb0FE1257df78E59B SpiritSwap: SPIRIT Token
+    // 0x10b620b2dbAC4Faa7D7FFD71Da486f5D44cd86f9 Liquid Driver: LQDR Token 
+    // 0xe0654C8e6fd4D733349ac7E09f6f23DA256bF475 Scream.sh: SCREAM Token
+    // 0x85dec8c4B2680793661bCA91a8F129607571863d PaintSwap Finance: BRUSH Token
+    // 0x74b23882a30290451A17c44f4F05243b6b58C76d Wrapped Ether 
+    // 0xf16e81dce15B08F326220742020379B855B87DF9 Popsicle Finance: ICE token
+    // 0x9879aBDea01a879644185341F7aF7d8343556B7a TrueUSD: TUSD Token
+    // 0x00a35FD824c717879BF370E70AC6868b95870Dfb Iron Bank: Iron Bank token
+    // 0xC5e2B037D30a390e62180970B3aa4E91868764cD Tarot: TAROT Token
+    // 0x10010078a54396F62c96dF8532dc2B4847d47ED3 Hundred Finance: HND Token
+
+    // minter https://ftmscan.com/address/0xC4209c19b183e72A037b2D1Fb11fbe522054A90D
     function initialize(address[] memory _tokens, address _minter) external {
         require(msg.sender == minter);
         for (uint i = 0; i < _tokens.length; i++) {
@@ -234,6 +267,9 @@ contract BaseV1Voter {
         emit Whitelisted(msg.sender, _token);
     }
 
+    // {
+    //      "_pool": "0xB4658cBC3624f35ae1aFFFfe33a1173325f9761a" // StableV1 AMM - USDC/WFTM(sAMM-USDC/WFTM)
+    // }
     function createGauge(address _pool) external returns (address) {
         require(gauges[_pool] == address(0x0), "exists");
         require(IBaseV1Factory(factory).isPair(_pool), "!_pool");
@@ -252,8 +288,11 @@ contract BaseV1Voter {
         return _gauge;
     }
 
+    /// @dev 将token附属到Gauge
     function attachTokenToGauge(uint tokenId, address account) external {
+        // 调用者为Gauge
         require(isGauge[msg.sender]);
+        // tokenId > 0 
         if (tokenId > 0) ve(_ve).attach(tokenId);
         emit Attach(account, msg.sender, tokenId);
     }

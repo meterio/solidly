@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity 0.8.11;
 
+// https://ftmscan.com/address/0x888EF71766ca594DED1F0FA3AE64eD2941740A20#code
 contract BaseV1 {
 
     string public constant symbol = "SOLID";

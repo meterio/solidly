@@ -425,7 +425,7 @@ contract ve is IERC721, IERC721Metadata {
     /// @notice Contract constructor
     /// @param token_addr `ERC20CRV` token address
     constructor(
-        address token_addr
+        address token_addr // Solidly (SOLID) https://scan-warringstakes.meter.io/address/0xEb474B453d21E32Ad8914826962067B057299e1A
     ) {
         token = token_addr;
         voter = msg.sender;
@@ -1134,11 +1134,14 @@ contract ve is IERC721, IERC721Metadata {
     /// @param _t Epoch time to return voting power at
     /// @return User voting power
     function _balanceOfNFT(uint _tokenId, uint _t) internal view returns (uint) {
+        // 周期 = 用户周期点
         uint _epoch = user_point_epoch[_tokenId];
         if (_epoch == 0) {
             return 0;
         } else {
+            // 用户历史点数
             Point memory last_point = user_point_history[_tokenId][_epoch];
+            // 
             last_point.bias -= last_point.slope * int128(int256(_t) - int256(last_point.ts));
             if (last_point.bias < 0) {
                 last_point.bias = 0;

@@ -33,7 +33,7 @@ interface IBaseV1Callee {
     function hook(address sender, uint amount0, uint amount1, bytes calldata data) external;
 }
 
-// Base V1 Fees contract is used as a 1:1 pair relationship to split out fees, this ensures that the curve does not need to be modified for LP shares
+//Base V1 Fees 合约作为 1:1 对的关系来拆分费用，这确保了曲线不需要为 LP 股份修改
 contract BaseV1Fees {
 
     address internal immutable pair; // The pair it is bonded to
@@ -62,6 +62,7 @@ contract BaseV1Fees {
 
 }
 
+// https://ftmscan.com/address/0x34a3e47c4c4657d68c2e06438dfe0e76fcd9ab1e
 // The base pair of pools, either stable or volatile
 contract BaseV1Pair {
 
@@ -581,6 +582,7 @@ contract BaseV1Pair {
     }
 }
 
+// https://ftmscan.com/address/0x3faab499b519fdc5819e3d7ed0c26111904cbc28
 contract BaseV1Factory {
 
     bool public isPaused;
