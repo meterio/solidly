@@ -88,7 +88,7 @@ contract BaseV2Minter is AccessControl {
         ve_dist_ratio = _ve_dist_ratio;
     }
 
-    function update_period() external returns (uint256) {
+    function update_period() external onlyAdmin returns (uint256) {
         uint256 _period = active_period;
         if (block.timestamp >= _period + month) {
             _period = (block.timestamp / month) * month;
