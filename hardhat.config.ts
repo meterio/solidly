@@ -6,7 +6,7 @@ import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
-import { deployContract, expandDecimals } from "./scripts/deployTool";
+import { deployContract } from "./scripts/deployTool";
 import {
   BaseV1Factory,
   BaseV1Router01,
@@ -18,7 +18,6 @@ import {
   BaseV1Voter,
   BaseV2Minter
 } from "./typechain";
-import {constants} from "ethers"
 
 dotenv.config();
 
@@ -38,7 +37,7 @@ task("deploy", "deploy contract")
   .setAction(
     async ({ wtoken }, { ethers, run, network }) => {
       await run("compile");
-      const [deployer, user, otherUser, auditor, arbitrator, challenger] = await ethers.getSigners();
+      const [deployer] = await ethers.getSigners();
 
       const factory = await deployContract(
         "BaseV1Factory",
@@ -71,7 +70,7 @@ task("deploy", "deploy contract")
         deployer,
         [token.address]
       ) as Ve;
-      
+
       const ve_dist = await deployContract(
         "contracts/ve_dist.sol:ve_dist",
         network.name,
