@@ -1,71 +1,55 @@
-const { expect } = require("chai");
-const { ethers } = require("hardhat");
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+import { expect } from "chai";
+import { ContractFactory } from "ethers";
+import { ethers } from "hardhat";
+import {
+  Token,
+  Ve,
+  BaseV1Factory,
+  BaseV1Router01,
+  BaseV1Pair,
+  BaseV1
+} from "../typechain";
 
-function getCreate2Address(
-  factoryAddress,
-  [tokenA, tokenB],
-  bytecode
-) {
-  const [token0, token1] = tokenA < tokenB ? [tokenA, tokenB] : [tokenB, tokenA]
-  const create2Inputs = [
-    '0xff',
-    factoryAddress,
-    keccak256(solidityPack(['address', 'address'], [token0, token1])),
-    keccak256(bytecode)
-  ]
-  const sanitizedInputs = `0x${create2Inputs.map(i => i.slice(2)).join('')}`
-  return getAddress(`0x${keccak256(sanitizedInputs).slice(-40)}`)
-}
 
 describe("oracles", function () {
 
-  let token;
-  let ust;
-  let mim;
-  let dai;
-  let ve_underlying;
-  let ve;
-  let factory;
-  let router;
-  let pair;
-  let pair2;
-  let pair3;
-  let owner;
-  let gauge_factory;
-  let gauge;
-  let gauge2;
-  let gauge3;
-  let bribe;
-  let bribe2;
-  let bribe3;
-  let minter;
-  let ve_dist;
-  let library;
-  let staking;
-  let owner2;
-  let owner3;
+  let token: ContractFactory;
+  let ust: Token;
+  let mim: Token;
+  let dai: Token;
+  let ve_underlying: BaseV1;
+  let ve: Ve;
+  let factory: BaseV1Factory;
+  let router: BaseV1Router01;
+  let pair: BaseV1Pair;
+  let pair2: BaseV1Pair;
+  let pair3: BaseV1Pair;
+  let owner: SignerWithAddress;
+  let owner2: SignerWithAddress;
+  let owner3: SignerWithAddress;
 
   it("deploy base coins", async function () {
-    [owner, owner2, owner3] = await ethers.getSigners(3);
+    [owner, owner2, owner3] = await ethers.getSigners();
     token = await ethers.getContractFactory("Token");
-    ust = await token.deploy('ust', 'ust', 6, owner.address);
+    ust = await token.deploy('ust', 'ust', 6, owner.address) as Token;
     await ust.mint(owner.address, ethers.BigNumber.from("1000000000000000000"));
     await ust.mint(owner2.address, ethers.BigNumber.from("1000000000000000000"));
     await ust.mint(owner3.address, ethers.BigNumber.from("1000000000000000000"));
-    mim = await token.deploy('MIM', 'MIM', 18, owner.address);
+    mim = await token.deploy('MIM', 'MIM', 18, owner.address) as Token;
     await mim.mint(owner.address, ethers.BigNumber.from("1000000000000000000000000000000"));
     await mim.mint(owner2.address, ethers.BigNumber.from("1000000000000000000000000000000"));
     await mim.mint(owner3.address, ethers.BigNumber.from("1000000000000000000000000000000"));
-    dai = await token.deploy('DAI', 'DAI', 18, owner.address);
+    dai = await token.deploy('DAI', 'DAI', 18, owner.address) as Token;
     await dai.mint(owner.address, ethers.BigNumber.from("1000000000000000000000000000000"));
     await dai.mint(owner2.address, ethers.BigNumber.from("1000000000000000000000000000000"));
     await dai.mint(owner3.address, ethers.BigNumber.from("1000000000000000000000000000000"));
-    ve_underlying = await token.deploy('VE', 'VE', 18, owner.address);
+    ve_underlying = await token.deploy('VE', 'VE', 18, owner.address) as BaseV1;
     await ve_underlying.mint(owner.address, ethers.BigNumber.from("10000000000000000000000000"));
     await ve_underlying.mint(owner2.address, ethers.BigNumber.from("10000000000000000000000000"));
     await ve_underlying.mint(owner3.address, ethers.BigNumber.from("10000000000000000000000000"));
-    vecontract = await ethers.getContractFactory("contracts/ve.sol:ve");
-    ve = await vecontract.deploy(ve_underlying.address);
+    const vecontract = await ethers.getContractFactory("contracts/ve.sol:ve");
+    ve = await vecontract.deploy(ve_underlying.address) as Ve;
 
     await ust.deployed();
     await mim.deployed();
@@ -118,7 +102,7 @@ describe("oracles", function () {
   });
 
   it("confirm tokens for mim-ust", async function () {
-    [token0, token1] = await router.sortTokens(ust.address, mim.address);
+    const [token0, token1] = await router.sortTokens(ust.address, mim.address);
     expect((await pair.token0()).toUpperCase()).to.equal(token0.toUpperCase());
     expect((await pair.token1()).toUpperCase()).to.equal(token1.toUpperCase());
   });
@@ -152,7 +136,7 @@ describe("oracles", function () {
 
   it("BaseV1Router01 pair1 getAmountsOut & swapExactTokensForTokens", async function () {
     const ust_1 = ethers.BigNumber.from("1000000");
-    const route = {from:ust.address, to:mim.address, stable:true}
+    const route = { from: ust.address, to: mim.address, stable: true }
 
     expect((await router.getAmountsOut(ust_1, [route]))[1]).to.be.equal(await pair.getAmountOut(ust_1, ust.address));
 
@@ -161,16 +145,16 @@ describe("oracles", function () {
     const expected_output = await router.getAmountsOut(ust_1, [route]);
     await ust.approve(router.address, ust_1);
     await router.swapExactTokensForTokens(ust_1, expected_output[1], [route], owner.address, Date.now());
-    await network.provider.send("evm_increaseTime", [1801])
-    await network.provider.send("evm_mine")
+    await ethers.provider.send("evm_increaseTime", [1801])
+    await ethers.provider.send("evm_mine", [])
     await ust.approve(router.address, ust_1);
     await router.swapExactTokensForTokens(ust_1, 0, [route], owner.address, Date.now());
-    await network.provider.send("evm_increaseTime", [1801])
-    await network.provider.send("evm_mine")
+    await ethers.provider.send("evm_increaseTime", [1801])
+    await ethers.provider.send("evm_mine", [])
     await ust.approve(router.address, ust_1);
     await router.swapExactTokensForTokens(ust_1, 0, [route], owner.address, Date.now());
-    await network.provider.send("evm_increaseTime", [1801])
-    await network.provider.send("evm_mine")
+    await ethers.provider.send("evm_increaseTime", [1801])
+    await ethers.provider.send("evm_mine", [])
     await ust.approve(router.address, ust_1);
     await router.swapExactTokensForTokens(ust_1, 0, [route], owner.address, Date.now());
     const fees = await pair.fees()

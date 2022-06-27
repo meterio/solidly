@@ -1,21 +1,27 @@
-const { expect } = require("chai");
-const { ethers } = require("hardhat");
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+import { expect } from "chai";
+import { ContractFactory, Signer } from "ethers";
+import { ethers } from "hardhat";
+import {
+  Token,
+  Ve
+} from "../typechain";
 
 describe("ve", function () {
-  let token;
-  let ve_underlying;
-  let ve;
-  let owner;
+  let token: ContractFactory;
+  let ve_underlying: Token;
+  let ve: Ve;
+  let owner: SignerWithAddress;
   let ve_underlying_amount = ethers.BigNumber.from("1000000000000000000000");
 
   beforeEach(async function () {
     [owner] = await ethers.getSigners();
     token = await ethers.getContractFactory("Token");
-    ve_underlying = await token.deploy("VE", "VE", 18, owner.address);
+    ve_underlying = await token.deploy("VE", "VE", 18, owner.address) as Token;
     await ve_underlying.deployed();
     await ve_underlying.mint(owner.address, ve_underlying_amount);
-    vecontract = await ethers.getContractFactory("contracts/ve.sol:ve");
-    ve = await vecontract.deploy(ve_underlying.address);
+    const vecontract = await ethers.getContractFactory("contracts/ve.sol:ve");
+    ve = await vecontract.deploy(ve_underlying.address) as Ve;
     await ve.deployed();
   });
 
@@ -47,7 +53,7 @@ describe("ve", function () {
     await expect(ve.withdraw(tokenId)).to.be.reverted;
     // Now try withdraw after the time has expired
     ethers.provider.send("evm_increaseTime", [lockDuration]);
-    ethers.provider.send("evm_mine"); // mine the next block
+    ethers.provider.send("evm_mine", []); // mine the next block
     await ve.withdraw(tokenId);
 
     expect(await ve_underlying.balance(owner.address)).to.equal(ve_underlying_amount);
@@ -65,7 +71,7 @@ describe("ve", function () {
 
     const tokenId = 1;
     ethers.provider.send("evm_increaseTime", [lockDuration]);
-    ethers.provider.send("evm_mine"); // mine the next block
+    ethers.provider.send("evm_mine", []); // mine the next block
 
     // Just check that this doesn't revert
     await ve.tokenURI(tokenId);
@@ -79,9 +85,9 @@ describe("ve", function () {
 
   it("Confirm supportsInterface works with expected interfaces", async function () {
     // Check that it supports all the expected interfaces.
-    const ERC165_INTERFACE_ID = 0x01ffc9a7;
-    const ERC721_INTERFACE_ID = 0x80ac58cd;
-    const ERC721_METADATA_INTERFACE_ID = 0x5b5e139f;
+    const ERC165_INTERFACE_ID = '0x01ffc9a7';
+    const ERC721_INTERFACE_ID = '0x80ac58cd';
+    const ERC721_METADATA_INTERFACE_ID = '0x5b5e139f';
 
     expect(await ve.supportsInterface(ERC165_INTERFACE_ID)).to.be.true;
     expect(await ve.supportsInterface(ERC721_INTERFACE_ID)).to.be.true;
@@ -89,7 +95,7 @@ describe("ve", function () {
   });
 
   it("Check supportsInterface handles unsupported interfaces correctly", async function () {
-    const ERC721_FAKE = 0x780e9d61;
+    const ERC721_FAKE = '0x780e9d61';
     expect(await ve.supportsInterface(ERC721_FAKE)).to.be.false;
   });
 });

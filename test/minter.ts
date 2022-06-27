@@ -1,49 +1,46 @@
-const { expect } = require("chai");
-const { ethers } = require("hardhat");
-
-function getCreate2Address(
-  factoryAddress,
-  [tokenA, tokenB],
-  bytecode
-) {
-  const [token0, token1] = tokenA < tokenB ? [tokenA, tokenB] : [tokenB, tokenA]
-  const create2Inputs = [
-    '0xff',
-    factoryAddress,
-    keccak256(solidityPack(['address', 'address'], [token0, token1])),
-    keccak256(bytecode)
-  ]
-  const sanitizedInputs = `0x${create2Inputs.map(i => i.slice(2)).join('')}`
-  return getAddress(`0x${keccak256(sanitizedInputs).slice(-40)}`)
-}
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+import { expect } from "chai";
+import { ContractFactory } from "ethers";
+import { ethers } from "hardhat";
+import {
+  Token,
+  Ve,
+  BaseV1,
+  BaseV1Router01,
+  VeDist,
+  BaseV1Minter,
+  BaseV1Factory
+} from "../typechain";
 
 describe("minter", function () {
 
-  let token;
-  let ve_underlying;
-  let ve;
-  let owner;
-  let minter;
-  let ve_dist;
+  let token: ContractFactory;
+  let ve_underlying: BaseV1;
+  let mim: Token;
+  let ve: Ve;
+  let owner: SignerWithAddress;
+  let minter: BaseV1Minter;
+  let ve_dist: VeDist;
+  let factory: BaseV1Factory;
 
   it("deploy base", async function () {
-    [owner] = await ethers.getSigners(1);
+    [owner] = await ethers.getSigners();
     token = await ethers.getContractFactory("Token");
-    basev1 = await ethers.getContractFactory("BaseV1");
-    mim = await token.deploy('MIM', 'MIM', 18, owner.address);
+    const basev1 = await ethers.getContractFactory("BaseV1");
+    mim = await token.deploy('MIM', 'MIM', 18, owner.address) as Token;
     await mim.mint(owner.address, ethers.BigNumber.from("1000000000000000000000000000000"));
-    ve_underlying = await basev1.deploy();
-    vecontract = await ethers.getContractFactory("contracts/ve.sol:ve");
-    ve = await vecontract.deploy(ve_underlying.address);
+    ve_underlying = await basev1.deploy() as BaseV1;
+    const vecontract = await ethers.getContractFactory("contracts/ve.sol:ve");
+    ve = await vecontract.deploy(ve_underlying.address) as Ve;
     await ve_underlying.mint(owner.address, ethers.BigNumber.from("10000000000000000000000000"));
     const BaseV1Factory = await ethers.getContractFactory("BaseV1Factory");
-    factory = await BaseV1Factory.deploy();
+    factory = await BaseV1Factory.deploy() as BaseV1Factory;
     await factory.deployed();
     const BaseV1Router = await ethers.getContractFactory("BaseV1Router01");
-    router = await BaseV1Router.deploy(factory.address, owner.address);
-    await router.deployed();
+    const router = await BaseV1Router.deploy(factory.address, owner.address);
+    await router.deployed() as BaseV1Router01;
     const BaseV1GaugeFactory = await ethers.getContractFactory("BaseV1GaugeFactory");
-    gauges_factory = await BaseV1GaugeFactory.deploy();
+    const gauges_factory = await BaseV1GaugeFactory.deploy();
     await gauges_factory.deployed();
     const BaseV1BribeFactory = await ethers.getContractFactory("BaseV1BribeFactory");
     const bribe_factory = await BaseV1BribeFactory.deploy();
@@ -52,11 +49,11 @@ describe("minter", function () {
     const gauge_factory = await BaseV1Voter.deploy(ve.address, factory.address, gauges_factory.address, bribe_factory.address);
     await gauge_factory.deployed();
 
-    await gauge_factory.initialize([mim.address, ve_underlying.address],owner.address);
+    await gauge_factory.initialize([mim.address, ve_underlying.address], owner.address);
     await ve_underlying.approve(ve.address, ethers.BigNumber.from("1000000000000000000"));
     await ve.create_lock(ethers.BigNumber.from("1000000000000000000"), 4 * 365 * 86400);
     const VeDist = await ethers.getContractFactory("contracts/ve_dist.sol:ve_dist");
-    ve_dist = await VeDist.deploy(ve.address);
+    ve_dist = await VeDist.deploy(ve.address) as VeDist;
     await ve_dist.deployed();
     await ve.setVoter(gauge_factory.address);
 
@@ -83,23 +80,23 @@ describe("minter", function () {
   });
 
   it("initialize veNFT", async function () {
-    await minter.initialize([owner.address],[ethers.BigNumber.from("1000000000000000000000000")], ethers.BigNumber.from("20000000000000000000000000"))
+    await minter.initialize([owner.address], [ethers.BigNumber.from("1000000000000000000000000")], ethers.BigNumber.from("20000000000000000000000000"))
     expect(await ve.ownerOf(2)).to.equal(owner.address);
     expect(await ve.ownerOf(3)).to.equal("0x0000000000000000000000000000000000000000");
-    await network.provider.send("evm_mine")
+    await ethers.provider.send("evm_mine", [])
     expect(await ve_underlying.balanceOf(minter.address)).to.equal(ethers.BigNumber.from("19000000000000000000000000"));
   });
 
   it("minter weekly distribute", async function () {
     await minter.update_period();
     expect(await minter.weekly()).to.equal(ethers.BigNumber.from("20000000000000000000000000"));
-    await network.provider.send("evm_increaseTime", [86400 * 7])
-    await network.provider.send("evm_mine")
+    await ethers.provider.send("evm_increaseTime", [86400 * 7])
+    await ethers.provider.send("evm_mine", [])
     await minter.update_period();
     expect(await ve_dist.claimable(1)).to.equal(0);
     expect(await minter.weekly()).to.equal(ethers.BigNumber.from("20000000000000000000000000"));
-    await network.provider.send("evm_increaseTime", [86400 * 7])
-    await network.provider.send("evm_mine")
+    await ethers.provider.send("evm_increaseTime", [86400 * 7])
+    await ethers.provider.send("evm_mine", [])
     await minter.update_period();
     const claimable = await ve_dist.claimable(1);
     expect(claimable).to.be.above(ethers.BigNumber.from("200039145118808654"));
@@ -114,28 +111,28 @@ describe("minter", function () {
     console.log(await ve_underlying.totalSupply());
     console.log(await ve.totalSupply());
 
-    await network.provider.send("evm_increaseTime", [86400 * 7])
-    await network.provider.send("evm_mine")
+    await ethers.provider.send("evm_increaseTime", [86400 * 7])
+    await ethers.provider.send("evm_mine", [])
     await minter.update_period();
     console.log(await ve_dist.claimable(1));
     await ve_dist.claim(1);
-    await network.provider.send("evm_increaseTime", [86400 * 7])
-    await network.provider.send("evm_mine")
+    await ethers.provider.send("evm_increaseTime", [86400 * 7])
+    await ethers.provider.send("evm_mine", [])
     await minter.update_period();
     console.log(await ve_dist.claimable(1));
     await ve_dist.claim_many([1]);
-    await network.provider.send("evm_increaseTime", [86400 * 7])
-    await network.provider.send("evm_mine")
+    await ethers.provider.send("evm_increaseTime", [86400 * 7])
+    await ethers.provider.send("evm_mine", [])
     await minter.update_period();
     console.log(await ve_dist.claimable(1));
     await ve_dist.claim(1);
-    await network.provider.send("evm_increaseTime", [86400 * 7])
-    await network.provider.send("evm_mine")
+    await ethers.provider.send("evm_increaseTime", [86400 * 7])
+    await ethers.provider.send("evm_mine", [])
     await minter.update_period();
     console.log(await ve_dist.claimable(1));
     await ve_dist.claim_many([1]);
-    await network.provider.send("evm_increaseTime", [86400 * 7])
-    await network.provider.send("evm_mine")
+    await ethers.provider.send("evm_increaseTime", [86400 * 7])
+    await ethers.provider.send("evm_mine", [])
     await minter.update_period();
     console.log(await ve_dist.claimable(1));
     await ve_dist.claim(1);
