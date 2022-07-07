@@ -27,7 +27,8 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   const accounts = await hre.ethers.getSigners();
 
   for (const account of accounts) {
-    console.log(account.address);
+    console.log(account.address,
+      (await hre.ethers.provider.getBalance(account.address)).toString());
   }
 });
 
@@ -37,7 +38,7 @@ task("deploy", "deploy contract")
   .setAction(
     async ({ wtoken }, { ethers, run, network }) => {
       await run("compile");
-      const [deployer] = await ethers.getSigners();
+      const [wallet1, wallet2, wallet3, deployer] = await ethers.getSigners();
 
       const factory = await deployContract(
         "BaseV1Factory",
@@ -88,7 +89,7 @@ task("deploy", "deploy contract")
       ) as BaseV1GaugeFactory;
 
       const bribeFactory = await deployContract(
-        "BaseV1GaugeFactory",
+        "BaseV1BribeFactory",
         network.name,
         ethers.getContractFactory,
         deployer,
@@ -148,6 +149,22 @@ const config: HardhatUserConfig = {
       accounts: {
         mnemonic: process.env.MNEMONIC
       }
+    },
+    metertest: {
+      url: `https://rpctest.meter.io`,
+      chainId: 83,
+      gasPrice: 500000000000,
+      accounts: {
+        mnemonic: process.env.MNEMONIC,
+      },
+    },
+    metermain: {
+      url: `https://rpc.meter.io`,
+      chainId: 82,
+      gasPrice: 500000000000,
+      accounts: {
+        mnemonic: process.env.MNEMONIC,
+      },
     },
   },
   etherscan: {
