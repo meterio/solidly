@@ -197,6 +197,18 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Roots__factory>;
     getContractFactory(
+      name: "SolidlyLibrary",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.SolidlyLibrary__factory>;
+    getContractFactory(
+      name: "SolidlyPair",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.SolidlyPair__factory>;
+    getContractFactory(
+      name: "SolidlyRouter",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.SolidlyRouter__factory>;
+    getContractFactory(
       name: "IERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC20__factory>;
@@ -487,6 +499,21 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Roots>;
+    getContractAt(
+      name: "SolidlyLibrary",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.SolidlyLibrary>;
+    getContractAt(
+      name: "SolidlyPair",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.SolidlyPair>;
+    getContractAt(
+      name: "SolidlyRouter",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.SolidlyRouter>;
     getContractAt(
       name: "IERC20",
       address: string,

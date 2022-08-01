@@ -115,6 +115,71 @@ task("deploy", "deploy contract")
     }
   );
 
+  task("deploy-token", "deploy contract")
+  .addParam("factory", "factory address")
+  .setAction(
+    async ({ factory }, { ethers, run, network }) => {
+      await run("compile");
+      const [wallet1, wallet2, wallet3, deployer] = await ethers.getSigners();
+
+      const token = await deployContract(
+        "BaseV1",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        []
+      ) as BaseV1;
+
+      const ve = await deployContract(
+        "contracts/ve.sol:ve",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        [token.address]
+      ) as Ve;
+
+      const ve_dist = await deployContract(
+        "contracts/ve_dist.sol:ve_dist",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        [ve.address]
+      ) as VeDist;
+
+      const gaugeFactory = await deployContract(
+        "BaseV1GaugeFactory",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        []
+      ) as BaseV1GaugeFactory;
+
+      const bribeFactory = await deployContract(
+        "BaseV1BribeFactory",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        []
+      ) as BaseV1BribeFactory;
+
+      const voter = await deployContract(
+        "BaseV1Voter",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        [ve.address, factory, gaugeFactory.address, bribeFactory.address]
+      ) as BaseV1Voter;
+
+      const minter = await deployContract(
+        "BaseV2Minter",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        [voter.address, ve.address, ve_dist.address]
+      ) as BaseV2Minter;
+
+    }
+  );
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
