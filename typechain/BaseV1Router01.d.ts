@@ -24,7 +24,7 @@ interface BaseV1Router01Interface extends ethers.utils.Interface {
   functions: {
     "UNSAFE_swapExactTokensForTokens(uint256[],tuple[],address,uint256)": FunctionFragment;
     "addLiquidity(address,address,bool,uint256,uint256,uint256,uint256,address,uint256)": FunctionFragment;
-    "addLiquidityFTM(address,bool,uint256,uint256,uint256,address,uint256)": FunctionFragment;
+    "addLiquidityETH(address,bool,uint256,uint256,uint256,address,uint256)": FunctionFragment;
     "factory()": FunctionFragment;
     "getAmountOut(uint256,address,address)": FunctionFragment;
     "getAmountsOut(uint256,tuple[])": FunctionFragment;
@@ -34,12 +34,12 @@ interface BaseV1Router01Interface extends ethers.utils.Interface {
     "quoteAddLiquidity(address,address,bool,uint256,uint256)": FunctionFragment;
     "quoteRemoveLiquidity(address,address,bool,uint256)": FunctionFragment;
     "removeLiquidity(address,address,bool,uint256,uint256,uint256,address,uint256)": FunctionFragment;
-    "removeLiquidityFTM(address,bool,uint256,uint256,uint256,address,uint256)": FunctionFragment;
-    "removeLiquidityFTMWithPermit(address,bool,uint256,uint256,uint256,address,uint256,bool,uint8,bytes32,bytes32)": FunctionFragment;
+    "removeLiquidityETH(address,bool,uint256,uint256,uint256,address,uint256)": FunctionFragment;
+    "removeLiquidityETHWithPermit(address,bool,uint256,uint256,uint256,address,uint256,bool,uint8,bytes32,bytes32)": FunctionFragment;
     "removeLiquidityWithPermit(address,address,bool,uint256,uint256,uint256,address,uint256,bool,uint8,bytes32,bytes32)": FunctionFragment;
     "sortTokens(address,address)": FunctionFragment;
-    "swapExactFTMForTokens(uint256,tuple[],address,uint256)": FunctionFragment;
-    "swapExactTokensForFTM(uint256,uint256,tuple[],address,uint256)": FunctionFragment;
+    "swapExactETHForTokens(uint256,tuple[],address,uint256)": FunctionFragment;
+    "swapExactTokensForETH(uint256,uint256,tuple[],address,uint256)": FunctionFragment;
     "swapExactTokensForTokens(uint256,uint256,tuple[],address,uint256)": FunctionFragment;
     "swapExactTokensForTokensSimple(uint256,uint256,address,address,bool,address,uint256)": FunctionFragment;
     "wftm()": FunctionFragment;
@@ -69,7 +69,7 @@ interface BaseV1Router01Interface extends ethers.utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "addLiquidityFTM",
+    functionFragment: "addLiquidityETH",
     values: [
       string,
       boolean,
@@ -120,7 +120,7 @@ interface BaseV1Router01Interface extends ethers.utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "removeLiquidityFTM",
+    functionFragment: "removeLiquidityETH",
     values: [
       string,
       boolean,
@@ -132,7 +132,7 @@ interface BaseV1Router01Interface extends ethers.utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "removeLiquidityFTMWithPermit",
+    functionFragment: "removeLiquidityETHWithPermit",
     values: [
       string,
       boolean,
@@ -169,7 +169,7 @@ interface BaseV1Router01Interface extends ethers.utils.Interface {
     values: [string, string]
   ): string;
   encodeFunctionData(
-    functionFragment: "swapExactFTMForTokens",
+    functionFragment: "swapExactETHForTokens",
     values: [
       BigNumberish,
       { from: string; to: string; stable: boolean }[],
@@ -178,7 +178,7 @@ interface BaseV1Router01Interface extends ethers.utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "swapExactTokensForFTM",
+    functionFragment: "swapExactTokensForETH",
     values: [
       BigNumberish,
       BigNumberish,
@@ -220,7 +220,7 @@ interface BaseV1Router01Interface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "addLiquidityFTM",
+    functionFragment: "addLiquidityETH",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "factory", data: BytesLike): Result;
@@ -251,11 +251,11 @@ interface BaseV1Router01Interface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "removeLiquidityFTM",
+    functionFragment: "removeLiquidityETH",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "removeLiquidityFTMWithPermit",
+    functionFragment: "removeLiquidityETHWithPermit",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -264,11 +264,11 @@ interface BaseV1Router01Interface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "sortTokens", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "swapExactFTMForTokens",
+    functionFragment: "swapExactETHForTokens",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "swapExactTokensForFTM",
+    functionFragment: "swapExactTokensForETH",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -349,12 +349,12 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    addLiquidityFTM(
+    addLiquidityETH(
       token: string,
       stable: boolean,
       amountTokenDesired: BigNumberish,
       amountTokenMin: BigNumberish,
-      amountFTMMin: BigNumberish,
+      amountETHMin: BigNumberish,
       to: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
@@ -430,23 +430,23 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    removeLiquidityFTM(
+    removeLiquidityETH(
       token: string,
       stable: boolean,
       liquidity: BigNumberish,
       amountTokenMin: BigNumberish,
-      amountFTMMin: BigNumberish,
+      amountETHMin: BigNumberish,
       to: string,
       deadline: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    removeLiquidityFTMWithPermit(
+    removeLiquidityETHWithPermit(
       token: string,
       stable: boolean,
       liquidity: BigNumberish,
       amountTokenMin: BigNumberish,
-      amountFTMMin: BigNumberish,
+      amountETHMin: BigNumberish,
       to: string,
       deadline: BigNumberish,
       approveMax: boolean,
@@ -478,7 +478,7 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string, string] & { token0: string; token1: string }>;
 
-    swapExactFTMForTokens(
+    swapExactETHForTokens(
       amountOutMin: BigNumberish,
       routes: { from: string; to: string; stable: boolean }[],
       to: string,
@@ -486,7 +486,7 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    swapExactTokensForFTM(
+    swapExactTokensForETH(
       amountIn: BigNumberish,
       amountOutMin: BigNumberish,
       routes: { from: string; to: string; stable: boolean }[],
@@ -539,12 +539,12 @@ export class BaseV1Router01 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  addLiquidityFTM(
+  addLiquidityETH(
     token: string,
     stable: boolean,
     amountTokenDesired: BigNumberish,
     amountTokenMin: BigNumberish,
-    amountFTMMin: BigNumberish,
+    amountETHMin: BigNumberish,
     to: string,
     deadline: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
@@ -620,23 +620,23 @@ export class BaseV1Router01 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  removeLiquidityFTM(
+  removeLiquidityETH(
     token: string,
     stable: boolean,
     liquidity: BigNumberish,
     amountTokenMin: BigNumberish,
-    amountFTMMin: BigNumberish,
+    amountETHMin: BigNumberish,
     to: string,
     deadline: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  removeLiquidityFTMWithPermit(
+  removeLiquidityETHWithPermit(
     token: string,
     stable: boolean,
     liquidity: BigNumberish,
     amountTokenMin: BigNumberish,
-    amountFTMMin: BigNumberish,
+    amountETHMin: BigNumberish,
     to: string,
     deadline: BigNumberish,
     approveMax: boolean,
@@ -668,7 +668,7 @@ export class BaseV1Router01 extends BaseContract {
     overrides?: CallOverrides
   ): Promise<[string, string] & { token0: string; token1: string }>;
 
-  swapExactFTMForTokens(
+  swapExactETHForTokens(
     amountOutMin: BigNumberish,
     routes: { from: string; to: string; stable: boolean }[],
     to: string,
@@ -676,7 +676,7 @@ export class BaseV1Router01 extends BaseContract {
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  swapExactTokensForFTM(
+  swapExactTokensForETH(
     amountIn: BigNumberish,
     amountOutMin: BigNumberish,
     routes: { from: string; to: string; stable: boolean }[],
@@ -735,19 +735,19 @@ export class BaseV1Router01 extends BaseContract {
       }
     >;
 
-    addLiquidityFTM(
+    addLiquidityETH(
       token: string,
       stable: boolean,
       amountTokenDesired: BigNumberish,
       amountTokenMin: BigNumberish,
-      amountFTMMin: BigNumberish,
+      amountETHMin: BigNumberish,
       to: string,
       deadline: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         amountToken: BigNumber;
-        amountFTM: BigNumber;
+        amountETH: BigNumber;
         liquidity: BigNumber;
       }
     >;
@@ -824,25 +824,25 @@ export class BaseV1Router01 extends BaseContract {
       [BigNumber, BigNumber] & { amountA: BigNumber; amountB: BigNumber }
     >;
 
-    removeLiquidityFTM(
+    removeLiquidityETH(
       token: string,
       stable: boolean,
       liquidity: BigNumberish,
       amountTokenMin: BigNumberish,
-      amountFTMMin: BigNumberish,
+      amountETHMin: BigNumberish,
       to: string,
       deadline: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber] & { amountToken: BigNumber; amountFTM: BigNumber }
+      [BigNumber, BigNumber] & { amountToken: BigNumber; amountETH: BigNumber }
     >;
 
-    removeLiquidityFTMWithPermit(
+    removeLiquidityETHWithPermit(
       token: string,
       stable: boolean,
       liquidity: BigNumberish,
       amountTokenMin: BigNumberish,
-      amountFTMMin: BigNumberish,
+      amountETHMin: BigNumberish,
       to: string,
       deadline: BigNumberish,
       approveMax: boolean,
@@ -851,7 +851,7 @@ export class BaseV1Router01 extends BaseContract {
       s: BytesLike,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber] & { amountToken: BigNumber; amountFTM: BigNumber }
+      [BigNumber, BigNumber] & { amountToken: BigNumber; amountETH: BigNumber }
     >;
 
     removeLiquidityWithPermit(
@@ -878,7 +878,7 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string, string] & { token0: string; token1: string }>;
 
-    swapExactFTMForTokens(
+    swapExactETHForTokens(
       amountOutMin: BigNumberish,
       routes: { from: string; to: string; stable: boolean }[],
       to: string,
@@ -886,7 +886,7 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
-    swapExactTokensForFTM(
+    swapExactTokensForETH(
       amountIn: BigNumberish,
       amountOutMin: BigNumberish,
       routes: { from: string; to: string; stable: boolean }[],
@@ -942,12 +942,12 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    addLiquidityFTM(
+    addLiquidityETH(
       token: string,
       stable: boolean,
       amountTokenDesired: BigNumberish,
       amountTokenMin: BigNumberish,
-      amountFTMMin: BigNumberish,
+      amountETHMin: BigNumberish,
       to: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
@@ -1013,23 +1013,23 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    removeLiquidityFTM(
+    removeLiquidityETH(
       token: string,
       stable: boolean,
       liquidity: BigNumberish,
       amountTokenMin: BigNumberish,
-      amountFTMMin: BigNumberish,
+      amountETHMin: BigNumberish,
       to: string,
       deadline: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    removeLiquidityFTMWithPermit(
+    removeLiquidityETHWithPermit(
       token: string,
       stable: boolean,
       liquidity: BigNumberish,
       amountTokenMin: BigNumberish,
-      amountFTMMin: BigNumberish,
+      amountETHMin: BigNumberish,
       to: string,
       deadline: BigNumberish,
       approveMax: boolean,
@@ -1061,7 +1061,7 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    swapExactFTMForTokens(
+    swapExactETHForTokens(
       amountOutMin: BigNumberish,
       routes: { from: string; to: string; stable: boolean }[],
       to: string,
@@ -1069,7 +1069,7 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    swapExactTokensForFTM(
+    swapExactTokensForETH(
       amountIn: BigNumberish,
       amountOutMin: BigNumberish,
       routes: { from: string; to: string; stable: boolean }[],
@@ -1123,12 +1123,12 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    addLiquidityFTM(
+    addLiquidityETH(
       token: string,
       stable: boolean,
       amountTokenDesired: BigNumberish,
       amountTokenMin: BigNumberish,
-      amountFTMMin: BigNumberish,
+      amountETHMin: BigNumberish,
       to: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
@@ -1197,23 +1197,23 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    removeLiquidityFTM(
+    removeLiquidityETH(
       token: string,
       stable: boolean,
       liquidity: BigNumberish,
       amountTokenMin: BigNumberish,
-      amountFTMMin: BigNumberish,
+      amountETHMin: BigNumberish,
       to: string,
       deadline: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    removeLiquidityFTMWithPermit(
+    removeLiquidityETHWithPermit(
       token: string,
       stable: boolean,
       liquidity: BigNumberish,
       amountTokenMin: BigNumberish,
-      amountFTMMin: BigNumberish,
+      amountETHMin: BigNumberish,
       to: string,
       deadline: BigNumberish,
       approveMax: boolean,
@@ -1245,7 +1245,7 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    swapExactFTMForTokens(
+    swapExactETHForTokens(
       amountOutMin: BigNumberish,
       routes: { from: string; to: string; stable: boolean }[],
       to: string,
@@ -1253,7 +1253,7 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    swapExactTokensForFTM(
+    swapExactTokensForETH(
       amountIn: BigNumberish,
       amountOutMin: BigNumberish,
       routes: { from: string; to: string; stable: boolean }[],

@@ -2,7 +2,7 @@
 | name          | address                                                                                                                              |
 | :------------ | :----------------------------------------------------------------------------------------------------------------------------------- |
 | BaseV1Factory | [0xF1E58B1f3974C9020f2706b56dD012675d948DC5](https://scan-warringstakes.meter.io/address/0xF1E58B1f3974C9020f2706b56dD012675d948DC5) |
-| BaseV1Router01 | [0x70007e39d16315adF6c84992B86Dec5CA38997F2](https://scan-warringstakes.meter.io/address/0x70007e39d16315adF6c84992B86Dec5CA38997F2) |
+| BaseV1Router01 | [0x73a1E1C756Ca116451e859D5dfeB6B0067A33B1F](https://scan-warringstakes.meter.io/address/0x73a1E1C756Ca116451e859D5dfeB6B0067A33B1F) |
 | BaseV1 | [0x4A41661B69711067650F051A13175EB09E07bF8D](https://scan-warringstakes.meter.io/address/0x4A41661B69711067650F051A13175EB09E07bF8D) |
 | Ve | [0xE90Affb47de1c7A1405168f2F10547e9CFA351Bd](https://scan-warringstakes.meter.io/address/0xE90Affb47de1c7A1405168f2F10547e9CFA351Bd) |
 | VeDist | [0x23453893a6011Cb06f03dc70e44EAF5A1976c187](https://scan-warringstakes.meter.io/address/0x23453893a6011Cb06f03dc70e44EAF5A1976c187) |

@@ -115,7 +115,7 @@ task("deploy", "deploy contract")
     }
   );
 
-  task("deploy-token", "deploy contract")
+task("deploy-token", "deploy contract")
   .addParam("factory", "factory address")
   .setAction(
     async ({ factory }, { ethers, run, network }) => {
@@ -180,6 +180,28 @@ task("deploy", "deploy contract")
 
     }
   );
+
+
+task("deploy-router", "deploy contract")
+  .addParam("factory", "factory address")
+  .addParam("wtoken", "wrapped token")
+  .setAction(
+    async ({ factory, wtoken }, { ethers, run, network }) => {
+      await run("compile");
+      const [wallet1, wallet2, wallet3, deployer] = await ethers.getSigners();
+
+      const router = await deployContract(
+        "BaseV1Router01",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        [factory, wtoken]
+      ) as BaseV1Router01;
+
+    }
+  );
+
+
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 

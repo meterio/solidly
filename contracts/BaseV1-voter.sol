@@ -267,9 +267,6 @@ contract BaseV1Voter {
         emit Whitelisted(msg.sender, _token);
     }
 
-    // {
-    //      "_pool": "0xB4658cBC3624f35ae1aFFFfe33a1173325f9761a" // StableV1 AMM - USDC/WFTM(sAMM-USDC/WFTM)
-    // }
     function createGauge(address _pool) external returns (address) {
         require(gauges[_pool] == address(0x0), "exists");
         require(IBaseV1Factory(factory).isPair(_pool), "!_pool");
