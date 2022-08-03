@@ -1,4 +1,4 @@
-import * as dotenv from "dotenv";
+
 
 import { HardhatUserConfig, task } from "hardhat/config";
 import "@nomiclabs/hardhat-etherscan";
@@ -16,9 +16,10 @@ import {
   BaseV1GaugeFactory,
   BaseV1BribeFactory,
   BaseV1Voter,
-  BaseV2Minter
+  BaseV2Minter,
+  Erc20
 } from "./typechain";
-
+var dotenv = require("dotenv");
 dotenv.config();
 
 // This is a sample Hardhat task. To learn how to create your own go to
@@ -38,7 +39,7 @@ task("deploy", "deploy contract")
   .setAction(
     async ({ wtoken }, { ethers, run, network }) => {
       await run("compile");
-      const [wallet1, wallet2, wallet3, deployer] = await ethers.getSigners();
+      const [deployer] = await ethers.getSigners();
 
       const factory = await deployContract(
         "BaseV1Factory",
@@ -188,7 +189,7 @@ task("deploy-router", "deploy contract")
   .setAction(
     async ({ factory, wtoken }, { ethers, run, network }) => {
       await run("compile");
-      const [wallet1, wallet2, wallet3, deployer] = await ethers.getSigners();
+      const [deployer] = await ethers.getSigners();
 
       const router = await deployContract(
         "BaseV1Router01",
@@ -197,7 +198,6 @@ task("deploy-router", "deploy contract")
         deployer,
         [factory, wtoken]
       ) as BaseV1Router01;
-
     }
   );
 
@@ -205,7 +205,7 @@ task("deploy-router", "deploy contract")
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
-const config: HardhatUserConfig = {
+export default {
   solidity: {
     version: "0.8.11",
     settings: {
@@ -241,9 +241,7 @@ const config: HardhatUserConfig = {
       url: `https://rpctest.meter.io`,
       chainId: 83,
       gasPrice: 500000000000,
-      accounts: {
-        mnemonic: process.env.MNEMONIC,
-      },
+      accounts: [process.env.PRIVATE_KEY],
     },
     metermain: {
       url: `https://rpc.meter.io`,
@@ -259,4 +257,3 @@ const config: HardhatUserConfig = {
   },
 };
 
-export default config;

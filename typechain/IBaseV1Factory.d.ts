@@ -11,6 +11,7 @@ import {
   PopulatedTransaction,
   BaseContract,
   ContractTransaction,
+  Overrides,
   CallOverrides,
 } from "ethers";
 import { BytesLike } from "@ethersproject/bytes";
@@ -20,12 +21,42 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface IBaseV1FactoryInterface extends ethers.utils.Interface {
   functions: {
+    "allPairsLength()": FunctionFragment;
+    "createPair(address,address,bool)": FunctionFragment;
+    "getPair(address,address,bool)": FunctionFragment;
     "isPair(address)": FunctionFragment;
+    "pairCodeHash()": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "allPairsLength",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "createPair",
+    values: [string, string, boolean]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getPair",
+    values: [string, string, boolean]
+  ): string;
   encodeFunctionData(functionFragment: "isPair", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "pairCodeHash",
+    values?: undefined
+  ): string;
 
+  decodeFunctionResult(
+    functionFragment: "allPairsLength",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "createPair", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getPair", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isPair", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "pairCodeHash",
+    data: BytesLike
+  ): Result;
 
   events: {};
 }
@@ -74,25 +105,115 @@ export class IBaseV1Factory extends BaseContract {
   interface: IBaseV1FactoryInterface;
 
   functions: {
-    isPair(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
+    allPairsLength(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    createPair(
+      tokenA: string,
+      tokenB: string,
+      stable: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    getPair(
+      tokenA: string,
+      token: string,
+      stable: boolean,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    isPair(pair: string, overrides?: CallOverrides): Promise<[boolean]>;
+
+    pairCodeHash(overrides?: CallOverrides): Promise<[string]>;
   };
 
-  isPair(arg0: string, overrides?: CallOverrides): Promise<boolean>;
+  allPairsLength(overrides?: CallOverrides): Promise<BigNumber>;
+
+  createPair(
+    tokenA: string,
+    tokenB: string,
+    stable: boolean,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  getPair(
+    tokenA: string,
+    token: string,
+    stable: boolean,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  isPair(pair: string, overrides?: CallOverrides): Promise<boolean>;
+
+  pairCodeHash(overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
-    isPair(arg0: string, overrides?: CallOverrides): Promise<boolean>;
+    allPairsLength(overrides?: CallOverrides): Promise<BigNumber>;
+
+    createPair(
+      tokenA: string,
+      tokenB: string,
+      stable: boolean,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    getPair(
+      tokenA: string,
+      token: string,
+      stable: boolean,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    isPair(pair: string, overrides?: CallOverrides): Promise<boolean>;
+
+    pairCodeHash(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {};
 
   estimateGas: {
-    isPair(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    allPairsLength(overrides?: CallOverrides): Promise<BigNumber>;
+
+    createPair(
+      tokenA: string,
+      tokenB: string,
+      stable: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    getPair(
+      tokenA: string,
+      token: string,
+      stable: boolean,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    isPair(pair: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    pairCodeHash(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    isPair(
-      arg0: string,
+    allPairsLength(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    createPair(
+      tokenA: string,
+      tokenB: string,
+      stable: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    getPair(
+      tokenA: string,
+      token: string,
+      stable: boolean,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
+
+    isPair(
+      pair: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    pairCodeHash(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

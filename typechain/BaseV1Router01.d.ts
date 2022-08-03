@@ -42,7 +42,7 @@ interface BaseV1Router01Interface extends ethers.utils.Interface {
     "swapExactTokensForETH(uint256,uint256,tuple[],address,uint256)": FunctionFragment;
     "swapExactTokensForTokens(uint256,uint256,tuple[],address,uint256)": FunctionFragment;
     "swapExactTokensForTokensSimple(uint256,uint256,address,address,bool,address,uint256)": FunctionFragment;
-    "wftm()": FunctionFragment;
+    "weth()": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -209,7 +209,7 @@ interface BaseV1Router01Interface extends ethers.utils.Interface {
       BigNumberish
     ]
   ): string;
-  encodeFunctionData(functionFragment: "wftm", values?: undefined): string;
+  encodeFunctionData(functionFragment: "weth", values?: undefined): string;
 
   decodeFunctionResult(
     functionFragment: "UNSAFE_swapExactTokensForTokens",
@@ -279,7 +279,7 @@ interface BaseV1Router01Interface extends ethers.utils.Interface {
     functionFragment: "swapExactTokensForTokensSimple",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "wftm", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "weth", data: BytesLike): Result;
 
   events: {};
 }
@@ -515,7 +515,7 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    wftm(overrides?: CallOverrides): Promise<[string]>;
+    weth(overrides?: CallOverrides): Promise<[string]>;
   };
 
   UNSAFE_swapExactTokensForTokens(
@@ -705,7 +705,7 @@ export class BaseV1Router01 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  wftm(overrides?: CallOverrides): Promise<string>;
+  weth(overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
     UNSAFE_swapExactTokensForTokens(
@@ -915,7 +915,7 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
-    wftm(overrides?: CallOverrides): Promise<string>;
+    weth(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {};
@@ -1098,7 +1098,7 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    wftm(overrides?: CallOverrides): Promise<BigNumber>;
+    weth(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -1282,6 +1282,6 @@ export class BaseV1Router01 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    wftm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    weth(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

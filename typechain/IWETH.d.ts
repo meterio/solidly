@@ -120,7 +120,7 @@ export class IWETH extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    deposit(overrides?: CallOverrides): Promise<BigNumber>;
+    deposit(overrides?: CallOverrides): Promise<void>;
 
     transfer(
       to: string,
@@ -128,7 +128,7 @@ export class IWETH extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    withdraw(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+    withdraw(arg0: BigNumberish, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {};
