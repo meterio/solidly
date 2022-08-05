@@ -10,4 +10,5 @@
 | BaseV1BribeFactory | [0xcae030F333AD45AfBf8e57983EE075cB0075d5A1](https://scan-warringstakes.meter.io/address/0xcae030F333AD45AfBf8e57983EE075cB0075d5A1) |
 | BaseV1Voter | [0xA79FB8E162490a0D2FB63733f7fb396285E91c38](https://scan-warringstakes.meter.io/address/0xA79FB8E162490a0D2FB63733f7fb396285E91c38) |
 | BaseV2Minter | [0xCC0335E6B42a20f661D048F6CB5FC2541E6042D0](https://scan-warringstakes.meter.io/address/0xCC0335E6B42a20f661D048F6CB5FC2541E6042D0) |
+| SolidlyLibrary | [0x66cA917913cac6c255a25B35d236C1583e4E4FaE](https://scan-warringstakes.meter.io/address/0x66cA917913cac6c255a25B35d236C1583e4E4FaE) |
 | WMTR | [0xfAC315d105E5A7fe2174B3EB1f95C257A9A5e271](https://scan-warringstakes.meter.io/address/0xfAC315d105E5A7fe2174B3EB1f95C257A9A5e271) |

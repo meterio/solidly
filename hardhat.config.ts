@@ -6,7 +6,7 @@ import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
-import { deployContract } from "./scripts/deployTool";
+import { deployContract, getContract } from "./scripts/deployTool";
 import {
   BaseV1Factory,
   BaseV1Router01,
@@ -17,8 +17,14 @@ import {
   BaseV1BribeFactory,
   BaseV1Voter,
   BaseV2Minter,
-  Erc20
+  Erc20,
+  BaseV1Pair,
+  Gauge,
+  Bribe,
+  SolidlyLibrary
 } from "./typechain";
+import { string } from "hardhat/internal/core/params/argumentTypes";
+import { BigNumber } from "ethers";
 var dotenv = require("dotenv");
 dotenv.config();
 
@@ -113,9 +119,34 @@ task("deploy", "deploy contract")
         [voter.address, ve.address, ve_dist.address]
       ) as BaseV2Minter;
 
+      const library = await deployContract(
+        "solidly_library",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        [router.address]
+      ) as SolidlyLibrary;
+
     }
   );
 
+  task("deploy-lib", "deploy contract")
+  .addParam("router", "wrapped token")
+  .setAction(
+    async ({ router }, { ethers, run, network }) => {
+      await run("compile");
+      const [deployer] = await ethers.getSigners();
+
+      const library = await deployContract(
+        "solidly_library",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        [router]
+      ) as SolidlyLibrary;
+
+    }
+  );
 task("deploy-token", "deploy contract")
   .addParam("factory", "factory address")
   .setAction(
@@ -171,6 +202,8 @@ task("deploy-token", "deploy contract")
         [ve.address, factory, gaugeFactory.address, bribeFactory.address]
       ) as BaseV1Voter;
 
+      await ve.setVoter(voter.address);
+
       const minter = await deployContract(
         "BaseV2Minter",
         network.name,
@@ -201,7 +234,103 @@ task("deploy-router", "deploy contract")
     }
   );
 
+//0x1631605EE936D4E1Ffe1be02D8a97608A1483B3D
 
+task("create-gauge", "deploy contract")
+  .setAction(
+    async ({ }, { ethers, run, network }) => {
+      await run("compile");
+      const [deployer] = await ethers.getSigners();
+      const pool = "0x1631605EE936D4E1Ffe1be02D8a97608A1483B3D";
+      const voterAddr = "0xa79fb8e162490a0d2fb63733f7fb396285e91c38";
+      const baseV1 = "0x883cED020E7bF54039cBC986b7fDcd2033E90c2a";
+      let receipt;
+
+      const volt = await ethers.getContractAt("BaseV1", baseV1, deployer) as BaseV1;
+      await volt.approve(voterAddr, ethers.constants.MaxUint256);
+
+      const pair = await ethers.getContractAt("BaseV1Pair", pool, deployer) as BaseV1Pair;
+      const tokenA = await pair.token0();
+      const tokenB = await pair.token1();
+
+      const voter = await ethers.getContractAt("BaseV1Voter", voterAddr, deployer) as BaseV1Voter;
+
+      const isWhiteListA = await voter.isWhitelisted(tokenA);
+      if (isWhiteListA) {
+        console.log(tokenA, isWhiteListA);
+      } else {
+        receipt = await voter.whitelist(tokenA, 0);
+        console.log(await receipt.wait())
+      }
+      const isWhiteListB = await voter.isWhitelisted(tokenB);
+      if (isWhiteListB) {
+        console.log(tokenB, isWhiteListB);
+      } else {
+        receipt = await voter.whitelist(tokenB, 0);
+        console.log(await receipt.wait())
+      }
+
+      receipt = await voter.createGauge(pool);
+      console.log(await receipt.wait())
+    }
+  );
+
+
+task("deposit-gauge", "deploy contract")
+  .setAction(
+    async ({ }, { ethers, run, network }) => {
+      await run("compile");
+      const [deployer] = await ethers.getSigners();
+      const pool = "0x17C73Fe073373796917DAFb0673D48D3A535e52A";
+      const voterAddr = "0xa79fb8e162490a0d2fb63733f7fb396285e91c38";
+      const baseV1 = "0x883cED020E7bF54039cBC986b7fDcd2033E90c2a";
+      const gaugeAddr = "0x6642c7beb379c1649a50dfa859003a0d1de413b4";
+      const owner = "0x57e7e16a2326dc41d02402103a73b4464a8b3eeb";
+      const veAddr = "0x9372cE90523ac41b3aaa37e9a9aACD9F558bcc39";
+      let receipt;
+
+      const ve = await ethers.getContractAt("contracts/ve.sol:ve",veAddr,deployer)as Ve;
+      const gauge = await ethers.getContractAt("Gauge",gaugeAddr,deployer) as Gauge;
+      const stake = await gauge.stake();
+      const stakeInstant = await ethers.getContractAt("BaseV1",stake,deployer) as BaseV1;
+      const allowance = await stakeInstant.allowance(owner,gaugeAddr);
+      const ownerOf = await ve.ownerOf(1);
+      const tokenIds = await gauge.tokenIds(owner);
+      const voter = await ethers.getContractAt("BaseV1Voter",voterAddr,deployer) as BaseV1Voter;
+      const isGauge = await voter.isGauge(gaugeAddr);
+      const isVoter = await ve.voter();
+      const isApprovedOrOwner = await ve.isApprovedOrOwner(owner,1);
+      const totalWeight = await voter.totalWeight();
+      const weight = await ve.balanceOfNFT(1);
+      const gaugesPool = await voter.gauges(pool);
+      const votesTokenIdPool = await voter.votes(1,pool);
+      const poolWeight = BigNumber.from(100).mul(weight).div(100);
+      const poolForGauge = await voter.poolForGauge(gaugeAddr);
+      const supplied = await voter.weights(poolForGauge);
+      const bribeAddr = await voter.bribes(gaugeAddr);
+      const bribe = await ethers.getContractAt("Bribe",bribeAddr,deployer) as Bribe;
+      const bribesFactory = await bribe.factory();
+
+
+      console.log(
+        allowance,
+        ownerOf,
+        tokenIds,
+        isGauge,
+        isVoter,
+        isApprovedOrOwner,
+        totalWeight,
+        weight,
+        gaugesPool,
+        votesTokenIdPool,
+        poolWeight,
+        poolForGauge,
+        supplied,
+        bribeAddr,
+        bribesFactory
+        );
+    }
+  );
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
