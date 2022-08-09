@@ -78,7 +78,7 @@ struct LockedBalance:
     end: uint256
 
 
-interface ERC20:
+interface IERC20:
     def decimals() -> uint256: view
     def name() -> String[64]: view
     def symbol() -> String[32]: view
@@ -215,7 +215,7 @@ ERC721_ENUMERABLE_INTERFACE_ID: constant(bytes32) = 0x00000000000000000000000000
 def __init__(token_addr: address, _name: String[64], _symbol: String[32], _version: String[32], tokenizer: address):
     """
     @notice Contract constructor
-    @param token_addr `ERC20CRV` token address
+    @param token_addr `IERC20CRV` token address
     @param _name Token name
     @param _symbol Token symbol
     @param _version Contract version - required for Aragon compatibility
@@ -224,7 +224,7 @@ def __init__(token_addr: address, _name: String[64], _symbol: String[32], _versi
     self.point_history[0].blk = block.number
     self.point_history[0].ts = block.timestamp
 
-    _decimals: uint256 = ERC20(token_addr).decimals()
+    _decimals: uint256 = IERC20(token_addr).decimals()
     assert _decimals <= 255
     self.decimals = _decimals
 
@@ -745,7 +745,7 @@ def _deposit_for(_from: address, _tokenId: uint256, _value: uint256, unlock_time
     self._checkpoint(_tokenId, old_locked, _locked)
 
     if _value != 0 and not merge:
-        assert ERC20(self.token).transferFrom(_from, self, _value)
+        assert IERC20(self.token).transferFrom(_from, self, _value)
 
     log Deposit(_from, _tokenId, _value, _locked.end, type, block.timestamp)
     log Supply(supply_before, supply_before + _value)
@@ -880,13 +880,13 @@ def withdraw(_tokenId: uint256):
     # Both can have >= 0 amount
     self._checkpoint(_tokenId, old_locked, _locked)
 
-    assert ERC20(self.token).transfer(msg.sender, value)
+    assert IERC20(self.token).transfer(msg.sender, value)
 
     log Withdraw(msg.sender, _tokenId, value, block.timestamp)
     log Supply(supply_before, supply_before - value)
 
 
-# The following ERC20/minime-compatible methods are not real balanceOf and supply!
+# The following IERC20/minime-compatible methods are not real balanceOf and supply!
 # They measure the weights for the purpose of voting, so they don't represent
 # real coins.
 
@@ -917,7 +917,7 @@ def find_block_epoch(_block: uint256, max_epoch: uint256) -> uint256:
 def _balanceOfNFT(_tokenId: uint256, _t: uint256 = block.timestamp) -> uint256:
     """
     @notice Get the current voting power for `_tokenId`
-    @dev Adheres to the ERC20 `balanceOf` interface for Aragon compatibility
+    @dev Adheres to the IERC20 `balanceOf` interface for Aragon compatibility
     @param _tokenId NFT for lock
     @param _t Epoch time to return voting power at
     @return User voting power
@@ -1037,7 +1037,7 @@ def supply_at(point: Point, t: uint256) -> uint256:
 def totalSupply(t: uint256 = block.timestamp) -> uint256:
     """
     @notice Calculate total voting power
-    @dev Adheres to the ERC20 `totalSupply` interface for Aragon compatibility
+    @dev Adheres to the IERC20 `totalSupply` interface for Aragon compatibility
     @return Total voting power
     """
     _epoch: uint256 = self.epoch

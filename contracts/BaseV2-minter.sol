@@ -1,52 +1,11 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity 0.8.11;
 
-library Math {
-    function max(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a >= b ? a : b;
-    }
-}
-
-interface ve {
-    function token() external view returns (address);
-
-    function totalSupply() external view returns (uint256);
-
-    function create_lock_for(
-        uint256,
-        uint256,
-        address
-    ) external returns (uint256);
-
-    function transferFrom(
-        address,
-        address,
-        uint256
-    ) external;
-}
-
-interface underlying {
-    function approve(address spender, uint256 value) external returns (bool);
-
-    function mint(address, uint256) external;
-
-    function totalSupply() external view returns (uint256);
-
-    function balanceOf(address) external view returns (uint256);
-
-    function transfer(address, uint256) external returns (bool);
-}
-
-interface voter {
-    function notifyRewardAmount(uint256 amount) external;
-}
-
-interface ve_dist {
-    function checkpoint_token() external;
-
-    function checkpoint_total_supply() external;
-}
-
+import "./lib/Math.sol";
+import "./interfaces/IVotingEscrow.sol";
+import "./interfaces/IERC20.sol";
+import "./interfaces/IBaseV1Voter.sol";
+import "./interfaces/IVeDist.sol";
 import "./access/AccessControl.sol";
 
 contract BaseV2Minter is AccessControl {
@@ -54,10 +13,10 @@ contract BaseV2Minter is AccessControl {
     uint256 public ve_dist_ratio;
     uint256 public constant ve_dist_ratio_max = 10000;
 
-    underlying public immutable _token;
-    voter public immutable _voter;
-    ve public immutable _ve;
-    ve_dist public immutable _ve_dist;
+    IERC20 public immutable _token;
+    IBaseV1Voter public immutable _voter;
+    IVotingEscrow public immutable _ve;
+    IVeDist public immutable _ve_dist;
     uint256 public active_period;
 
     event Send(
@@ -71,10 +30,10 @@ contract BaseV2Minter is AccessControl {
         address __ve,
         address __ve_dist
     ) {
-        _token = underlying(ve(__ve).token());
-        _voter = voter(__voter);
-        _ve = ve(__ve);
-        _ve_dist = ve_dist(__ve_dist);
+        _token = IERC20(IVotingEscrow(__ve).token());
+        _voter = IBaseV1Voter(__voter);
+        _ve = IVotingEscrow(__ve);
+        _ve_dist = IVeDist(__ve_dist);
         active_period = (block.timestamp / month) * month;
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }

@@ -5,10 +5,10 @@
 @license MIT
 """
 
-from vyper.interfaces import ERC20
+from vyper.interfaces import IERC20
 
 
-interface VotingEscrow:
+interface IVotingEscrow:
     def user_point_epoch(tokenId: uint256) -> uint256: view
     def epoch() -> uint256: view
     def user_point_history(tokenId: uint256, loc: uint256) -> Point: view
@@ -79,7 +79,7 @@ def __init__(
 ):
     """
     @notice Contract constructor
-    @param _voting_escrow VotingEscrow contract address
+    @param _voting_escrow IVotingEscrow contract address
     @param _start_time Epoch time for fee distribution to start
     @param _token Fee token address
     @param _admin Admin address
@@ -94,12 +94,12 @@ def __init__(
     self.voting_escrow = _voting_escrow
     self.admin = _admin
     self.emergency_return = _emergency_return
-    ERC20(_token).approve(_voting_escrow, MAX_UINT256)
+    IERC20(_token).approve(_voting_escrow, MAX_UINT256)
 
 
 @internal
 def _checkpoint_token():
-    token_balance: uint256 = ERC20(self.token).balanceOf(self)
+    token_balance: uint256 = IERC20(self.token).balanceOf(self)
     to_distribute: uint256 = token_balance - self.token_last_balance
     self.token_last_balance = token_balance
 
@@ -145,12 +145,12 @@ def checkpoint_token():
 @internal
 def _find_timestamp_epoch(ve: address, _timestamp: uint256) -> uint256:
     _min: uint256 = 0
-    _max: uint256 = VotingEscrow(ve).epoch()
+    _max: uint256 = IVotingEscrow(ve).epoch()
     for i in range(128):
         if _min >= _max:
             break
         _mid: uint256 = (_min + _max + 2) / 2
-        pt: Point = VotingEscrow(ve).point_history(_mid)
+        pt: Point = IVotingEscrow(ve).point_history(_mid)
         if pt.ts <= _timestamp:
             _min = _mid
         else:
@@ -167,7 +167,7 @@ def _find_timestamp_user_epoch(ve: address, tokenId: uint256, _timestamp: uint25
         if _min >= _max:
             break
         _mid: uint256 = (_min + _max + 2) / 2
-        pt: Point = VotingEscrow(ve).user_point_history(tokenId, _mid)
+        pt: Point = IVotingEscrow(ve).user_point_history(tokenId, _mid)
         if pt.ts <= _timestamp:
             _min = _mid
         else:
@@ -185,9 +185,9 @@ def ve_for_at(_tokenId: uint256, _timestamp: uint256) -> uint256:
     @return uint256 veCRV balance
     """
     ve: address = self.voting_escrow
-    max_user_epoch: uint256 = VotingEscrow(ve).user_point_epoch(_tokenId)
+    max_user_epoch: uint256 = IVotingEscrow(ve).user_point_epoch(_tokenId)
     epoch: uint256 = self._find_timestamp_user_epoch(ve, _tokenId, _timestamp, max_user_epoch)
-    pt: Point = VotingEscrow(ve).user_point_history(_tokenId, epoch)
+    pt: Point = IVotingEscrow(ve).user_point_history(_tokenId, epoch)
     return convert(max(pt.bias - pt.slope * convert(_timestamp - pt.ts, int128), 0), uint256)
 
 
@@ -196,14 +196,14 @@ def _checkpoint_total_supply():
     ve: address = self.voting_escrow
     t: uint256 = self.time_cursor
     rounded_timestamp: uint256 = block.timestamp / WEEK * WEEK
-    VotingEscrow(ve).checkpoint()
+    IVotingEscrow(ve).checkpoint()
 
     for i in range(20):
         if t > rounded_timestamp:
             break
         else:
             epoch: uint256 = self._find_timestamp_epoch(ve, t)
-            pt: Point = VotingEscrow(ve).point_history(epoch)
+            pt: Point = IVotingEscrow(ve).point_history(epoch)
             dt: int128 = 0
             if t > pt.ts:
                 # If the point is at 0 epoch, it can actually be earlier than the first deposit
@@ -232,7 +232,7 @@ def _claim(_tokenId: uint256, ve: address, _last_token_time: uint256) -> uint256
     user_epoch: uint256 = 0
     to_distribute: uint256 = 0
 
-    max_user_epoch: uint256 = VotingEscrow(ve).user_point_epoch(_tokenId)
+    max_user_epoch: uint256 = IVotingEscrow(ve).user_point_epoch(_tokenId)
     _start_time: uint256 = self.start_time
 
     if max_user_epoch == 0:
@@ -249,7 +249,7 @@ def _claim(_tokenId: uint256, ve: address, _last_token_time: uint256) -> uint256
     if user_epoch == 0:
         user_epoch = 1
 
-    user_point: Point = VotingEscrow(ve).user_point_history(_tokenId, user_epoch)
+    user_point: Point = IVotingEscrow(ve).user_point_history(_tokenId, user_epoch)
 
     if week_cursor == 0:
         week_cursor = (user_point.ts + WEEK - 1) / WEEK * WEEK
@@ -272,7 +272,7 @@ def _claim(_tokenId: uint256, ve: address, _last_token_time: uint256) -> uint256
             if user_epoch > max_user_epoch:
                 user_point = empty(Point)
             else:
-                user_point = VotingEscrow(ve).user_point_history(_tokenId, user_epoch)
+                user_point = IVotingEscrow(ve).user_point_history(_tokenId, user_epoch)
 
         else:
             # Calc
@@ -301,7 +301,7 @@ def _claimable(_tokenId: uint256, ve: address, _last_token_time: uint256) -> uin
     user_epoch: uint256 = 0
     to_distribute: uint256 = 0
 
-    max_user_epoch: uint256 = VotingEscrow(ve).user_point_epoch(_tokenId)
+    max_user_epoch: uint256 = IVotingEscrow(ve).user_point_epoch(_tokenId)
     _start_time: uint256 = self.start_time
 
     if max_user_epoch == 0:
@@ -318,7 +318,7 @@ def _claimable(_tokenId: uint256, ve: address, _last_token_time: uint256) -> uin
     if user_epoch == 0:
         user_epoch = 1
 
-    user_point: Point = VotingEscrow(ve).user_point_history(_tokenId, user_epoch)
+    user_point: Point = IVotingEscrow(ve).user_point_history(_tokenId, user_epoch)
 
     if week_cursor == 0:
         week_cursor = (user_point.ts + WEEK - 1) / WEEK * WEEK
@@ -341,7 +341,7 @@ def _claimable(_tokenId: uint256, ve: address, _last_token_time: uint256) -> uin
             if user_epoch > max_user_epoch:
                 user_point = empty(Point)
             else:
-                user_point = VotingEscrow(ve).user_point_history(_tokenId, user_epoch)
+                user_point = IVotingEscrow(ve).user_point_history(_tokenId, user_epoch)
 
         else:
             # Calc
@@ -401,7 +401,7 @@ def claim(_tokenId: uint256) -> uint256:
 
     amount: uint256 = self._claim(_tokenId, self.voting_escrow, last_token_time)
     if amount != 0:
-        VotingEscrow(self.voting_escrow).deposit_for(_tokenId, amount)
+        IVotingEscrow(self.voting_escrow).deposit_for(_tokenId, amount)
         self.token_last_balance -= amount
 
     return amount
@@ -441,7 +441,7 @@ def claim_many(_tokenIds: uint256[20]) -> bool:
 
         amount: uint256 = self._claim(_tokenId, voting_escrow, last_token_time)
         if amount != 0:
-            VotingEscrow(self.voting_escrow).deposit_for(_tokenId, amount)
+            IVotingEscrow(self.voting_escrow).deposit_for(_tokenId, amount)
             total += amount
 
     if total != 0:
@@ -458,9 +458,9 @@ def burn() -> bool:
     """
     assert not self.is_killed
 
-    amount: uint256 = ERC20(self.token).balanceOf(msg.sender)
+    amount: uint256 = IERC20(self.token).balanceOf(msg.sender)
     if amount != 0:
-        ERC20(self.token).transferFrom(msg.sender, self, amount)
+        IERC20(self.token).transferFrom(msg.sender, self, amount)
         if self.can_checkpoint_token and (block.timestamp > self.last_token_time + TOKEN_CHECKPOINT_DEADLINE):
             self._checkpoint_token()
 
@@ -513,13 +513,13 @@ def kill_me():
     self.is_killed = True
 
     token: address = self.token
-    assert ERC20(token).transfer(self.emergency_return, ERC20(token).balanceOf(self))
+    assert IERC20(token).transfer(self.emergency_return, IERC20(token).balanceOf(self))
 
 
 @external
 def recover_balance(_coin: address) -> bool:
     """
-    @notice Recover ERC20 tokens from this contract
+    @notice Recover IERC20 tokens from this contract
     @dev Tokens are sent to the emergency return address.
     @param _coin Token address
     @return bool success
@@ -527,7 +527,7 @@ def recover_balance(_coin: address) -> bool:
     assert msg.sender == self.admin
     assert _coin != self.token
 
-    amount: uint256 = ERC20(_coin).balanceOf(self)
+    amount: uint256 = IERC20(_coin).balanceOf(self)
     response: Bytes[32] = raw_call(
         _coin,
         concat(

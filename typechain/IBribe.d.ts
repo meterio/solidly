@@ -24,6 +24,8 @@ interface IBribeInterface extends ethers.utils.Interface {
     "_deposit(uint256,uint256)": FunctionFragment;
     "_withdraw(uint256,uint256)": FunctionFragment;
     "getRewardForOwner(uint256,address[])": FunctionFragment;
+    "left(address)": FunctionFragment;
+    "notifyRewardAmount(address,uint256)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -38,11 +40,21 @@ interface IBribeInterface extends ethers.utils.Interface {
     functionFragment: "getRewardForOwner",
     values: [BigNumberish, string[]]
   ): string;
+  encodeFunctionData(functionFragment: "left", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "notifyRewardAmount",
+    values: [string, BigNumberish]
+  ): string;
 
   decodeFunctionResult(functionFragment: "_deposit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "_withdraw", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getRewardForOwner",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "left", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "notifyRewardAmount",
     data: BytesLike
   ): Result;
 
@@ -110,6 +122,14 @@ export class IBribe extends BaseContract {
       tokens: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    left(token: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    notifyRewardAmount(
+      token: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
   };
 
   _deposit(
@@ -130,6 +150,14 @@ export class IBribe extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  left(token: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  notifyRewardAmount(
+    token: string,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
     _deposit(
       amount: BigNumberish,
@@ -146,6 +174,14 @@ export class IBribe extends BaseContract {
     getRewardForOwner(
       tokenId: BigNumberish,
       tokens: string[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    left(token: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    notifyRewardAmount(
+      token: string,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
   };
@@ -170,6 +206,14 @@ export class IBribe extends BaseContract {
       tokens: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    left(token: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    notifyRewardAmount(
+      token: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -188,6 +232,17 @@ export class IBribe extends BaseContract {
     getRewardForOwner(
       tokenId: BigNumberish,
       tokens: string[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    left(
+      token: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    notifyRewardAmount(
+      token: string,
+      amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

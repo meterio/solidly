@@ -11,6 +11,7 @@ import {
   PopulatedTransaction,
   BaseContract,
   ContractTransaction,
+  Overrides,
   CallOverrides,
 } from "ethers";
 import { BytesLike } from "@ethersproject/bytes";
@@ -21,11 +22,59 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 interface IBaseV1VoterInterface extends ethers.utils.Interface {
   functions: {
     "_ve()": FunctionFragment;
+    "attachTokenToGauge(uint256,address)": FunctionFragment;
+    "detachTokenFromGauge(uint256,address)": FunctionFragment;
+    "distribute(address)": FunctionFragment;
+    "emitDeposit(uint256,address,uint256)": FunctionFragment;
+    "emitWithdraw(uint256,address,uint256)": FunctionFragment;
+    "notifyRewardAmount(uint256)": FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: "_ve", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "attachTokenToGauge",
+    values: [BigNumberish, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "detachTokenFromGauge",
+    values: [BigNumberish, string]
+  ): string;
+  encodeFunctionData(functionFragment: "distribute", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "emitDeposit",
+    values: [BigNumberish, string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "emitWithdraw",
+    values: [BigNumberish, string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "notifyRewardAmount",
+    values: [BigNumberish]
+  ): string;
 
   decodeFunctionResult(functionFragment: "_ve", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "attachTokenToGauge",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "detachTokenFromGauge",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "distribute", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "emitDeposit",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "emitWithdraw",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "notifyRewardAmount",
+    data: BytesLike
+  ): Result;
 
   events: {};
 }
@@ -75,21 +124,198 @@ export class IBaseV1Voter extends BaseContract {
 
   functions: {
     _ve(overrides?: CallOverrides): Promise<[string]>;
+
+    attachTokenToGauge(
+      _tokenId: BigNumberish,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    detachTokenFromGauge(
+      _tokenId: BigNumberish,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    distribute(
+      _gauge: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    emitDeposit(
+      _tokenId: BigNumberish,
+      account: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    emitWithdraw(
+      _tokenId: BigNumberish,
+      account: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    notifyRewardAmount(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
   };
 
   _ve(overrides?: CallOverrides): Promise<string>;
 
+  attachTokenToGauge(
+    _tokenId: BigNumberish,
+    account: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  detachTokenFromGauge(
+    _tokenId: BigNumberish,
+    account: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  distribute(
+    _gauge: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  emitDeposit(
+    _tokenId: BigNumberish,
+    account: string,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  emitWithdraw(
+    _tokenId: BigNumberish,
+    account: string,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  notifyRewardAmount(
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
     _ve(overrides?: CallOverrides): Promise<string>;
+
+    attachTokenToGauge(
+      _tokenId: BigNumberish,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    detachTokenFromGauge(
+      _tokenId: BigNumberish,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    distribute(_gauge: string, overrides?: CallOverrides): Promise<void>;
+
+    emitDeposit(
+      _tokenId: BigNumberish,
+      account: string,
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    emitWithdraw(
+      _tokenId: BigNumberish,
+      account: string,
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    notifyRewardAmount(
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {};
 
   estimateGas: {
     _ve(overrides?: CallOverrides): Promise<BigNumber>;
+
+    attachTokenToGauge(
+      _tokenId: BigNumberish,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    detachTokenFromGauge(
+      _tokenId: BigNumberish,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    distribute(
+      _gauge: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    emitDeposit(
+      _tokenId: BigNumberish,
+      account: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    emitWithdraw(
+      _tokenId: BigNumberish,
+      account: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    notifyRewardAmount(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     _ve(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    attachTokenToGauge(
+      _tokenId: BigNumberish,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    detachTokenFromGauge(
+      _tokenId: BigNumberish,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    distribute(
+      _gauge: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    emitDeposit(
+      _tokenId: BigNumberish,
+      account: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    emitWithdraw(
+      _tokenId: BigNumberish,
+      account: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    notifyRewardAmount(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
   };
 }

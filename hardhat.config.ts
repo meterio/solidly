@@ -6,7 +6,7 @@ import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
-import { deployContract, getContract } from "./scripts/deployTool";
+import { deployContract, loadConfig, saveConfig } from "./scripts/deployTool";
 import {
   BaseV1Factory,
   BaseV1Router01,
@@ -17,11 +17,17 @@ import {
   BaseV1BribeFactory,
   BaseV1Voter,
   BaseV2Minter,
-  Erc20,
   BaseV1Pair,
   Gauge,
   Bribe,
-  SolidlyLibrary
+  SolidlyLibrary,
+  VeUpgradeable,
+  TransparentUpgradeableProxy,
+  VeDistUpgradeable,
+  BaseV1GaugeFactoryUpgradeable,
+  BaseV1BribeFactoryUpgradeable,
+  BaseV1VoterUpgradeable,
+  BaseV2MinterUpgradeable
 } from "./typechain";
 import { string } from "hardhat/internal/core/params/argumentTypes";
 import { BigNumber } from "ethers";
@@ -38,7 +44,6 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
       (await hre.ethers.provider.getBalance(account.address)).toString());
   }
 });
-
 
 task("deploy", "deploy contract")
   .addParam("wtoken", "wrapped token")
@@ -119,8 +124,11 @@ task("deploy", "deploy contract")
         [voter.address, ve.address, ve_dist.address]
       ) as BaseV2Minter;
 
+      await ve_dist.setDepositor(minter.address);
+      await voter.initialize([wtoken, token.address], minter.address);
+
       const library = await deployContract(
-        "solidly_library",
+        "SolidlyLibrary",
         network.name,
         ethers.getContractFactory,
         deployer,
@@ -129,8 +137,209 @@ task("deploy", "deploy contract")
 
     }
   );
+// 0xfAC315d105E5A7fe2174B3EB1f95C257A9A5e271
+task("deploy-upgrade", "deploy contract")
+  .addParam("wtoken", "wrapped token")
+  .setAction(
+    async ({ wtoken }, { ethers, run, network }) => {
+      await run("compile");
+      const [deployer, admin] = await ethers.getSigners();
+      let config = loadConfig(network.name, true);
+      config.wtoken = wtoken;
 
-  task("deploy-lib", "deploy contract")
+      ////factory
+      const factory = await deployContract(
+        "BaseV1Factory",
+        network.name,
+        ethers.getContractFactory,
+        deployer
+      ) as BaseV1Factory;
+      config.factory = factory.address;
+      
+      ////router
+      const router = await deployContract(
+        "BaseV1Router01",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        [factory.address, wtoken]
+      ) as BaseV1Router01;
+      config.router = router.address;
+
+      ////token
+      const token = await deployContract(
+        "BaseV1",
+        network.name,
+        ethers.getContractFactory,
+        deployer
+      ) as BaseV1;
+      config.token = token.address;
+
+      ////ve
+      const ve = await deployContract(
+        "VeUpgradeable",
+        network.name,
+        ethers.getContractFactory,
+        deployer
+      ) as VeUpgradeable;
+
+      const veProxy = await deployContract(
+        "TransparentUpgradeableProxy",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        [
+          ve.address,
+          deployer.address,
+          ve.interface.encodeFunctionData("initialize", [token.address])
+        ]
+      ) as TransparentUpgradeableProxy;
+      config.ve = veProxy.address;
+
+      ////ve_dist
+      const ve_dist = await deployContract(
+        "VeDistUpgradeable",
+        network.name,
+        ethers.getContractFactory,
+        deployer
+      ) as VeDistUpgradeable;
+
+      const ve_distProxy = await deployContract(
+        "TransparentUpgradeableProxy",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        [
+          ve_dist.address,
+          deployer.address,
+          ve_dist.interface.encodeFunctionData("initialize", [veProxy.address, admin.address])
+        ]
+      ) as TransparentUpgradeableProxy;
+      config.ve_dist = ve_distProxy.address;
+
+      ////gaugeFactory
+      const gaugeFactory = await deployContract(
+        "BaseV1GaugeFactoryUpgradeable",
+        network.name,
+        ethers.getContractFactory,
+        deployer
+      ) as BaseV1GaugeFactoryUpgradeable;
+
+      const gaugeFactoryProxy = await deployContract(
+        "TransparentUpgradeableProxy",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        [
+          gaugeFactory.address,
+          deployer.address,
+          "0x"
+        ]
+      ) as TransparentUpgradeableProxy;
+      config.gaugeFactory = gaugeFactoryProxy.address;
+
+      ////bribeFactory
+      const bribeFactory = await deployContract(
+        "BaseV1BribeFactoryUpgradeable",
+        network.name,
+        ethers.getContractFactory,
+        deployer
+      ) as BaseV1BribeFactoryUpgradeable;
+
+      const bribeFactoryProxy = await deployContract(
+        "TransparentUpgradeableProxy",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        [
+          bribeFactory.address,
+          deployer.address,
+          "0x"
+        ]
+      ) as TransparentUpgradeableProxy;
+      config.bribeFactory = bribeFactoryProxy.address;
+
+      ////voter
+      const voter = await deployContract(
+        "BaseV1VoterUpgradeable",
+        network.name,
+        ethers.getContractFactory,
+        deployer
+      ) as BaseV1VoterUpgradeable;
+
+      const voterProxy = await deployContract(
+        "TransparentUpgradeableProxy",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        [
+          voter.address,
+          deployer.address,
+          voter.interface.encodeFunctionData("initialize", [
+            veProxy.address,
+            factory.address,
+            gaugeFactoryProxy.address,
+            bribeFactoryProxy.address,
+            admin.address
+          ])
+        ]
+      ) as TransparentUpgradeableProxy;
+      config.voter = voterProxy.address;
+
+      ////minter
+      const minter = await deployContract(
+        "BaseV2MinterUpgradeable",
+        network.name,
+        ethers.getContractFactory,
+        deployer
+      ) as BaseV2MinterUpgradeable;
+
+      const minterProxy = await deployContract(
+        "TransparentUpgradeableProxy",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        [
+          minter.address,
+          deployer.address,
+          minter.interface.encodeFunctionData("initialize", [
+            voterProxy.address,
+            veProxy.address,
+            ve_distProxy.address,
+            admin.address
+          ])
+        ]
+      ) as TransparentUpgradeableProxy;
+      config.minter = minterProxy.address;
+
+      ////library
+      const library = await deployContract(
+        "SolidlyLibrary",
+        network.name,
+        ethers.getContractFactory,
+        deployer,
+        [router.address]
+      ) as SolidlyLibrary;
+
+      config.library = library.address;
+
+      const voterInstant = await ethers.getContractAt("BaseV1VoterUpgradeable", voterProxy.address, admin) as BaseV1VoterUpgradeable;
+      let receipt = await voterInstant.init([
+        wtoken,
+        token.address
+      ],
+        minterProxy.address
+      )
+      console.log(await receipt.wait());
+
+      const ve_distInstant = await ethers.getContractAt("VeDistUpgradeable", ve_distProxy.address, admin) as VeDistUpgradeable;
+      receipt = await ve_distInstant.setDepositor(minterProxy.address);
+      console.log(await receipt.wait());
+      saveConfig(network.name, config, true);
+    }
+  );
+
+task("deploy-lib", "deploy contract")
   .addParam("router", "wrapped token")
   .setAction(
     async ({ router }, { ethers, run, network }) => {
@@ -138,7 +347,7 @@ task("deploy", "deploy contract")
       const [deployer] = await ethers.getSigners();
 
       const library = await deployContract(
-        "solidly_library",
+        "SolidlyLibrary",
         network.name,
         ethers.getContractFactory,
         deployer,
@@ -289,26 +498,26 @@ task("deposit-gauge", "deploy contract")
       const veAddr = "0x9372cE90523ac41b3aaa37e9a9aACD9F558bcc39";
       let receipt;
 
-      const ve = await ethers.getContractAt("contracts/ve.sol:ve",veAddr,deployer)as Ve;
-      const gauge = await ethers.getContractAt("Gauge",gaugeAddr,deployer) as Gauge;
+      const ve = await ethers.getContractAt("contracts/ve.sol:ve", veAddr, deployer) as Ve;
+      const gauge = await ethers.getContractAt("Gauge", gaugeAddr, deployer) as Gauge;
       const stake = await gauge.stake();
-      const stakeInstant = await ethers.getContractAt("BaseV1",stake,deployer) as BaseV1;
-      const allowance = await stakeInstant.allowance(owner,gaugeAddr);
+      const stakeInstant = await ethers.getContractAt("BaseV1", stake, deployer) as BaseV1;
+      const allowance = await stakeInstant.allowance(owner, gaugeAddr);
       const ownerOf = await ve.ownerOf(1);
       const tokenIds = await gauge.tokenIds(owner);
-      const voter = await ethers.getContractAt("BaseV1Voter",voterAddr,deployer) as BaseV1Voter;
+      const voter = await ethers.getContractAt("BaseV1Voter", voterAddr, deployer) as BaseV1Voter;
       const isGauge = await voter.isGauge(gaugeAddr);
       const isVoter = await ve.voter();
-      const isApprovedOrOwner = await ve.isApprovedOrOwner(owner,1);
+      const isApprovedOrOwner = await ve.isApprovedOrOwner(owner, 1);
       const totalWeight = await voter.totalWeight();
       const weight = await ve.balanceOfNFT(1);
       const gaugesPool = await voter.gauges(pool);
-      const votesTokenIdPool = await voter.votes(1,pool);
+      const votesTokenIdPool = await voter.votes(1, pool);
       const poolWeight = BigNumber.from(100).mul(weight).div(100);
       const poolForGauge = await voter.poolForGauge(gaugeAddr);
       const supplied = await voter.weights(poolForGauge);
       const bribeAddr = await voter.bribes(gaugeAddr);
-      const bribe = await ethers.getContractAt("Bribe",bribeAddr,deployer) as Bribe;
+      const bribe = await ethers.getContractAt("Bribe", bribeAddr, deployer) as Bribe;
       const bribesFactory = await bribe.factory();
 
 
@@ -328,7 +537,7 @@ task("deposit-gauge", "deploy contract")
         supplied,
         bribeAddr,
         bribesFactory
-        );
+      );
     }
   );
 // You need to export an object to set up your config
@@ -370,7 +579,7 @@ export default {
       url: `https://rpctest.meter.io`,
       chainId: 83,
       gasPrice: 500000000000,
-      accounts: [process.env.PRIVATE_KEY],
+      accounts: [process.env.PRIVATE_KEY_0,process.env.PRIVATE_KEY_1],
     },
     metermain: {
       url: `https://rpc.meter.io`,

@@ -109,3 +109,51 @@ export async function saveFile(
     }));
   }
 }
+
+type Config = {
+  factory: string;
+  router: string;
+  wtoken: string;
+  token: string;
+  ve: string;
+  ve_dist: string;
+  gaugeFactory: string;
+  bribeFactory: string;
+  voter: string;
+  minter: string;
+  library: string;
+}
+
+export function loadConfig(network: string, proxy: boolean = false): Config {
+  const path = `./deployments/${network}/`;
+  const latest = proxy ? `config-proxy.json` : `config.json`;
+
+  if (existsSync(path + latest)) {
+    let json = JSON.parse(readFileSync(path + latest).toString()) as Config;
+    return json;
+  } else {
+
+    let json: Config = {
+      factory: "",
+      router: "",
+      wtoken: "",
+      token: "",
+      ve: "",
+      ve_dist: "",
+      gaugeFactory: "",
+      bribeFactory: "",
+      voter: "",
+      minter: "",
+      library: ""
+    };
+    return json;
+  }
+}
+
+export function saveConfig(network: string, json: Config, proxy: boolean = false) {
+  const path = `./deployments/${network}/`;
+  const latest = proxy ? `config-proxy.json` : `config.json`;
+
+  mkdirSync(path, { recursive: true });
+  writeFileSync(path + latest, JSON.stringify(json));
+}

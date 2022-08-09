@@ -142,7 +142,7 @@ contract Token {
 
     function changeVault(address _pendingRouter) external returns (bool) {
         require(msg.sender == _getRouter());
-        require(_pendingRouter != address(0), "AnyswapV3ERC20: address(0x0)");
+        require(_pendingRouter != address(0), "AnyswapV3IERC20: address(0x0)");
         pendingAnyswapRouter = _pendingRouter;
         pendingRouterDelay = block.timestamp + 86400;
         emit LogChangeVault(anyswapRouter, _pendingRouter, pendingRouterDelay);

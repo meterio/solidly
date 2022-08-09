@@ -1,0 +1,25 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IVeDist",
+  "sourceName": "contracts/interfaces/IVeDist.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "checkpoint_token",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "checkpoint_total_supply",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

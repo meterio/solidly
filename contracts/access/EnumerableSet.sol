@@ -33,7 +33,7 @@ library EnumerableSet {
     // bytes32 values.
     // The Set implementation uses private functions, and user-facing
     // implementations (such as AddressSet) are just wrappers around the
-    // underlying Set.
+    // IERC20 Set.
     // This means that we can only create new EnumerableSets for types that fit
     // in bytes32.
 

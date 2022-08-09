@@ -21,10 +21,31 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface IERC20Interface extends ethers.utils.Interface {
   functions: {
+    "approve(address,uint256)": FunctionFragment;
+    "balanceOf(address)": FunctionFragment;
+    "decimals()": FunctionFragment;
+    "mint(address,uint256)": FunctionFragment;
+    "symbol()": FunctionFragment;
+    "totalSupply()": FunctionFragment;
     "transfer(address,uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "approve",
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
+  encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "mint",
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "totalSupply",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "transfer",
     values: [string, BigNumberish]
@@ -34,6 +55,15 @@ interface IERC20Interface extends ethers.utils.Interface {
     values: [string, string, BigNumberish]
   ): string;
 
+  decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "totalSupply",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "transfer", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferFrom",
@@ -87,6 +117,26 @@ export class IERC20 extends BaseContract {
   interface: IERC20Interface;
 
   functions: {
+    approve(
+      spender: string,
+      value: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    balanceOf(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    decimals(overrides?: CallOverrides): Promise<[number]>;
+
+    mint(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    symbol(overrides?: CallOverrides): Promise<[string]>;
+
+    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     transfer(
       recipient: string,
       amount: BigNumberish,
@@ -100,6 +150,26 @@ export class IERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
+
+  approve(
+    spender: string,
+    value: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  decimals(overrides?: CallOverrides): Promise<number>;
+
+  mint(
+    arg0: string,
+    arg1: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  symbol(overrides?: CallOverrides): Promise<string>;
+
+  totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
   transfer(
     recipient: string,
@@ -115,6 +185,26 @@ export class IERC20 extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    approve(
+      spender: string,
+      value: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    decimals(overrides?: CallOverrides): Promise<number>;
+
+    mint(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    symbol(overrides?: CallOverrides): Promise<string>;
+
+    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
+
     transfer(
       recipient: string,
       amount: BigNumberish,
@@ -132,6 +222,26 @@ export class IERC20 extends BaseContract {
   filters: {};
 
   estimateGas: {
+    approve(
+      spender: string,
+      value: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    decimals(overrides?: CallOverrides): Promise<BigNumber>;
+
+    mint(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    symbol(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
+
     transfer(
       recipient: string,
       amount: BigNumberish,
@@ -147,6 +257,29 @@ export class IERC20 extends BaseContract {
   };
 
   populateTransaction: {
+    approve(
+      spender: string,
+      value: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    balanceOf(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    mint(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     transfer(
       recipient: string,
       amount: BigNumberish,
