@@ -119,7 +119,8 @@ contract VeUpgradeable is IERC721, IERC721Metadata {
     /// @notice Contract constructor
     /// @param token_addr `IERC20CRV` token address
     function initialize(
-        address token_addr // Solidly (SOLID)
+        address token_addr, // Solidly (SOLID)
+        address _voter
     ) public {
         token = token_addr;
         point_history[0].blk = block.number;
@@ -128,6 +129,7 @@ contract VeUpgradeable is IERC721, IERC721Metadata {
         supportedInterfaces[ERC165_INTERFACE_ID] = true;
         supportedInterfaces[ERC721_INTERFACE_ID] = true;
         supportedInterfaces[ERC721_METADATA_INTERFACE_ID] = true;
+        voter = _voter;
 
         // mint-ish
         emit Transfer(address(0), address(this), tokenId);

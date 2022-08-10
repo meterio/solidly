@@ -41,7 +41,7 @@ interface VeUpgradeableInterface extends ethers.utils.Interface {
     "get_last_user_slope(uint256)": FunctionFragment;
     "increase_amount(uint256,uint256)": FunctionFragment;
     "increase_unlock_time(uint256,uint256)": FunctionFragment;
-    "initialize(address)": FunctionFragment;
+    "initialize(address,address)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
     "isApprovedOrOwner(address,uint256)": FunctionFragment;
     "locked(uint256)": FunctionFragment;
@@ -146,7 +146,10 @@ interface VeUpgradeableInterface extends ethers.utils.Interface {
     functionFragment: "increase_unlock_time",
     values: [BigNumberish, BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "initialize", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "initialize",
+    values: [string, string]
+  ): string;
   encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [string, string]
@@ -591,6 +594,7 @@ export class VeUpgradeable extends BaseContract {
 
     initialize(
       token_addr: string,
+      _voter: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -857,6 +861,7 @@ export class VeUpgradeable extends BaseContract {
 
   initialize(
     token_addr: string,
+    _voter: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -1104,7 +1109,11 @@ export class VeUpgradeable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    initialize(token_addr: string, overrides?: CallOverrides): Promise<void>;
+    initialize(
+      token_addr: string,
+      _voter: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     isApprovedForAll(
       _owner: string,
@@ -1488,6 +1497,7 @@ export class VeUpgradeable extends BaseContract {
 
     initialize(
       token_addr: string,
+      _voter: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1741,6 +1751,7 @@ export class VeUpgradeable extends BaseContract {
 
     initialize(
       token_addr: string,
+      _voter: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

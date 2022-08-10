@@ -56,8 +56,7 @@ task("deploy", "deploy contract")
         "BaseV1Factory",
         network.name,
         ethers.getContractFactory,
-        deployer,
-        []
+        deployer
       ) as BaseV1Factory;
 
       const router = await deployContract(
@@ -72,8 +71,7 @@ task("deploy", "deploy contract")
         "BaseV1",
         network.name,
         ethers.getContractFactory,
-        deployer,
-        []
+        deployer
       ) as BaseV1;
 
       const ve = await deployContract(
@@ -96,16 +94,14 @@ task("deploy", "deploy contract")
         "BaseV1GaugeFactory",
         network.name,
         ethers.getContractFactory,
-        deployer,
-        []
+        deployer
       ) as BaseV1GaugeFactory;
 
       const bribeFactory = await deployContract(
         "BaseV1BribeFactory",
         network.name,
         ethers.getContractFactory,
-        deployer,
-        []
+        deployer
       ) as BaseV1BribeFactory;
 
       const voter = await deployContract(
@@ -155,7 +151,7 @@ task("deploy-upgrade", "deploy contract")
         deployer
       ) as BaseV1Factory;
       config.factory = factory.address;
-      
+
       ////router
       const router = await deployContract(
         "BaseV1Router01",
@@ -191,7 +187,7 @@ task("deploy-upgrade", "deploy contract")
         [
           ve.address,
           deployer.address,
-          ve.interface.encodeFunctionData("initialize", [token.address])
+          ve.interface.encodeFunctionData("initialize", [token.address, admin.address])
         ]
       ) as TransparentUpgradeableProxy;
       config.ve = veProxy.address;
@@ -335,7 +331,67 @@ task("deploy-upgrade", "deploy contract")
       const ve_distInstant = await ethers.getContractAt("VeDistUpgradeable", ve_distProxy.address, admin) as VeDistUpgradeable;
       receipt = await ve_distInstant.setDepositor(minterProxy.address);
       console.log(await receipt.wait());
+
+      const ve_Instant = await ethers.getContractAt("VeUpgradeable", veProxy.address, admin) as VeUpgradeable;
+      receipt = await ve_Instant.setVoter(voterProxy.address);
+      console.log(await receipt.wait());
       saveConfig(network.name, config, true);
+    }
+  );
+
+task("update-proxy", "deploy contract with proxy")
+  .addParam("contract", "contract")
+  .setAction(
+    async ({ contract }, { ethers, run, network }) => {
+      await run("compile");
+      const signers = await ethers.getSigners();
+      const deployer = signers[0];
+      let config = loadConfig(network.name, true);
+
+      if (contract == 've') {
+        const impl = await deployContract(
+          "VeUpgradeable",
+          network.name,
+          ethers.getContractFactory,
+          deployer
+        ) as VeUpgradeable;
+        const proxy = await ethers.getContractAt(
+          "TransparentUpgradeableProxy",
+          config.ve,
+          deployer
+        ) as TransparentUpgradeableProxy;
+        await proxy.upgradeTo(impl.address);
+      }
+
+      if (contract == 'minter') {
+        const impl = await deployContract(
+          "BaseV2MinterUpgradeable",
+          network.name,
+          ethers.getContractFactory,
+          deployer
+        ) as BaseV2MinterUpgradeable;
+        const proxy = await ethers.getContractAt(
+          "TransparentUpgradeableProxy",
+          config.minter,
+          deployer
+        ) as TransparentUpgradeableProxy;
+        await proxy.upgradeTo(impl.address);
+      }
+
+      if (contract == 'voter') {
+        const impl = await deployContract(
+          "BaseV1VoterUpgradeable",
+          network.name,
+          ethers.getContractFactory,
+          deployer
+        ) as BaseV1VoterUpgradeable;
+        const proxy = await ethers.getContractAt(
+          "TransparentUpgradeableProxy",
+          config.voter,
+          deployer
+        ) as TransparentUpgradeableProxy;
+        await proxy.upgradeTo(impl.address);
+      }
     }
   );
 
@@ -367,8 +423,7 @@ task("deploy-token", "deploy contract")
         "BaseV1",
         network.name,
         ethers.getContractFactory,
-        deployer,
-        []
+        deployer
       ) as BaseV1;
 
       const ve = await deployContract(
@@ -391,16 +446,14 @@ task("deploy-token", "deploy contract")
         "BaseV1GaugeFactory",
         network.name,
         ethers.getContractFactory,
-        deployer,
-        []
+        deployer
       ) as BaseV1GaugeFactory;
 
       const bribeFactory = await deployContract(
         "BaseV1BribeFactory",
         network.name,
         ethers.getContractFactory,
-        deployer,
-        []
+        deployer
       ) as BaseV1BribeFactory;
 
       const voter = await deployContract(
@@ -579,7 +632,7 @@ export default {
       url: `https://rpctest.meter.io`,
       chainId: 83,
       gasPrice: 500000000000,
-      accounts: [process.env.PRIVATE_KEY_0,process.env.PRIVATE_KEY_1],
+      accounts: [process.env.PRIVATE_KEY_0, process.env.PRIVATE_KEY_1],
     },
     metermain: {
       url: `https://rpc.meter.io`,
