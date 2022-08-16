@@ -86,7 +86,7 @@ contract BaseV1VoterUpgradeable {
     // simple re-entrancy check
     uint256 internal _unlocked = 1;
     modifier lock() {
-        require(_unlocked == 1);
+        require(_unlocked == 1,"locked!");
         _unlocked = 2;
         _;
         _unlocked = 1;
@@ -314,6 +314,14 @@ contract BaseV1VoterUpgradeable {
 
     function updateGauge(address _gauge) external {
         _updateFor(_gauge);
+    }
+
+    function getSupplyIndex(address _gauge) external view returns(uint256){
+        return supplyIndex[_gauge];
+    }
+
+    function getIndex() external view returns(uint256){
+        return index;
     }
 
     function _updateFor(address _gauge) internal {

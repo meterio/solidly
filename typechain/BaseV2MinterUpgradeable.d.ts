@@ -37,6 +37,7 @@ interface BaseV2MinterUpgradeableInterface extends ethers.utils.Interface {
     "initialize(address,address,address,address)": FunctionFragment;
     "renounceRole(bytes32,address)": FunctionFragment;
     "revokeRole(bytes32,address)": FunctionFragment;
+    "set()": FunctionFragment;
     "update_period()": FunctionFragment;
     "ve_dist_ratio()": FunctionFragment;
     "ve_dist_ratio_max()": FunctionFragment;
@@ -94,6 +95,7 @@ interface BaseV2MinterUpgradeableInterface extends ethers.utils.Interface {
     functionFragment: "revokeRole",
     values: [BytesLike, string]
   ): string;
+  encodeFunctionData(functionFragment: "set", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "update_period",
     values?: undefined
@@ -147,6 +149,7 @@ interface BaseV2MinterUpgradeableInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "set", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "update_period",
     data: BytesLike
@@ -299,6 +302,10 @@ export class BaseV2MinterUpgradeable extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    set(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     update_period(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -373,6 +380,10 @@ export class BaseV2MinterUpgradeable extends BaseContract {
   revokeRole(
     role: BytesLike,
     account: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  set(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -452,6 +463,8 @@ export class BaseV2MinterUpgradeable extends BaseContract {
       account: string,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    set(overrides?: CallOverrides): Promise<void>;
 
     update_period(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -588,6 +601,10 @@ export class BaseV2MinterUpgradeable extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    set(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     update_period(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -668,6 +685,10 @@ export class BaseV2MinterUpgradeable extends BaseContract {
     revokeRole(
       role: BytesLike,
       account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    set(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

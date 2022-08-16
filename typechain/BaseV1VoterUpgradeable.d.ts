@@ -39,6 +39,9 @@ interface BaseV1VoterUpgradeableInterface extends ethers.utils.Interface {
     "factory()": FunctionFragment;
     "gaugefactory()": FunctionFragment;
     "gauges(address)": FunctionFragment;
+    "getIndex()": FunctionFragment;
+    "getSupplyIndex(address)": FunctionFragment;
+    "getUnlocked()": FunctionFragment;
     "init(address[],address)": FunctionFragment;
     "initialize(address,address,address,address,address)": FunctionFragment;
     "isGauge(address)": FunctionFragment;
@@ -52,6 +55,7 @@ interface BaseV1VoterUpgradeableInterface extends ethers.utils.Interface {
     "poolVote(uint256,uint256)": FunctionFragment;
     "pools(uint256)": FunctionFragment;
     "reset(uint256)": FunctionFragment;
+    "set()": FunctionFragment;
     "totalWeight()": FunctionFragment;
     "updateAll()": FunctionFragment;
     "updateFor(address[])": FunctionFragment;
@@ -115,6 +119,15 @@ interface BaseV1VoterUpgradeableInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "gauges", values: [string]): string;
+  encodeFunctionData(functionFragment: "getIndex", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "getSupplyIndex",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getUnlocked",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "init",
     values: [string[], string]
@@ -149,6 +162,7 @@ interface BaseV1VoterUpgradeableInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "pools", values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: "reset", values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: "set", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "totalWeight",
     values?: undefined
@@ -226,6 +240,15 @@ interface BaseV1VoterUpgradeableInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "gauges", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getIndex", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getSupplyIndex",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getUnlocked",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "init", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isGauge", data: BytesLike): Result;
@@ -251,6 +274,7 @@ interface BaseV1VoterUpgradeableInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "poolVote", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pools", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "reset", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "set", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalWeight",
     data: BytesLike
@@ -512,6 +536,15 @@ export class BaseV1VoterUpgradeable extends BaseContract {
 
     gauges(arg0: string, overrides?: CallOverrides): Promise<[string]>;
 
+    getIndex(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    getSupplyIndex(
+      _gauge: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    getUnlocked(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     init(
       _tokens: string[],
       _minter: string,
@@ -559,6 +592,10 @@ export class BaseV1VoterUpgradeable extends BaseContract {
 
     reset(
       _tokenId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    set(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -705,6 +742,12 @@ export class BaseV1VoterUpgradeable extends BaseContract {
 
   gauges(arg0: string, overrides?: CallOverrides): Promise<string>;
 
+  getIndex(overrides?: CallOverrides): Promise<BigNumber>;
+
+  getSupplyIndex(_gauge: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  getUnlocked(overrides?: CallOverrides): Promise<BigNumber>;
+
   init(
     _tokens: string[],
     _minter: string,
@@ -752,6 +795,10 @@ export class BaseV1VoterUpgradeable extends BaseContract {
 
   reset(
     _tokenId: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  set(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -888,6 +935,15 @@ export class BaseV1VoterUpgradeable extends BaseContract {
 
     gauges(arg0: string, overrides?: CallOverrides): Promise<string>;
 
+    getIndex(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getSupplyIndex(
+      _gauge: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getUnlocked(overrides?: CallOverrides): Promise<BigNumber>;
+
     init(
       _tokens: string[],
       _minter: string,
@@ -931,6 +987,8 @@ export class BaseV1VoterUpgradeable extends BaseContract {
     pools(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
     reset(_tokenId: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
+    set(overrides?: CallOverrides): Promise<void>;
 
     totalWeight(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1252,6 +1310,15 @@ export class BaseV1VoterUpgradeable extends BaseContract {
 
     gauges(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    getIndex(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getSupplyIndex(
+      _gauge: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getUnlocked(overrides?: CallOverrides): Promise<BigNumber>;
+
     init(
       _tokens: string[],
       _minter: string,
@@ -1299,6 +1366,10 @@ export class BaseV1VoterUpgradeable extends BaseContract {
 
     reset(
       _tokenId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    set(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1455,6 +1526,15 @@ export class BaseV1VoterUpgradeable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getIndex(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getSupplyIndex(
+      _gauge: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getUnlocked(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     init(
       _tokens: string[],
       _minter: string,
@@ -1514,6 +1594,10 @@ export class BaseV1VoterUpgradeable extends BaseContract {
 
     reset(
       _tokenId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    set(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

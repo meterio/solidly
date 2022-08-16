@@ -983,14 +983,11 @@ contract Ve is IERC721, IERC721Metadata {
         view
         returns (uint256)
     {
-        // 周期 = 用户周期点
         uint256 _epoch = user_point_epoch[_tokenId];
         if (_epoch == 0) {
             return 0;
         } else {
-            // 用户历史点数
             Point memory last_point = user_point_history[_tokenId][_epoch];
-            //
             last_point.bias -=
                 last_point.slope *
                 int128(int256(_t) - int256(last_point.ts));
