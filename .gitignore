@@ -4,9 +4,7 @@ package-lock.json
 
 #Hardhat files
 cache
-artifacts
 deployments
-typechain
 coverage
 coverage.json
 
