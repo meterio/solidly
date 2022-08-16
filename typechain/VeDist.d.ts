@@ -21,38 +21,49 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface VeDistInterface extends ethers.utils.Interface {
   functions: {
-    "checkpoint_token()": FunctionFragment;
-    "checkpoint_total_supply()": FunctionFragment;
+    "adjustToDistribute(uint256,uint256,uint256,uint256)": FunctionFragment;
+    "adjustVeSupply(uint256,uint256,int128,int128)": FunctionFragment;
+    "checkpointToken()": FunctionFragment;
+    "checkpointTotalSupply()": FunctionFragment;
     "claim(uint256)": FunctionFragment;
-    "claim_many(uint256[])": FunctionFragment;
+    "claimMany(uint256[])": FunctionFragment;
     "claimable(uint256)": FunctionFragment;
     "depositor()": FunctionFragment;
-    "last_token_time()": FunctionFragment;
+    "findTimestampUserEpoch(address,uint256,uint256,uint256)": FunctionFragment;
+    "lastTokenTime()": FunctionFragment;
     "setDepositor(address)": FunctionFragment;
-    "start_time()": FunctionFragment;
-    "time_cursor()": FunctionFragment;
-    "time_cursor_of(uint256)": FunctionFragment;
+    "startTime()": FunctionFragment;
+    "timeCursor()": FunctionFragment;
+    "timeCursorOf(uint256)": FunctionFragment;
     "timestamp()": FunctionFragment;
     "token()": FunctionFragment;
-    "token_last_balance()": FunctionFragment;
-    "tokens_per_week(uint256)": FunctionFragment;
-    "user_epoch_of(uint256)": FunctionFragment;
-    "ve_for_at(uint256,uint256)": FunctionFragment;
-    "ve_supply(uint256)": FunctionFragment;
-    "voting_escrow()": FunctionFragment;
+    "tokenLastBalance()": FunctionFragment;
+    "tokensPerWeek(uint256)": FunctionFragment;
+    "userEpochOf(uint256)": FunctionFragment;
+    "veForAt(uint256,uint256)": FunctionFragment;
+    "veSupply(uint256)": FunctionFragment;
+    "votingEscrow()": FunctionFragment;
   };
 
   encodeFunctionData(
-    functionFragment: "checkpoint_token",
+    functionFragment: "adjustToDistribute",
+    values: [BigNumberish, BigNumberish, BigNumberish, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "adjustVeSupply",
+    values: [BigNumberish, BigNumberish, BigNumberish, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "checkpointToken",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "checkpoint_total_supply",
+    functionFragment: "checkpointTotalSupply",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "claim", values: [BigNumberish]): string;
   encodeFunctionData(
-    functionFragment: "claim_many",
+    functionFragment: "claimMany",
     values: [BigNumberish[]]
   ): string;
   encodeFunctionData(
@@ -61,99 +72,109 @@ interface VeDistInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "depositor", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "last_token_time",
+    functionFragment: "findTimestampUserEpoch",
+    values: [string, BigNumberish, BigNumberish, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "lastTokenTime",
     values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "setDepositor",
     values: [string]
   ): string;
+  encodeFunctionData(functionFragment: "startTime", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "start_time",
+    functionFragment: "timeCursor",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "time_cursor",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "time_cursor_of",
+    functionFragment: "timeCursorOf",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "timestamp", values?: undefined): string;
   encodeFunctionData(functionFragment: "token", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "token_last_balance",
+    functionFragment: "tokenLastBalance",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "tokens_per_week",
+    functionFragment: "tokensPerWeek",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "user_epoch_of",
+    functionFragment: "userEpochOf",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "ve_for_at",
+    functionFragment: "veForAt",
     values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "ve_supply",
+    functionFragment: "veSupply",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "voting_escrow",
+    functionFragment: "votingEscrow",
     values?: undefined
   ): string;
 
   decodeFunctionResult(
-    functionFragment: "checkpoint_token",
+    functionFragment: "adjustToDistribute",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "checkpoint_total_supply",
+    functionFragment: "adjustVeSupply",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "checkpointToken",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "checkpointTotalSupply",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "claim", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "claim_many", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "claimMany", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "claimable", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "depositor", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "last_token_time",
+    functionFragment: "findTimestampUserEpoch",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "lastTokenTime",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setDepositor",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "start_time", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "startTime", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "timeCursor", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "time_cursor",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "time_cursor_of",
+    functionFragment: "timeCursorOf",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "timestamp", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "token_last_balance",
+    functionFragment: "tokenLastBalance",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "tokens_per_week",
+    functionFragment: "tokensPerWeek",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "user_epoch_of",
+    functionFragment: "userEpochOf",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "ve_for_at", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "ve_supply", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "veForAt", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "veSupply", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "voting_escrow",
+    functionFragment: "votingEscrow",
     data: BytesLike
   ): Result;
 
@@ -174,8 +195,8 @@ export type ClaimedEvent = TypedEvent<
   [BigNumber, BigNumber, BigNumber, BigNumber] & {
     tokenId: BigNumber;
     amount: BigNumber;
-    claim_epoch: BigNumber;
-    max_epoch: BigNumber;
+    claimEpoch: BigNumber;
+    maxEpoch: BigNumber;
   }
 >;
 
@@ -223,11 +244,27 @@ export class VeDist extends BaseContract {
   interface: VeDistInterface;
 
   functions: {
-    checkpoint_token(
+    adjustToDistribute(
+      toDistribute: BigNumberish,
+      t0: BigNumberish,
+      t1: BigNumberish,
+      sinceLastCall: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    adjustVeSupply(
+      t: BigNumberish,
+      ptTs: BigNumberish,
+      ptBias: BigNumberish,
+      ptSlope: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    checkpointToken(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    checkpoint_total_supply(
+    checkpointTotalSupply(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -236,7 +273,7 @@ export class VeDist extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    claim_many(
+    claimMany(
       _tokenIds: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -248,18 +285,26 @@ export class VeDist extends BaseContract {
 
     depositor(overrides?: CallOverrides): Promise<[string]>;
 
-    last_token_time(overrides?: CallOverrides): Promise<[BigNumber]>;
+    findTimestampUserEpoch(
+      ve: string,
+      tokenId: BigNumberish,
+      _timestamp: BigNumberish,
+      maxUserEpoch: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    lastTokenTime(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     setDepositor(
       _depositor: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    start_time(overrides?: CallOverrides): Promise<[BigNumber]>;
+    startTime(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    time_cursor(overrides?: CallOverrides): Promise<[BigNumber]>;
+    timeCursor(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    time_cursor_of(
+    timeCursorOf(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
@@ -268,37 +313,53 @@ export class VeDist extends BaseContract {
 
     token(overrides?: CallOverrides): Promise<[string]>;
 
-    token_last_balance(overrides?: CallOverrides): Promise<[BigNumber]>;
+    tokenLastBalance(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    tokens_per_week(
+    tokensPerWeek(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    user_epoch_of(
+    userEpochOf(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    ve_for_at(
+    veForAt(
       _tokenId: BigNumberish,
       _timestamp: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    ve_supply(
+    veSupply(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    voting_escrow(overrides?: CallOverrides): Promise<[string]>;
+    votingEscrow(overrides?: CallOverrides): Promise<[string]>;
   };
 
-  checkpoint_token(
+  adjustToDistribute(
+    toDistribute: BigNumberish,
+    t0: BigNumberish,
+    t1: BigNumberish,
+    sinceLastCall: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  adjustVeSupply(
+    t: BigNumberish,
+    ptTs: BigNumberish,
+    ptBias: BigNumberish,
+    ptSlope: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  checkpointToken(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  checkpoint_total_supply(
+  checkpointTotalSupply(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -307,7 +368,7 @@ export class VeDist extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  claim_many(
+  claimMany(
     _tokenIds: BigNumberish[],
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -319,18 +380,26 @@ export class VeDist extends BaseContract {
 
   depositor(overrides?: CallOverrides): Promise<string>;
 
-  last_token_time(overrides?: CallOverrides): Promise<BigNumber>;
+  findTimestampUserEpoch(
+    ve: string,
+    tokenId: BigNumberish,
+    _timestamp: BigNumberish,
+    maxUserEpoch: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  lastTokenTime(overrides?: CallOverrides): Promise<BigNumber>;
 
   setDepositor(
     _depositor: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  start_time(overrides?: CallOverrides): Promise<BigNumber>;
+  startTime(overrides?: CallOverrides): Promise<BigNumber>;
 
-  time_cursor(overrides?: CallOverrides): Promise<BigNumber>;
+  timeCursor(overrides?: CallOverrides): Promise<BigNumber>;
 
-  time_cursor_of(
+  timeCursorOf(
     arg0: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
@@ -339,39 +408,55 @@ export class VeDist extends BaseContract {
 
   token(overrides?: CallOverrides): Promise<string>;
 
-  token_last_balance(overrides?: CallOverrides): Promise<BigNumber>;
+  tokenLastBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
-  tokens_per_week(
+  tokensPerWeek(
     arg0: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  user_epoch_of(
+  userEpochOf(
     arg0: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  ve_for_at(
+  veForAt(
     _tokenId: BigNumberish,
     _timestamp: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  ve_supply(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+  veSupply(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
-  voting_escrow(overrides?: CallOverrides): Promise<string>;
+  votingEscrow(overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
-    checkpoint_token(overrides?: CallOverrides): Promise<void>;
+    adjustToDistribute(
+      toDistribute: BigNumberish,
+      t0: BigNumberish,
+      t1: BigNumberish,
+      sinceLastCall: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    checkpoint_total_supply(overrides?: CallOverrides): Promise<void>;
+    adjustVeSupply(
+      t: BigNumberish,
+      ptTs: BigNumberish,
+      ptBias: BigNumberish,
+      ptSlope: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    checkpointToken(overrides?: CallOverrides): Promise<void>;
+
+    checkpointTotalSupply(overrides?: CallOverrides): Promise<void>;
 
     claim(
       _tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    claim_many(
+    claimMany(
       _tokenIds: BigNumberish[],
       overrides?: CallOverrides
     ): Promise<boolean>;
@@ -383,15 +468,23 @@ export class VeDist extends BaseContract {
 
     depositor(overrides?: CallOverrides): Promise<string>;
 
-    last_token_time(overrides?: CallOverrides): Promise<BigNumber>;
+    findTimestampUserEpoch(
+      ve: string,
+      tokenId: BigNumberish,
+      _timestamp: BigNumberish,
+      maxUserEpoch: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    lastTokenTime(overrides?: CallOverrides): Promise<BigNumber>;
 
     setDepositor(_depositor: string, overrides?: CallOverrides): Promise<void>;
 
-    start_time(overrides?: CallOverrides): Promise<BigNumber>;
+    startTime(overrides?: CallOverrides): Promise<BigNumber>;
 
-    time_cursor(overrides?: CallOverrides): Promise<BigNumber>;
+    timeCursor(overrides?: CallOverrides): Promise<BigNumber>;
 
-    time_cursor_of(
+    timeCursorOf(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -400,30 +493,27 @@ export class VeDist extends BaseContract {
 
     token(overrides?: CallOverrides): Promise<string>;
 
-    token_last_balance(overrides?: CallOverrides): Promise<BigNumber>;
+    tokenLastBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
-    tokens_per_week(
+    tokensPerWeek(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    user_epoch_of(
+    userEpochOf(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    ve_for_at(
+    veForAt(
       _tokenId: BigNumberish,
       _timestamp: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    ve_supply(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    veSupply(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
-    voting_escrow(overrides?: CallOverrides): Promise<string>;
+    votingEscrow(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {
@@ -446,40 +536,56 @@ export class VeDist extends BaseContract {
     "Claimed(uint256,uint256,uint256,uint256)"(
       tokenId?: null,
       amount?: null,
-      claim_epoch?: null,
-      max_epoch?: null
+      claimEpoch?: null,
+      maxEpoch?: null
     ): TypedEventFilter<
       [BigNumber, BigNumber, BigNumber, BigNumber],
       {
         tokenId: BigNumber;
         amount: BigNumber;
-        claim_epoch: BigNumber;
-        max_epoch: BigNumber;
+        claimEpoch: BigNumber;
+        maxEpoch: BigNumber;
       }
     >;
 
     Claimed(
       tokenId?: null,
       amount?: null,
-      claim_epoch?: null,
-      max_epoch?: null
+      claimEpoch?: null,
+      maxEpoch?: null
     ): TypedEventFilter<
       [BigNumber, BigNumber, BigNumber, BigNumber],
       {
         tokenId: BigNumber;
         amount: BigNumber;
-        claim_epoch: BigNumber;
-        max_epoch: BigNumber;
+        claimEpoch: BigNumber;
+        maxEpoch: BigNumber;
       }
     >;
   };
 
   estimateGas: {
-    checkpoint_token(
+    adjustToDistribute(
+      toDistribute: BigNumberish,
+      t0: BigNumberish,
+      t1: BigNumberish,
+      sinceLastCall: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    adjustVeSupply(
+      t: BigNumberish,
+      ptTs: BigNumberish,
+      ptBias: BigNumberish,
+      ptSlope: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    checkpointToken(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    checkpoint_total_supply(
+    checkpointTotalSupply(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -488,7 +594,7 @@ export class VeDist extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    claim_many(
+    claimMany(
       _tokenIds: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -500,18 +606,26 @@ export class VeDist extends BaseContract {
 
     depositor(overrides?: CallOverrides): Promise<BigNumber>;
 
-    last_token_time(overrides?: CallOverrides): Promise<BigNumber>;
+    findTimestampUserEpoch(
+      ve: string,
+      tokenId: BigNumberish,
+      _timestamp: BigNumberish,
+      maxUserEpoch: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    lastTokenTime(overrides?: CallOverrides): Promise<BigNumber>;
 
     setDepositor(
       _depositor: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    start_time(overrides?: CallOverrides): Promise<BigNumber>;
+    startTime(overrides?: CallOverrides): Promise<BigNumber>;
 
-    time_cursor(overrides?: CallOverrides): Promise<BigNumber>;
+    timeCursor(overrides?: CallOverrides): Promise<BigNumber>;
 
-    time_cursor_of(
+    timeCursorOf(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -520,38 +634,51 @@ export class VeDist extends BaseContract {
 
     token(overrides?: CallOverrides): Promise<BigNumber>;
 
-    token_last_balance(overrides?: CallOverrides): Promise<BigNumber>;
+    tokenLastBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
-    tokens_per_week(
+    tokensPerWeek(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    user_epoch_of(
+    userEpochOf(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    ve_for_at(
+    veForAt(
       _tokenId: BigNumberish,
       _timestamp: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    ve_supply(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    veSupply(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
-    voting_escrow(overrides?: CallOverrides): Promise<BigNumber>;
+    votingEscrow(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    checkpoint_token(
+    adjustToDistribute(
+      toDistribute: BigNumberish,
+      t0: BigNumberish,
+      t1: BigNumberish,
+      sinceLastCall: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    adjustVeSupply(
+      t: BigNumberish,
+      ptTs: BigNumberish,
+      ptBias: BigNumberish,
+      ptSlope: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    checkpointToken(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    checkpoint_total_supply(
+    checkpointTotalSupply(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -560,7 +687,7 @@ export class VeDist extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    claim_many(
+    claimMany(
       _tokenIds: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
@@ -572,18 +699,26 @@ export class VeDist extends BaseContract {
 
     depositor(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    last_token_time(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    findTimestampUserEpoch(
+      ve: string,
+      tokenId: BigNumberish,
+      _timestamp: BigNumberish,
+      maxUserEpoch: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    lastTokenTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setDepositor(
       _depositor: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    start_time(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    startTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    time_cursor(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    timeCursor(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    time_cursor_of(
+    timeCursorOf(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -592,31 +727,29 @@ export class VeDist extends BaseContract {
 
     token(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    token_last_balance(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    tokenLastBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    tokens_per_week(
+    tokensPerWeek(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    user_epoch_of(
+    userEpochOf(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    ve_for_at(
+    veForAt(
       _tokenId: BigNumberish,
       _timestamp: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    ve_supply(
+    veSupply(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    voting_escrow(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    votingEscrow(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

@@ -21,16 +21,16 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface IMinterInterface extends ethers.utils.Interface {
   functions: {
-    "update_period()": FunctionFragment;
+    "updatePeriod()": FunctionFragment;
   };
 
   encodeFunctionData(
-    functionFragment: "update_period",
+    functionFragment: "updatePeriod",
     values?: undefined
   ): string;
 
   decodeFunctionResult(
-    functionFragment: "update_period",
+    functionFragment: "updatePeriod",
     data: BytesLike
   ): Result;
 
@@ -81,29 +81,29 @@ export class IMinter extends BaseContract {
   interface: IMinterInterface;
 
   functions: {
-    update_period(
+    updatePeriod(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
-  update_period(
+  updatePeriod(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    update_period(overrides?: CallOverrides): Promise<BigNumber>;
+    updatePeriod(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {};
 
   estimateGas: {
-    update_period(
+    updatePeriod(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    update_period(
+    updatePeriod(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

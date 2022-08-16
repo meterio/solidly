@@ -1,12 +1,21 @@
 {
   "compilerOptions": {
-    "target": "es2018",
+    "sourceMap": true,
+    "target": "es2019",
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
     "outDir": "dist",
-    "declaration": true
+    "resolveJsonModule": true
   },
-  "include": ["./scripts", "./test", "./typechain"],
-  "files": ["./hardhat.config.ts"]
+  "include": [
+    "./scripts",
+    "./tmp",
+    "./test",
+    "./typechain"
+  ],
+  "files": [
+    "./hardhat.config.ts",
+    "./addresses.ts"
+  ]
 }

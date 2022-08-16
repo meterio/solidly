@@ -1,27 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8;
 
+pragma solidity ^0.8.13;
 
-interface IERC20 {
-    function totalSupply() external view returns (uint);
-
-    function balanceOf(address account) external view returns (uint);
-
-    function transfer(address recipient, uint amount) external returns (bool);
-
-    function allowance(address owner, address spender) external view returns (uint);
-
-    function approve(address spender, uint amount) external returns (bool);
-
-    function transferFrom(
-        address sender,
-        address recipient,
-        uint amount
-    ) external returns (bool);
-
-    event Transfer(address indexed from, address indexed to, uint value);
-    event Approval(address indexed owner, address indexed spender, uint value);
-}
+import "../interface/IERC20.sol";
 
 contract StakingRewards {
     IERC20 public rewardsToken;
@@ -54,7 +35,9 @@ contract StakingRewards {
         }
         return
             rewardPerTokenStored +
-            (((lastTimeRewardApplicable() - lastUpdateTime) * rewardRate * 1e18) / _totalSupply);
+            (((lastTimeRewardApplicable() - lastUpdateTime) *
+                rewardRate *
+                1e18) / _totalSupply);
     }
 
     function lastTimeRewardApplicable() public view returns (uint256) {
@@ -62,7 +45,10 @@ contract StakingRewards {
     }
 
     function earned(address account) public view returns (uint) {
-      return (_balances[account] * (rewardPerToken() - userRewardPerTokenPaid[account]) / 1e18) + rewards[account];
+        return
+            ((_balances[account] *
+                (rewardPerToken() - userRewardPerTokenPaid[account])) / 1e18) +
+            rewards[account];
     }
 
     modifier updateReward(address account) {
@@ -94,7 +80,10 @@ contract StakingRewards {
         require(rewardsToken.transfer(msg.sender, reward));
     }
 
-    function notifyRewardAmount(uint256 reward) external updateReward(address(0)) {
+    function notifyRewardAmount(uint256 reward)
+        external
+        updateReward(address(0))
+    {
         require(rewardsToken.transferFrom(msg.sender, address(this), reward));
         if (block.timestamp >= periodFinish) {
             rewardRate = reward / rewardsDuration;

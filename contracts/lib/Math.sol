@@ -1,19 +1,41 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.11;
+
+pragma solidity ^0.8.13;
 
 library Math {
-    function max(uint256 a, uint256 b) internal pure returns (uint256) {
+    function max(uint a, uint b) internal pure returns (uint) {
         return a >= b ? a : b;
     }
 
-    function min(uint256 a, uint256 b) internal pure returns (uint256) {
+    function min(uint a, uint b) internal pure returns (uint) {
         return a < b ? a : b;
     }
 
-    function sqrt(uint256 y) internal pure returns (uint256 z) {
+    function positiveInt128(int128 value) internal pure returns (int128) {
+        return value < 0 ? int128(0) : value;
+    }
+
+    function closeTo(
+        uint a,
+        uint b,
+        uint target
+    ) internal pure returns (bool) {
+        if (a > b) {
+            if (a - b <= target) {
+                return true;
+            }
+        } else {
+            if (b - a <= target) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function sqrt(uint y) internal pure returns (uint z) {
         if (y > 3) {
             z = y;
-            uint256 x = y / 2 + 1;
+            uint x = y / 2 + 1;
             while (x < z) {
                 z = x;
                 x = (y / x + x) / 2;

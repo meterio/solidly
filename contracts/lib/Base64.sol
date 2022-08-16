@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.11;
 
-/// [MIT License]
+pragma solidity ^0.8.13;
+
 /// @title Base64
 /// @notice Provides a function for encoding some bytes in base64
 /// @author Brecht Devos <brecht@loopring.org>
@@ -11,11 +11,11 @@ library Base64 {
 
     /// @notice Encodes some bytes to the base64 representation
     function encode(bytes memory data) internal pure returns (string memory) {
-        uint256 len = data.length;
+        uint len = data.length;
         if (len == 0) return "";
 
         // multiply by 4/3 rounded up
-        uint256 encodedLen = 4 * ((len + 2) / 3);
+        uint encodedLen = 4 * ((len + 2) / 3);
 
         // Add some extra buffer at the end
         bytes memory result = new bytes(encodedLen + 32);

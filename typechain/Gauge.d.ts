@@ -21,9 +21,8 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface GaugeInterface extends ethers.utils.Interface {
   functions: {
-    "_ve()": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
-    "batchRewardPerToken(address,uint256)": FunctionFragment;
+    "batchUpdateRewardPerToken(address,uint256)": FunctionFragment;
     "bribe()": FunctionFragment;
     "checkpoints(address,uint256)": FunctionFragment;
     "claimFees()": FunctionFragment;
@@ -39,37 +38,39 @@ interface GaugeInterface extends ethers.utils.Interface {
     "getPriorRewardPerToken(address,uint256)": FunctionFragment;
     "getPriorSupplyIndex(uint256)": FunctionFragment;
     "getReward(address,address[])": FunctionFragment;
-    "isReward(address)": FunctionFragment;
+    "isRewardToken(address)": FunctionFragment;
     "lastEarn(address,address)": FunctionFragment;
-    "lastTimeRewardApplicable(address)": FunctionFragment;
     "lastUpdateTime(address)": FunctionFragment;
     "left(address)": FunctionFragment;
     "notifyRewardAmount(address,uint256)": FunctionFragment;
     "numCheckpoints(address)": FunctionFragment;
+    "operator()": FunctionFragment;
     "periodFinish(address)": FunctionFragment;
+    "registerRewardToken(address)": FunctionFragment;
+    "removeRewardToken(address)": FunctionFragment;
     "rewardPerToken(address)": FunctionFragment;
     "rewardPerTokenCheckpoints(address,uint256)": FunctionFragment;
     "rewardPerTokenNumCheckpoints(address)": FunctionFragment;
     "rewardPerTokenStored(address)": FunctionFragment;
     "rewardRate(address)": FunctionFragment;
-    "rewards(uint256)": FunctionFragment;
-    "rewardsListLength()": FunctionFragment;
-    "stake()": FunctionFragment;
+    "rewardTokens(uint256)": FunctionFragment;
+    "rewardTokensLength()": FunctionFragment;
     "supplyCheckpoints(uint256)": FunctionFragment;
     "supplyNumCheckpoints()": FunctionFragment;
     "tokenIds(address)": FunctionFragment;
     "totalSupply()": FunctionFragment;
+    "underlying()": FunctionFragment;
     "userRewardPerTokenStored(address,address)": FunctionFragment;
+    "ve()": FunctionFragment;
     "voter()": FunctionFragment;
     "withdraw(uint256)": FunctionFragment;
     "withdrawAll()": FunctionFragment;
     "withdrawToken(uint256,uint256)": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "_ve", values?: undefined): string;
   encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "batchRewardPerToken",
+    functionFragment: "batchUpdateRewardPerToken",
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "bribe", values?: undefined): string;
@@ -120,14 +121,13 @@ interface GaugeInterface extends ethers.utils.Interface {
     functionFragment: "getReward",
     values: [string, string[]]
   ): string;
-  encodeFunctionData(functionFragment: "isReward", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "isRewardToken",
+    values: [string]
+  ): string;
   encodeFunctionData(
     functionFragment: "lastEarn",
     values: [string, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "lastTimeRewardApplicable",
-    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "lastUpdateTime",
@@ -142,8 +142,17 @@ interface GaugeInterface extends ethers.utils.Interface {
     functionFragment: "numCheckpoints",
     values: [string]
   ): string;
+  encodeFunctionData(functionFragment: "operator", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "periodFinish",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "registerRewardToken",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "removeRewardToken",
     values: [string]
   ): string;
   encodeFunctionData(
@@ -164,14 +173,13 @@ interface GaugeInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "rewardRate", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "rewards",
+    functionFragment: "rewardTokens",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "rewardsListLength",
+    functionFragment: "rewardTokensLength",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "stake", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "supplyCheckpoints",
     values: [BigNumberish]
@@ -186,9 +194,14 @@ interface GaugeInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "underlying",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "userRewardPerTokenStored",
     values: [string, string]
   ): string;
+  encodeFunctionData(functionFragment: "ve", values?: undefined): string;
   encodeFunctionData(functionFragment: "voter", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "withdraw",
@@ -203,10 +216,9 @@ interface GaugeInterface extends ethers.utils.Interface {
     values: [BigNumberish, BigNumberish]
   ): string;
 
-  decodeFunctionResult(functionFragment: "_ve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "batchRewardPerToken",
+    functionFragment: "batchUpdateRewardPerToken",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "bribe", data: BytesLike): Result;
@@ -245,12 +257,11 @@ interface GaugeInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getReward", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "isReward", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "lastEarn", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "lastTimeRewardApplicable",
+    functionFragment: "isRewardToken",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "lastEarn", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "lastUpdateTime",
     data: BytesLike
@@ -264,8 +275,17 @@ interface GaugeInterface extends ethers.utils.Interface {
     functionFragment: "numCheckpoints",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "operator", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "periodFinish",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "registerRewardToken",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "removeRewardToken",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -285,12 +305,14 @@ interface GaugeInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "rewardRate", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "rewards", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "rewardsListLength",
+    functionFragment: "rewardTokens",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "stake", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "rewardTokensLength",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "supplyCheckpoints",
     data: BytesLike
@@ -304,10 +326,12 @@ interface GaugeInterface extends ethers.utils.Interface {
     functionFragment: "totalSupply",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "underlying", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "userRewardPerTokenStored",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "ve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "voter", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
   decodeFunctionResult(
@@ -321,16 +345,20 @@ interface GaugeInterface extends ethers.utils.Interface {
 
   events: {
     "ClaimFees(address,uint256,uint256)": EventFragment;
-    "ClaimRewards(address,address,uint256)": EventFragment;
-    "Deposit(address,uint256,uint256)": EventFragment;
+    "ClaimRewards(address,address,uint256,address)": EventFragment;
+    "Deposit(address,uint256)": EventFragment;
     "NotifyReward(address,address,uint256)": EventFragment;
-    "Withdraw(address,uint256,uint256)": EventFragment;
+    "VeTokenLocked(address,uint256)": EventFragment;
+    "VeTokenUnlocked(address,uint256)": EventFragment;
+    "Withdraw(address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "ClaimFees"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ClaimRewards"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Deposit"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "NotifyReward"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "VeTokenLocked"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "VeTokenUnlocked"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Withdraw"): EventFragment;
 }
 
@@ -343,19 +371,16 @@ export type ClaimFeesEvent = TypedEvent<
 >;
 
 export type ClaimRewardsEvent = TypedEvent<
-  [string, string, BigNumber] & {
+  [string, string, BigNumber, string] & {
     from: string;
     reward: string;
     amount: BigNumber;
+    recepient: string;
   }
 >;
 
 export type DepositEvent = TypedEvent<
-  [string, BigNumber, BigNumber] & {
-    from: string;
-    tokenId: BigNumber;
-    amount: BigNumber;
-  }
+  [string, BigNumber] & { from: string; amount: BigNumber }
 >;
 
 export type NotifyRewardEvent = TypedEvent<
@@ -366,12 +391,16 @@ export type NotifyRewardEvent = TypedEvent<
   }
 >;
 
+export type VeTokenLockedEvent = TypedEvent<
+  [string, BigNumber] & { account: string; tokenId: BigNumber }
+>;
+
+export type VeTokenUnlockedEvent = TypedEvent<
+  [string, BigNumber] & { account: string; tokenId: BigNumber }
+>;
+
 export type WithdrawEvent = TypedEvent<
-  [string, BigNumber, BigNumber] & {
-    from: string;
-    tokenId: BigNumber;
-    amount: BigNumber;
-  }
+  [string, BigNumber] & { from: string; amount: BigNumber }
 >;
 
 export class Gauge extends BaseContract {
@@ -418,11 +447,9 @@ export class Gauge extends BaseContract {
   interface: GaugeInterface;
 
   functions: {
-    _ve(overrides?: CallOverrides): Promise<[string]>;
-
     balanceOf(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    batchRewardPerToken(
+    batchUpdateRewardPerToken(
       token: string,
       maxRuns: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -435,7 +462,7 @@ export class Gauge extends BaseContract {
       arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber] & { timestamp: BigNumber; balanceOf: BigNumber }
+      [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
     >;
 
     claimFees(
@@ -498,16 +525,11 @@ export class Gauge extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    isReward(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
+    isRewardToken(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
 
     lastEarn(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    lastTimeRewardApplicable(
-      token: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
@@ -529,7 +551,19 @@ export class Gauge extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    operator(overrides?: CallOverrides): Promise<[string]>;
+
     periodFinish(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    registerRewardToken(
+      token: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    removeRewardToken(
+      token: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     rewardPerToken(
       token: string,
@@ -541,10 +575,7 @@ export class Gauge extends BaseContract {
       arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber] & {
-        timestamp: BigNumber;
-        rewardPerToken: BigNumber;
-      }
+      [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
     >;
 
     rewardPerTokenNumCheckpoints(
@@ -559,17 +590,18 @@ export class Gauge extends BaseContract {
 
     rewardRate(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    rewards(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
+    rewardTokens(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
-    rewardsListLength(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    stake(overrides?: CallOverrides): Promise<[string]>;
+    rewardTokensLength(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     supplyCheckpoints(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber] & { timestamp: BigNumber; supply: BigNumber }
+      [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
     >;
 
     supplyNumCheckpoints(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -578,11 +610,15 @@ export class Gauge extends BaseContract {
 
     totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    underlying(overrides?: CallOverrides): Promise<[string]>;
+
     userRewardPerTokenStored(
       arg0: string,
       arg1: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
+
+    ve(overrides?: CallOverrides): Promise<[string]>;
 
     voter(overrides?: CallOverrides): Promise<[string]>;
 
@@ -602,11 +638,9 @@ export class Gauge extends BaseContract {
     ): Promise<ContractTransaction>;
   };
 
-  _ve(overrides?: CallOverrides): Promise<string>;
-
   balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  batchRewardPerToken(
+  batchUpdateRewardPerToken(
     token: string,
     maxRuns: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -619,7 +653,7 @@ export class Gauge extends BaseContract {
     arg1: BigNumberish,
     overrides?: CallOverrides
   ): Promise<
-    [BigNumber, BigNumber] & { timestamp: BigNumber; balanceOf: BigNumber }
+    [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
   >;
 
   claimFees(
@@ -679,16 +713,11 @@ export class Gauge extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  isReward(arg0: string, overrides?: CallOverrides): Promise<boolean>;
+  isRewardToken(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
   lastEarn(
     arg0: string,
     arg1: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  lastTimeRewardApplicable(
-    token: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -704,7 +733,19 @@ export class Gauge extends BaseContract {
 
   numCheckpoints(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+  operator(overrides?: CallOverrides): Promise<string>;
+
   periodFinish(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  registerRewardToken(
+    token: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  removeRewardToken(
+    token: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   rewardPerToken(token: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -713,7 +754,7 @@ export class Gauge extends BaseContract {
     arg1: BigNumberish,
     overrides?: CallOverrides
   ): Promise<
-    [BigNumber, BigNumber] & { timestamp: BigNumber; rewardPerToken: BigNumber }
+    [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
   >;
 
   rewardPerTokenNumCheckpoints(
@@ -728,17 +769,15 @@ export class Gauge extends BaseContract {
 
   rewardRate(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  rewards(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+  rewardTokens(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-  rewardsListLength(overrides?: CallOverrides): Promise<BigNumber>;
-
-  stake(overrides?: CallOverrides): Promise<string>;
+  rewardTokensLength(overrides?: CallOverrides): Promise<BigNumber>;
 
   supplyCheckpoints(
     arg0: BigNumberish,
     overrides?: CallOverrides
   ): Promise<
-    [BigNumber, BigNumber] & { timestamp: BigNumber; supply: BigNumber }
+    [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
   >;
 
   supplyNumCheckpoints(overrides?: CallOverrides): Promise<BigNumber>;
@@ -747,11 +786,15 @@ export class Gauge extends BaseContract {
 
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
+  underlying(overrides?: CallOverrides): Promise<string>;
+
   userRewardPerTokenStored(
     arg0: string,
     arg1: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
+
+  ve(overrides?: CallOverrides): Promise<string>;
 
   voter(overrides?: CallOverrides): Promise<string>;
 
@@ -771,11 +814,9 @@ export class Gauge extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    _ve(overrides?: CallOverrides): Promise<string>;
-
     balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    batchRewardPerToken(
+    batchUpdateRewardPerToken(
       token: string,
       maxRuns: BigNumberish,
       overrides?: CallOverrides
@@ -788,7 +829,7 @@ export class Gauge extends BaseContract {
       arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber] & { timestamp: BigNumber; balanceOf: BigNumber }
+      [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
     >;
 
     claimFees(
@@ -850,16 +891,11 @@ export class Gauge extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    isReward(arg0: string, overrides?: CallOverrides): Promise<boolean>;
+    isRewardToken(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
     lastEarn(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    lastTimeRewardApplicable(
-      token: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -875,7 +911,16 @@ export class Gauge extends BaseContract {
 
     numCheckpoints(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    operator(overrides?: CallOverrides): Promise<string>;
+
     periodFinish(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    registerRewardToken(
+      token: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    removeRewardToken(token: string, overrides?: CallOverrides): Promise<void>;
 
     rewardPerToken(
       token: string,
@@ -887,10 +932,7 @@ export class Gauge extends BaseContract {
       arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber] & {
-        timestamp: BigNumber;
-        rewardPerToken: BigNumber;
-      }
+      [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
     >;
 
     rewardPerTokenNumCheckpoints(
@@ -905,17 +947,18 @@ export class Gauge extends BaseContract {
 
     rewardRate(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    rewards(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+    rewardTokens(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
-    rewardsListLength(overrides?: CallOverrides): Promise<BigNumber>;
-
-    stake(overrides?: CallOverrides): Promise<string>;
+    rewardTokensLength(overrides?: CallOverrides): Promise<BigNumber>;
 
     supplyCheckpoints(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber] & { timestamp: BigNumber; supply: BigNumber }
+      [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
     >;
 
     supplyNumCheckpoints(overrides?: CallOverrides): Promise<BigNumber>;
@@ -924,11 +967,15 @@ export class Gauge extends BaseContract {
 
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
+    underlying(overrides?: CallOverrides): Promise<string>;
+
     userRewardPerTokenStored(
       arg0: string,
       arg1: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    ve(overrides?: CallOverrides): Promise<string>;
 
     voter(overrides?: CallOverrides): Promise<string>;
 
@@ -962,40 +1009,40 @@ export class Gauge extends BaseContract {
       { from: string; claimed0: BigNumber; claimed1: BigNumber }
     >;
 
-    "ClaimRewards(address,address,uint256)"(
+    "ClaimRewards(address,address,uint256,address)"(
       from?: string | null,
       reward?: string | null,
-      amount?: null
+      amount?: null,
+      recepient?: null
     ): TypedEventFilter<
-      [string, string, BigNumber],
-      { from: string; reward: string; amount: BigNumber }
+      [string, string, BigNumber, string],
+      { from: string; reward: string; amount: BigNumber; recepient: string }
     >;
 
     ClaimRewards(
       from?: string | null,
       reward?: string | null,
-      amount?: null
+      amount?: null,
+      recepient?: null
     ): TypedEventFilter<
-      [string, string, BigNumber],
-      { from: string; reward: string; amount: BigNumber }
+      [string, string, BigNumber, string],
+      { from: string; reward: string; amount: BigNumber; recepient: string }
     >;
 
-    "Deposit(address,uint256,uint256)"(
+    "Deposit(address,uint256)"(
       from?: string | null,
-      tokenId?: null,
       amount?: null
     ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { from: string; tokenId: BigNumber; amount: BigNumber }
+      [string, BigNumber],
+      { from: string; amount: BigNumber }
     >;
 
     Deposit(
       from?: string | null,
-      tokenId?: null,
       amount?: null
     ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { from: string; tokenId: BigNumber; amount: BigNumber }
+      [string, BigNumber],
+      { from: string; amount: BigNumber }
     >;
 
     "NotifyReward(address,address,uint256)"(
@@ -1016,31 +1063,59 @@ export class Gauge extends BaseContract {
       { from: string; reward: string; amount: BigNumber }
     >;
 
-    "Withdraw(address,uint256,uint256)"(
+    "VeTokenLocked(address,uint256)"(
+      account?: string | null,
+      tokenId?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { account: string; tokenId: BigNumber }
+    >;
+
+    VeTokenLocked(
+      account?: string | null,
+      tokenId?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { account: string; tokenId: BigNumber }
+    >;
+
+    "VeTokenUnlocked(address,uint256)"(
+      account?: string | null,
+      tokenId?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { account: string; tokenId: BigNumber }
+    >;
+
+    VeTokenUnlocked(
+      account?: string | null,
+      tokenId?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { account: string; tokenId: BigNumber }
+    >;
+
+    "Withdraw(address,uint256)"(
       from?: string | null,
-      tokenId?: null,
       amount?: null
     ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { from: string; tokenId: BigNumber; amount: BigNumber }
+      [string, BigNumber],
+      { from: string; amount: BigNumber }
     >;
 
     Withdraw(
       from?: string | null,
-      tokenId?: null,
       amount?: null
     ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { from: string; tokenId: BigNumber; amount: BigNumber }
+      [string, BigNumber],
+      { from: string; amount: BigNumber }
     >;
   };
 
   estimateGas: {
-    _ve(overrides?: CallOverrides): Promise<BigNumber>;
-
     balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    batchRewardPerToken(
+    batchUpdateRewardPerToken(
       token: string,
       maxRuns: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1114,16 +1189,11 @@ export class Gauge extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    isReward(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    isRewardToken(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     lastEarn(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    lastTimeRewardApplicable(
-      token: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1139,7 +1209,19 @@ export class Gauge extends BaseContract {
 
     numCheckpoints(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    operator(overrides?: CallOverrides): Promise<BigNumber>;
+
     periodFinish(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    registerRewardToken(
+      token: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    removeRewardToken(
+      token: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     rewardPerToken(
       token: string,
@@ -1164,11 +1246,12 @@ export class Gauge extends BaseContract {
 
     rewardRate(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    rewards(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+    rewardTokens(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    rewardsListLength(overrides?: CallOverrides): Promise<BigNumber>;
-
-    stake(overrides?: CallOverrides): Promise<BigNumber>;
+    rewardTokensLength(overrides?: CallOverrides): Promise<BigNumber>;
 
     supplyCheckpoints(
       arg0: BigNumberish,
@@ -1181,11 +1264,15 @@ export class Gauge extends BaseContract {
 
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
+    underlying(overrides?: CallOverrides): Promise<BigNumber>;
+
     userRewardPerTokenStored(
       arg0: string,
       arg1: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    ve(overrides?: CallOverrides): Promise<BigNumber>;
 
     voter(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1206,14 +1293,12 @@ export class Gauge extends BaseContract {
   };
 
   populateTransaction: {
-    _ve(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     balanceOf(
       arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    batchRewardPerToken(
+    batchUpdateRewardPerToken(
       token: string,
       maxRuns: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1287,7 +1372,7 @@ export class Gauge extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    isReward(
+    isRewardToken(
       arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -1295,11 +1380,6 @@ export class Gauge extends BaseContract {
     lastEarn(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    lastTimeRewardApplicable(
-      token: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1324,9 +1404,21 @@ export class Gauge extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    operator(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     periodFinish(
       arg0: string,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    registerRewardToken(
+      token: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    removeRewardToken(
+      token: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     rewardPerToken(
@@ -1355,14 +1447,14 @@ export class Gauge extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    rewards(
+    rewardTokens(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    rewardsListLength(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    stake(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    rewardTokensLength(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     supplyCheckpoints(
       arg0: BigNumberish,
@@ -1380,11 +1472,15 @@ export class Gauge extends BaseContract {
 
     totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    underlying(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     userRewardPerTokenStored(
       arg0: string,
       arg1: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
+
+    ve(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     voter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

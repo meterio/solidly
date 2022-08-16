@@ -12,6 +12,7 @@ import {
   BaseContract,
   ContractTransaction,
   Overrides,
+  PayableOverrides,
   CallOverrides,
 } from "ethers";
 import { BytesLike } from "@ethersproject/bytes";
@@ -24,25 +25,29 @@ interface TokenInterface extends ethers.utils.Interface {
     "DOMAIN_SEPARATOR()": FunctionFragment;
     "PERMIT_TYPEHASH()": FunctionFragment;
     "allowance(address,address)": FunctionFragment;
-    "anyswapRouter()": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
     "balance(address)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "burn(address,uint256)": FunctionFragment;
-    "changeVault(address)": FunctionFragment;
     "claimFees()": FunctionFragment;
     "decimals()": FunctionFragment;
+    "deposit()": FunctionFragment;
+    "encode64(bytes)": FunctionFragment;
+    "hook(address,uint256,uint256,bytes)": FunctionFragment;
     "mint(address,uint256)": FunctionFragment;
     "name()": FunctionFragment;
     "nonces(address)": FunctionFragment;
-    "pendingAnyswapRouter()": FunctionFragment;
-    "pendingRouterDelay()": FunctionFragment;
     "permit(address,address,uint256,uint256,uint8,bytes32,bytes32)": FunctionFragment;
+    "sqrt(uint256)": FunctionFragment;
     "symbol()": FunctionFragment;
+    "testWrongCall()": FunctionFragment;
+    "testWrongCall2()": FunctionFragment;
+    "testWrongCheckpoint()": FunctionFragment;
     "token()": FunctionFragment;
     "totalSupply()": FunctionFragment;
     "transfer(address,uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
+    "withdraw(uint256)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -58,10 +63,6 @@ interface TokenInterface extends ethers.utils.Interface {
     values: [string, string]
   ): string;
   encodeFunctionData(
-    functionFragment: "anyswapRouter",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "approve",
     values: [string, BigNumberish]
   ): string;
@@ -71,23 +72,20 @@ interface TokenInterface extends ethers.utils.Interface {
     functionFragment: "burn",
     values: [string, BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "changeVault", values: [string]): string;
   encodeFunctionData(functionFragment: "claimFees", values?: undefined): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
+  encodeFunctionData(functionFragment: "deposit", values?: undefined): string;
+  encodeFunctionData(functionFragment: "encode64", values: [BytesLike]): string;
+  encodeFunctionData(
+    functionFragment: "hook",
+    values: [string, BigNumberish, BigNumberish, BytesLike]
+  ): string;
   encodeFunctionData(
     functionFragment: "mint",
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(functionFragment: "nonces", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "pendingAnyswapRouter",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "pendingRouterDelay",
-    values?: undefined
-  ): string;
   encodeFunctionData(
     functionFragment: "permit",
     values: [
@@ -100,7 +98,20 @@ interface TokenInterface extends ethers.utils.Interface {
       BytesLike
     ]
   ): string;
+  encodeFunctionData(functionFragment: "sqrt", values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "testWrongCall",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "testWrongCall2",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "testWrongCheckpoint",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "token", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
@@ -114,6 +125,10 @@ interface TokenInterface extends ethers.utils.Interface {
     functionFragment: "transferFrom",
     values: [string, string, BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "withdraw",
+    values: [BigNumberish]
+  ): string;
 
   decodeFunctionResult(
     functionFragment: "DOMAIN_SEPARATOR",
@@ -124,33 +139,33 @@ interface TokenInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "anyswapRouter",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "changeVault",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "claimFees", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "encode64", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "hook", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "nonces", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "pendingAnyswapRouter",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "pendingRouterDelay",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "permit", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "sqrt", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "testWrongCall",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "testWrongCall2",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "testWrongCheckpoint",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
@@ -161,6 +176,7 @@ interface TokenInterface extends ethers.utils.Interface {
     functionFragment: "transferFrom",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {
     "Approval(address,address,uint256)": EventFragment;
@@ -247,8 +263,6 @@ export class Token extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    anyswapRouter(overrides?: CallOverrides): Promise<[string]>;
-
     approve(
       _spender: string,
       _value: BigNumberish,
@@ -265,16 +279,23 @@ export class Token extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    changeVault(
-      _pendingRouter: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    claimFees(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    claimFees(overrides?: CallOverrides): Promise<[BigNumber, BigNumber]>;
 
     decimals(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    deposit(
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    encode64(data: BytesLike, overrides?: CallOverrides): Promise<[string]>;
+
+    hook(
+      arg0: string,
+      arg1: BigNumberish,
+      arg2: BigNumberish,
+      data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     mint(
       account: string,
@@ -285,10 +306,6 @@ export class Token extends BaseContract {
     name(overrides?: CallOverrides): Promise<[string]>;
 
     nonces(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    pendingAnyswapRouter(overrides?: CallOverrides): Promise<[string]>;
-
-    pendingRouterDelay(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     permit(
       owner: string,
@@ -301,7 +318,19 @@ export class Token extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    sqrt(value: BigNumberish, overrides?: CallOverrides): Promise<[BigNumber]>;
+
     symbol(overrides?: CallOverrides): Promise<[string]>;
+
+    testWrongCall(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    testWrongCall2(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    testWrongCheckpoint(overrides?: CallOverrides): Promise<[void]>;
 
     token(overrides?: CallOverrides): Promise<[string]>;
 
@@ -319,6 +348,11 @@ export class Token extends BaseContract {
       _value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    withdraw(
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
   };
 
   DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
@@ -330,8 +364,6 @@ export class Token extends BaseContract {
     arg1: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
-
-  anyswapRouter(overrides?: CallOverrides): Promise<string>;
 
   approve(
     _spender: string,
@@ -349,16 +381,23 @@ export class Token extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  changeVault(
-    _pendingRouter: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  claimFees(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  claimFees(overrides?: CallOverrides): Promise<[BigNumber, BigNumber]>;
 
   decimals(overrides?: CallOverrides): Promise<BigNumber>;
+
+  deposit(
+    overrides?: PayableOverrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  encode64(data: BytesLike, overrides?: CallOverrides): Promise<string>;
+
+  hook(
+    arg0: string,
+    arg1: BigNumberish,
+    arg2: BigNumberish,
+    data: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   mint(
     account: string,
@@ -369,10 +408,6 @@ export class Token extends BaseContract {
   name(overrides?: CallOverrides): Promise<string>;
 
   nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-  pendingAnyswapRouter(overrides?: CallOverrides): Promise<string>;
-
-  pendingRouterDelay(overrides?: CallOverrides): Promise<BigNumber>;
 
   permit(
     owner: string,
@@ -385,7 +420,19 @@ export class Token extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  sqrt(value: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
   symbol(overrides?: CallOverrides): Promise<string>;
+
+  testWrongCall(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  testWrongCall2(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  testWrongCheckpoint(overrides?: CallOverrides): Promise<void>;
 
   token(overrides?: CallOverrides): Promise<string>;
 
@@ -404,6 +451,11 @@ export class Token extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  withdraw(
+    wad: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
     DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
 
@@ -414,8 +466,6 @@ export class Token extends BaseContract {
       arg1: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
-
-    anyswapRouter(overrides?: CallOverrides): Promise<string>;
 
     approve(
       _spender: string,
@@ -433,14 +483,21 @@ export class Token extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    changeVault(
-      _pendingRouter: string,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
     claimFees(overrides?: CallOverrides): Promise<[BigNumber, BigNumber]>;
 
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
+
+    deposit(overrides?: CallOverrides): Promise<void>;
+
+    encode64(data: BytesLike, overrides?: CallOverrides): Promise<string>;
+
+    hook(
+      arg0: string,
+      arg1: BigNumberish,
+      arg2: BigNumberish,
+      data: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     mint(
       account: string,
@@ -451,10 +508,6 @@ export class Token extends BaseContract {
     name(overrides?: CallOverrides): Promise<string>;
 
     nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    pendingAnyswapRouter(overrides?: CallOverrides): Promise<string>;
-
-    pendingRouterDelay(overrides?: CallOverrides): Promise<BigNumber>;
 
     permit(
       owner: string,
@@ -467,7 +520,15 @@ export class Token extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    sqrt(value: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
     symbol(overrides?: CallOverrides): Promise<string>;
+
+    testWrongCall(overrides?: CallOverrides): Promise<void>;
+
+    testWrongCall2(overrides?: CallOverrides): Promise<void>;
+
+    testWrongCheckpoint(overrides?: CallOverrides): Promise<void>;
 
     token(overrides?: CallOverrides): Promise<string>;
 
@@ -485,6 +546,8 @@ export class Token extends BaseContract {
       _value: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    withdraw(wad: BigNumberish, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
@@ -554,8 +617,6 @@ export class Token extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    anyswapRouter(overrides?: CallOverrides): Promise<BigNumber>;
-
     approve(
       _spender: string,
       _value: BigNumberish,
@@ -572,16 +633,23 @@ export class Token extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    changeVault(
-      _pendingRouter: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    claimFees(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    claimFees(overrides?: CallOverrides): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
+
+    deposit(
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    encode64(data: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
+
+    hook(
+      arg0: string,
+      arg1: BigNumberish,
+      arg2: BigNumberish,
+      data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     mint(
       account: string,
@@ -592,10 +660,6 @@ export class Token extends BaseContract {
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
     nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    pendingAnyswapRouter(overrides?: CallOverrides): Promise<BigNumber>;
-
-    pendingRouterDelay(overrides?: CallOverrides): Promise<BigNumber>;
 
     permit(
       owner: string,
@@ -608,7 +672,19 @@ export class Token extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    sqrt(value: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
+
+    testWrongCall(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    testWrongCall2(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    testWrongCheckpoint(overrides?: CallOverrides): Promise<BigNumber>;
 
     token(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -626,6 +702,11 @@ export class Token extends BaseContract {
       _value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    withdraw(
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -638,8 +719,6 @@ export class Token extends BaseContract {
       arg1: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
-
-    anyswapRouter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     approve(
       _spender: string,
@@ -663,16 +742,26 @@ export class Token extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    changeVault(
-      _pendingRouter: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    claimFees(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    claimFees(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    deposit(
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    encode64(
+      data: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    hook(
+      arg0: string,
+      arg1: BigNumberish,
+      arg2: BigNumberish,
+      data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     mint(
       account: string,
@@ -687,14 +776,6 @@ export class Token extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    pendingAnyswapRouter(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    pendingRouterDelay(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     permit(
       owner: string,
       spender: string,
@@ -706,7 +787,24 @@ export class Token extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    sqrt(
+      value: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    testWrongCall(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    testWrongCall2(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    testWrongCheckpoint(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     token(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -722,6 +820,11 @@ export class Token extends BaseContract {
       _from: string,
       _to: string,
       _value: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    withdraw(
+      wad: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

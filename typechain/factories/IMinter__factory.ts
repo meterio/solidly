@@ -9,7 +9,7 @@ import type { IMinter, IMinterInterface } from "../IMinter";
 const _abi = [
   {
     inputs: [],
-    name: "update_period",
+    name: "updatePeriod",
     outputs: [
       {
         internalType: "uint256",

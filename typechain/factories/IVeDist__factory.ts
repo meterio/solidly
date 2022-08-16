@@ -9,14 +9,14 @@ import type { IVeDist, IVeDistInterface } from "../IVeDist";
 const _abi = [
   {
     inputs: [],
-    name: "checkpoint_token",
+    name: "checkpointToken",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [],
-    name: "checkpoint_total_supply",
+    name: "checkpointTotalSupply",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

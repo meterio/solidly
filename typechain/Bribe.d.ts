@@ -21,73 +21,88 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface BribeInterface extends ethers.utils.Interface {
   functions: {
-    "DURATION()": FunctionFragment;
-    "PRECISION()": FunctionFragment;
     "_deposit(uint256,uint256)": FunctionFragment;
-    "_ve()": FunctionFragment;
     "_withdraw(uint256,uint256)": FunctionFragment;
-    "balanceOf(uint256)": FunctionFragment;
-    "batchRewardPerToken(address,uint256)": FunctionFragment;
-    "checkpoints(uint256,uint256)": FunctionFragment;
-    "earned(address,uint256)": FunctionFragment;
-    "factory()": FunctionFragment;
-    "getPriorBalanceIndex(uint256,uint256)": FunctionFragment;
+    "addressToTokenId(address)": FunctionFragment;
+    "balanceOf(address)": FunctionFragment;
+    "batchUpdateRewardPerToken(address,uint256)": FunctionFragment;
+    "checkpoints(address,uint256)": FunctionFragment;
+    "derivedBalance(address)": FunctionFragment;
+    "derivedBalances(address)": FunctionFragment;
+    "derivedSupply()": FunctionFragment;
+    "earned(address,address)": FunctionFragment;
+    "getPriorBalanceIndex(address,uint256)": FunctionFragment;
     "getPriorRewardPerToken(address,uint256)": FunctionFragment;
     "getPriorSupplyIndex(uint256)": FunctionFragment;
     "getReward(uint256,address[])": FunctionFragment;
     "getRewardForOwner(uint256,address[])": FunctionFragment;
-    "isReward(address)": FunctionFragment;
-    "lastEarn(address,uint256)": FunctionFragment;
-    "lastTimeRewardApplicable(address)": FunctionFragment;
+    "isRewardToken(address)": FunctionFragment;
+    "lastEarn(address,address)": FunctionFragment;
     "lastUpdateTime(address)": FunctionFragment;
     "left(address)": FunctionFragment;
     "notifyRewardAmount(address,uint256)": FunctionFragment;
-    "numCheckpoints(uint256)": FunctionFragment;
+    "numCheckpoints(address)": FunctionFragment;
+    "operator()": FunctionFragment;
     "periodFinish(address)": FunctionFragment;
+    "registerRewardToken(address)": FunctionFragment;
+    "removeRewardToken(address)": FunctionFragment;
     "rewardPerToken(address)": FunctionFragment;
     "rewardPerTokenCheckpoints(address,uint256)": FunctionFragment;
     "rewardPerTokenNumCheckpoints(address)": FunctionFragment;
     "rewardPerTokenStored(address)": FunctionFragment;
     "rewardRate(address)": FunctionFragment;
-    "rewards(uint256)": FunctionFragment;
-    "rewardsListLength()": FunctionFragment;
+    "rewardTokens(uint256)": FunctionFragment;
+    "rewardTokensLength()": FunctionFragment;
     "supplyCheckpoints(uint256)": FunctionFragment;
     "supplyNumCheckpoints()": FunctionFragment;
+    "tokenIdToAddress(uint256)": FunctionFragment;
     "totalSupply()": FunctionFragment;
-    "userRewardPerTokenStored(address,uint256)": FunctionFragment;
+    "underlying()": FunctionFragment;
+    "userRewardPerTokenStored(address,address)": FunctionFragment;
+    "ve()": FunctionFragment;
+    "voter()": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "DURATION", values?: undefined): string;
-  encodeFunctionData(functionFragment: "PRECISION", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "_deposit",
     values: [BigNumberish, BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "_ve", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "_withdraw",
     values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "balanceOf",
-    values: [BigNumberish]
+    functionFragment: "addressToTokenId",
+    values: [string]
   ): string;
+  encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "batchRewardPerToken",
+    functionFragment: "batchUpdateRewardPerToken",
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "checkpoints",
-    values: [BigNumberish, BigNumberish]
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "derivedBalance",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "derivedBalances",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "derivedSupply",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "earned",
-    values: [string, BigNumberish]
+    values: [string, string]
   ): string;
-  encodeFunctionData(functionFragment: "factory", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getPriorBalanceIndex",
-    values: [BigNumberish, BigNumberish]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getPriorRewardPerToken",
@@ -105,14 +120,13 @@ interface BribeInterface extends ethers.utils.Interface {
     functionFragment: "getRewardForOwner",
     values: [BigNumberish, string[]]
   ): string;
-  encodeFunctionData(functionFragment: "isReward", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "lastEarn",
-    values: [string, BigNumberish]
+    functionFragment: "isRewardToken",
+    values: [string]
   ): string;
   encodeFunctionData(
-    functionFragment: "lastTimeRewardApplicable",
-    values: [string]
+    functionFragment: "lastEarn",
+    values: [string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "lastUpdateTime",
@@ -125,10 +139,19 @@ interface BribeInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "numCheckpoints",
-    values: [BigNumberish]
+    values: [string]
   ): string;
+  encodeFunctionData(functionFragment: "operator", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "periodFinish",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "registerRewardToken",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "removeRewardToken",
     values: [string]
   ): string;
   encodeFunctionData(
@@ -149,11 +172,11 @@ interface BribeInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "rewardRate", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "rewards",
+    functionFragment: "rewardTokens",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "rewardsListLength",
+    functionFragment: "rewardTokensLength",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -165,30 +188,52 @@ interface BribeInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "tokenIdToAddress",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "totalSupply",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "userRewardPerTokenStored",
-    values: [string, BigNumberish]
+    functionFragment: "underlying",
+    values?: undefined
   ): string;
+  encodeFunctionData(
+    functionFragment: "userRewardPerTokenStored",
+    values: [string, string]
+  ): string;
+  encodeFunctionData(functionFragment: "ve", values?: undefined): string;
+  encodeFunctionData(functionFragment: "voter", values?: undefined): string;
 
-  decodeFunctionResult(functionFragment: "DURATION", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "PRECISION", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "_deposit", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "_ve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "_withdraw", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "addressToTokenId",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "batchRewardPerToken",
+    functionFragment: "batchUpdateRewardPerToken",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "checkpoints",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "derivedBalance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "derivedBalances",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "derivedSupply",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "earned", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "factory", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getPriorBalanceIndex",
     data: BytesLike
@@ -206,12 +251,11 @@ interface BribeInterface extends ethers.utils.Interface {
     functionFragment: "getRewardForOwner",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "isReward", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "lastEarn", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "lastTimeRewardApplicable",
+    functionFragment: "isRewardToken",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "lastEarn", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "lastUpdateTime",
     data: BytesLike
@@ -225,8 +269,17 @@ interface BribeInterface extends ethers.utils.Interface {
     functionFragment: "numCheckpoints",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "operator", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "periodFinish",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "registerRewardToken",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "removeRewardToken",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -246,9 +299,12 @@ interface BribeInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "rewardRate", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "rewards", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "rewardsListLength",
+    functionFragment: "rewardTokens",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "rewardTokensLength",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -260,19 +316,26 @@ interface BribeInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "tokenIdToAddress",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "totalSupply",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "underlying", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "userRewardPerTokenStored",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "ve", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "voter", data: BytesLike): Result;
 
   events: {
-    "ClaimRewards(address,address,uint256)": EventFragment;
-    "Deposit(address,uint256,uint256)": EventFragment;
+    "ClaimRewards(address,address,uint256,address)": EventFragment;
+    "Deposit(address,uint256)": EventFragment;
     "NotifyReward(address,address,uint256)": EventFragment;
-    "Withdraw(address,uint256,uint256)": EventFragment;
+    "Withdraw(address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "ClaimRewards"): EventFragment;
@@ -282,19 +345,16 @@ interface BribeInterface extends ethers.utils.Interface {
 }
 
 export type ClaimRewardsEvent = TypedEvent<
-  [string, string, BigNumber] & {
+  [string, string, BigNumber, string] & {
     from: string;
     reward: string;
     amount: BigNumber;
+    recepient: string;
   }
 >;
 
 export type DepositEvent = TypedEvent<
-  [string, BigNumber, BigNumber] & {
-    from: string;
-    tokenId: BigNumber;
-    amount: BigNumber;
-  }
+  [string, BigNumber] & { from: string; amount: BigNumber }
 >;
 
 export type NotifyRewardEvent = TypedEvent<
@@ -306,11 +366,7 @@ export type NotifyRewardEvent = TypedEvent<
 >;
 
 export type WithdrawEvent = TypedEvent<
-  [string, BigNumber, BigNumber] & {
-    from: string;
-    tokenId: BigNumber;
-    amount: BigNumber;
-  }
+  [string, BigNumber] & { from: string; amount: BigNumber }
 >;
 
 export class Bribe extends BaseContract {
@@ -357,17 +413,11 @@ export class Bribe extends BaseContract {
   interface: BribeInterface;
 
   functions: {
-    DURATION(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    PRECISION(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     _deposit(
       amount: BigNumberish,
       tokenId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    _ve(overrides?: CallOverrides): Promise<[string]>;
 
     _withdraw(
       amount: BigNumberish,
@@ -375,35 +425,47 @@ export class Bribe extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    balanceOf(
-      arg0: BigNumberish,
+    addressToTokenId(
+      adr: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    batchRewardPerToken(
+    balanceOf(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    batchUpdateRewardPerToken(
       token: string,
       maxRuns: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     checkpoints(
-      arg0: BigNumberish,
+      arg0: string,
       arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber] & { timestamp: BigNumber; balanceOf: BigNumber }
+      [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
     >;
 
-    earned(
-      token: string,
-      tokenId: BigNumberish,
+    derivedBalance(
+      account: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    factory(overrides?: CallOverrides): Promise<[string]>;
+    derivedBalances(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    derivedSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    earned(
+      token: string,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     getPriorBalanceIndex(
-      tokenId: BigNumberish,
+      account: string,
       timestamp: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
@@ -431,16 +493,11 @@ export class Bribe extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    isReward(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
+    isRewardToken(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
 
     lastEarn(
       arg0: string,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    lastTimeRewardApplicable(
-      token: string,
+      arg1: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
@@ -458,11 +515,23 @@ export class Bribe extends BaseContract {
     ): Promise<ContractTransaction>;
 
     numCheckpoints(
-      arg0: BigNumberish,
+      arg0: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    operator(overrides?: CallOverrides): Promise<[string]>;
+
     periodFinish(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    registerRewardToken(
+      token: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    removeRewardToken(
+      token: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     rewardPerToken(
       token: string,
@@ -474,10 +543,7 @@ export class Bribe extends BaseContract {
       arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber] & {
-        timestamp: BigNumber;
-        rewardPerToken: BigNumber;
-      }
+      [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
     >;
 
     rewardPerTokenNumCheckpoints(
@@ -492,31 +558,41 @@ export class Bribe extends BaseContract {
 
     rewardRate(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    rewards(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
+    rewardTokens(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
-    rewardsListLength(overrides?: CallOverrides): Promise<[BigNumber]>;
+    rewardTokensLength(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     supplyCheckpoints(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber] & { timestamp: BigNumber; supply: BigNumber }
+      [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
     >;
 
     supplyNumCheckpoints(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    tokenIdToAddress(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
     totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    underlying(overrides?: CallOverrides): Promise<[string]>;
 
     userRewardPerTokenStored(
       arg0: string,
-      arg1: BigNumberish,
+      arg1: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
+
+    ve(overrides?: CallOverrides): Promise<[string]>;
+
+    voter(overrides?: CallOverrides): Promise<[string]>;
   };
-
-  DURATION(overrides?: CallOverrides): Promise<BigNumber>;
-
-  PRECISION(overrides?: CallOverrides): Promise<BigNumber>;
 
   _deposit(
     amount: BigNumberish,
@@ -524,40 +600,47 @@ export class Bribe extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  _ve(overrides?: CallOverrides): Promise<string>;
-
   _withdraw(
     amount: BigNumberish,
     tokenId: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  balanceOf(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+  addressToTokenId(adr: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  batchRewardPerToken(
+  balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  batchUpdateRewardPerToken(
     token: string,
     maxRuns: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   checkpoints(
-    arg0: BigNumberish,
+    arg0: string,
     arg1: BigNumberish,
     overrides?: CallOverrides
   ): Promise<
-    [BigNumber, BigNumber] & { timestamp: BigNumber; balanceOf: BigNumber }
+    [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
   >;
 
-  earned(
-    token: string,
-    tokenId: BigNumberish,
+  derivedBalance(
+    account: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  factory(overrides?: CallOverrides): Promise<string>;
+  derivedBalances(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  derivedSupply(overrides?: CallOverrides): Promise<BigNumber>;
+
+  earned(
+    token: string,
+    account: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   getPriorBalanceIndex(
-    tokenId: BigNumberish,
+    account: string,
     timestamp: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
@@ -585,16 +668,11 @@ export class Bribe extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  isReward(arg0: string, overrides?: CallOverrides): Promise<boolean>;
+  isRewardToken(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
   lastEarn(
     arg0: string,
-    arg1: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  lastTimeRewardApplicable(
-    token: string,
+    arg1: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -608,12 +686,21 @@ export class Bribe extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  numCheckpoints(
-    arg0: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  numCheckpoints(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  operator(overrides?: CallOverrides): Promise<string>;
 
   periodFinish(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  registerRewardToken(
+    token: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  removeRewardToken(
+    token: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   rewardPerToken(token: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -622,7 +709,7 @@ export class Bribe extends BaseContract {
     arg1: BigNumberish,
     overrides?: CallOverrides
   ): Promise<
-    [BigNumber, BigNumber] & { timestamp: BigNumber; rewardPerToken: BigNumber }
+    [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
   >;
 
   rewardPerTokenNumCheckpoints(
@@ -637,39 +724,44 @@ export class Bribe extends BaseContract {
 
   rewardRate(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  rewards(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+  rewardTokens(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-  rewardsListLength(overrides?: CallOverrides): Promise<BigNumber>;
+  rewardTokensLength(overrides?: CallOverrides): Promise<BigNumber>;
 
   supplyCheckpoints(
     arg0: BigNumberish,
     overrides?: CallOverrides
   ): Promise<
-    [BigNumber, BigNumber] & { timestamp: BigNumber; supply: BigNumber }
+    [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
   >;
 
   supplyNumCheckpoints(overrides?: CallOverrides): Promise<BigNumber>;
 
+  tokenIdToAddress(
+    tokenId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
+
+  underlying(overrides?: CallOverrides): Promise<string>;
 
   userRewardPerTokenStored(
     arg0: string,
-    arg1: BigNumberish,
+    arg1: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  ve(overrides?: CallOverrides): Promise<string>;
+
+  voter(overrides?: CallOverrides): Promise<string>;
+
   callStatic: {
-    DURATION(overrides?: CallOverrides): Promise<BigNumber>;
-
-    PRECISION(overrides?: CallOverrides): Promise<BigNumber>;
-
     _deposit(
       amount: BigNumberish,
       tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    _ve(overrides?: CallOverrides): Promise<string>;
 
     _withdraw(
       amount: BigNumberish,
@@ -677,35 +769,47 @@ export class Bribe extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    balanceOf(
-      arg0: BigNumberish,
+    addressToTokenId(
+      adr: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    batchRewardPerToken(
+    balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    batchUpdateRewardPerToken(
       token: string,
       maxRuns: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     checkpoints(
-      arg0: BigNumberish,
+      arg0: string,
       arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber] & { timestamp: BigNumber; balanceOf: BigNumber }
+      [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
     >;
 
-    earned(
-      token: string,
-      tokenId: BigNumberish,
+    derivedBalance(
+      account: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    factory(overrides?: CallOverrides): Promise<string>;
+    derivedBalances(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    derivedSupply(overrides?: CallOverrides): Promise<BigNumber>;
+
+    earned(
+      token: string,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     getPriorBalanceIndex(
-      tokenId: BigNumberish,
+      account: string,
       timestamp: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -733,16 +837,11 @@ export class Bribe extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    isReward(arg0: string, overrides?: CallOverrides): Promise<boolean>;
+    isRewardToken(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
     lastEarn(
       arg0: string,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    lastTimeRewardApplicable(
-      token: string,
+      arg1: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -756,12 +855,18 @@ export class Bribe extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    numCheckpoints(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    numCheckpoints(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    operator(overrides?: CallOverrides): Promise<string>;
 
     periodFinish(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    registerRewardToken(
+      token: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    removeRewardToken(token: string, overrides?: CallOverrides): Promise<void>;
 
     rewardPerToken(
       token: string,
@@ -773,10 +878,7 @@ export class Bribe extends BaseContract {
       arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber] & {
-        timestamp: BigNumber;
-        rewardPerToken: BigNumber;
-      }
+      [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
     >;
 
     rewardPerTokenNumCheckpoints(
@@ -791,63 +893,77 @@ export class Bribe extends BaseContract {
 
     rewardRate(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    rewards(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+    rewardTokens(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
-    rewardsListLength(overrides?: CallOverrides): Promise<BigNumber>;
+    rewardTokensLength(overrides?: CallOverrides): Promise<BigNumber>;
 
     supplyCheckpoints(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber] & { timestamp: BigNumber; supply: BigNumber }
+      [BigNumber, BigNumber] & { timestamp: BigNumber; value: BigNumber }
     >;
 
     supplyNumCheckpoints(overrides?: CallOverrides): Promise<BigNumber>;
 
+    tokenIdToAddress(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
+
+    underlying(overrides?: CallOverrides): Promise<string>;
 
     userRewardPerTokenStored(
       arg0: string,
-      arg1: BigNumberish,
+      arg1: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    ve(overrides?: CallOverrides): Promise<string>;
+
+    voter(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {
-    "ClaimRewards(address,address,uint256)"(
+    "ClaimRewards(address,address,uint256,address)"(
       from?: string | null,
       reward?: string | null,
-      amount?: null
+      amount?: null,
+      recepient?: null
     ): TypedEventFilter<
-      [string, string, BigNumber],
-      { from: string; reward: string; amount: BigNumber }
+      [string, string, BigNumber, string],
+      { from: string; reward: string; amount: BigNumber; recepient: string }
     >;
 
     ClaimRewards(
       from?: string | null,
       reward?: string | null,
-      amount?: null
+      amount?: null,
+      recepient?: null
     ): TypedEventFilter<
-      [string, string, BigNumber],
-      { from: string; reward: string; amount: BigNumber }
+      [string, string, BigNumber, string],
+      { from: string; reward: string; amount: BigNumber; recepient: string }
     >;
 
-    "Deposit(address,uint256,uint256)"(
+    "Deposit(address,uint256)"(
       from?: string | null,
-      tokenId?: null,
       amount?: null
     ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { from: string; tokenId: BigNumber; amount: BigNumber }
+      [string, BigNumber],
+      { from: string; amount: BigNumber }
     >;
 
     Deposit(
       from?: string | null,
-      tokenId?: null,
       amount?: null
     ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { from: string; tokenId: BigNumber; amount: BigNumber }
+      [string, BigNumber],
+      { from: string; amount: BigNumber }
     >;
 
     "NotifyReward(address,address,uint256)"(
@@ -868,37 +984,29 @@ export class Bribe extends BaseContract {
       { from: string; reward: string; amount: BigNumber }
     >;
 
-    "Withdraw(address,uint256,uint256)"(
+    "Withdraw(address,uint256)"(
       from?: string | null,
-      tokenId?: null,
       amount?: null
     ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { from: string; tokenId: BigNumber; amount: BigNumber }
+      [string, BigNumber],
+      { from: string; amount: BigNumber }
     >;
 
     Withdraw(
       from?: string | null,
-      tokenId?: null,
       amount?: null
     ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { from: string; tokenId: BigNumber; amount: BigNumber }
+      [string, BigNumber],
+      { from: string; amount: BigNumber }
     >;
   };
 
   estimateGas: {
-    DURATION(overrides?: CallOverrides): Promise<BigNumber>;
-
-    PRECISION(overrides?: CallOverrides): Promise<BigNumber>;
-
     _deposit(
       amount: BigNumberish,
       tokenId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
-
-    _ve(overrides?: CallOverrides): Promise<BigNumber>;
 
     _withdraw(
       amount: BigNumberish,
@@ -906,33 +1014,45 @@ export class Bribe extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    balanceOf(
-      arg0: BigNumberish,
+    addressToTokenId(
+      adr: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    batchRewardPerToken(
+    balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    batchUpdateRewardPerToken(
       token: string,
       maxRuns: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     checkpoints(
-      arg0: BigNumberish,
+      arg0: string,
       arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    earned(
-      token: string,
-      tokenId: BigNumberish,
+    derivedBalance(
+      account: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    factory(overrides?: CallOverrides): Promise<BigNumber>;
+    derivedBalances(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    derivedSupply(overrides?: CallOverrides): Promise<BigNumber>;
+
+    earned(
+      token: string,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     getPriorBalanceIndex(
-      tokenId: BigNumberish,
+      account: string,
       timestamp: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -960,16 +1080,11 @@ export class Bribe extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    isReward(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    isRewardToken(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     lastEarn(
       arg0: string,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    lastTimeRewardApplicable(
-      token: string,
+      arg1: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -983,12 +1098,21 @@ export class Bribe extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    numCheckpoints(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    numCheckpoints(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    operator(overrides?: CallOverrides): Promise<BigNumber>;
 
     periodFinish(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    registerRewardToken(
+      token: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    removeRewardToken(
+      token: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     rewardPerToken(
       token: string,
@@ -1013,9 +1137,12 @@ export class Bribe extends BaseContract {
 
     rewardRate(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    rewards(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+    rewardTokens(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    rewardsListLength(overrides?: CallOverrides): Promise<BigNumber>;
+    rewardTokensLength(overrides?: CallOverrides): Promise<BigNumber>;
 
     supplyCheckpoints(
       arg0: BigNumberish,
@@ -1024,27 +1151,32 @@ export class Bribe extends BaseContract {
 
     supplyNumCheckpoints(overrides?: CallOverrides): Promise<BigNumber>;
 
+    tokenIdToAddress(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
+
+    underlying(overrides?: CallOverrides): Promise<BigNumber>;
 
     userRewardPerTokenStored(
       arg0: string,
-      arg1: BigNumberish,
+      arg1: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    ve(overrides?: CallOverrides): Promise<BigNumber>;
+
+    voter(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    DURATION(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    PRECISION(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     _deposit(
       amount: BigNumberish,
       tokenId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
-
-    _ve(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     _withdraw(
       amount: BigNumberish,
@@ -1052,33 +1184,48 @@ export class Bribe extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    balanceOf(
-      arg0: BigNumberish,
+    addressToTokenId(
+      adr: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    batchRewardPerToken(
+    balanceOf(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    batchUpdateRewardPerToken(
       token: string,
       maxRuns: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     checkpoints(
-      arg0: BigNumberish,
+      arg0: string,
       arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    earned(
-      token: string,
-      tokenId: BigNumberish,
+    derivedBalance(
+      account: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    factory(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    derivedBalances(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    derivedSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    earned(
+      token: string,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     getPriorBalanceIndex(
-      tokenId: BigNumberish,
+      account: string,
       timestamp: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -1106,19 +1253,14 @@ export class Bribe extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    isReward(
+    isRewardToken(
       arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     lastEarn(
       arg0: string,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    lastTimeRewardApplicable(
-      token: string,
+      arg1: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1139,13 +1281,25 @@ export class Bribe extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     numCheckpoints(
-      arg0: BigNumberish,
+      arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
+
+    operator(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     periodFinish(
       arg0: string,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    registerRewardToken(
+      token: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    removeRewardToken(
+      token: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     rewardPerToken(
@@ -1174,12 +1328,14 @@ export class Bribe extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    rewards(
+    rewardTokens(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    rewardsListLength(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    rewardTokensLength(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     supplyCheckpoints(
       arg0: BigNumberish,
@@ -1190,12 +1346,23 @@ export class Bribe extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    tokenIdToAddress(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    underlying(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     userRewardPerTokenStored(
       arg0: string,
-      arg1: BigNumberish,
+      arg1: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
+
+    ve(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    voter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

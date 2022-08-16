@@ -23,7 +23,7 @@ interface VeInterface extends ethers.utils.Interface {
   functions: {
     "abstain(uint256)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
-    "attach(uint256)": FunctionFragment;
+    "attachToken(uint256)": FunctionFragment;
     "attachments(uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "balanceOfAtNFT(uint256,uint256)": FunctionFragment;
@@ -31,29 +31,29 @@ interface VeInterface extends ethers.utils.Interface {
     "balanceOfNFTAt(uint256,uint256)": FunctionFragment;
     "block_number()": FunctionFragment;
     "checkpoint()": FunctionFragment;
-    "create_lock(uint256,uint256)": FunctionFragment;
-    "create_lock_for(uint256,uint256,address)": FunctionFragment;
+    "controller()": FunctionFragment;
+    "createLock(uint256,uint256)": FunctionFragment;
+    "createLockFor(uint256,uint256,address)": FunctionFragment;
     "decimals()": FunctionFragment;
-    "deposit_for(uint256,uint256)": FunctionFragment;
-    "detach(uint256)": FunctionFragment;
+    "depositFor(uint256,uint256)": FunctionFragment;
+    "detachToken(uint256)": FunctionFragment;
     "epoch()": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
-    "get_last_user_slope(uint256)": FunctionFragment;
-    "increase_amount(uint256,uint256)": FunctionFragment;
-    "increase_unlock_time(uint256,uint256)": FunctionFragment;
+    "getLastUserSlope(uint256)": FunctionFragment;
+    "increaseAmount(uint256,uint256)": FunctionFragment;
+    "increaseUnlockTime(uint256,uint256)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
     "isApprovedOrOwner(address,uint256)": FunctionFragment;
     "locked(uint256)": FunctionFragment;
-    "locked__end(uint256)": FunctionFragment;
+    "lockedEnd(uint256)": FunctionFragment;
     "merge(uint256,uint256)": FunctionFragment;
     "name()": FunctionFragment;
     "ownerOf(uint256)": FunctionFragment;
-    "ownership_change(uint256)": FunctionFragment;
-    "point_history(uint256)": FunctionFragment;
+    "ownershipChange(uint256)": FunctionFragment;
+    "pointHistory(uint256)": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
-    "setVoter(address)": FunctionFragment;
-    "slope_changes(uint256)": FunctionFragment;
+    "slopeChanges(uint256)": FunctionFragment;
     "supply()": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "symbol()": FunctionFragment;
@@ -64,12 +64,11 @@ interface VeInterface extends ethers.utils.Interface {
     "totalSupplyAt(uint256)": FunctionFragment;
     "totalSupplyAtT(uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
-    "user_point_epoch(uint256)": FunctionFragment;
-    "user_point_history(uint256,uint256)": FunctionFragment;
-    "user_point_history__ts(uint256,uint256)": FunctionFragment;
+    "userPointEpoch(uint256)": FunctionFragment;
+    "userPointHistory(uint256,uint256)": FunctionFragment;
+    "userPointHistoryTs(uint256,uint256)": FunctionFragment;
     "version()": FunctionFragment;
     "voted(uint256)": FunctionFragment;
-    "voter()": FunctionFragment;
     "voting(uint256)": FunctionFragment;
     "withdraw(uint256)": FunctionFragment;
   };
@@ -83,7 +82,7 @@ interface VeInterface extends ethers.utils.Interface {
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "attach",
+    functionFragment: "attachToken",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -112,20 +111,24 @@ interface VeInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "create_lock",
+    functionFragment: "controller",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "createLock",
     values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "create_lock_for",
+    functionFragment: "createLockFor",
     values: [BigNumberish, BigNumberish, string]
   ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "deposit_for",
+    functionFragment: "depositFor",
     values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "detach",
+    functionFragment: "detachToken",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "epoch", values?: undefined): string;
@@ -134,15 +137,15 @@ interface VeInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "get_last_user_slope",
+    functionFragment: "getLastUserSlope",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "increase_amount",
+    functionFragment: "increaseAmount",
     values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "increase_unlock_time",
+    functionFragment: "increaseUnlockTime",
     values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
@@ -158,7 +161,7 @@ interface VeInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "locked__end",
+    functionFragment: "lockedEnd",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -171,11 +174,11 @@ interface VeInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "ownership_change",
+    functionFragment: "ownershipChange",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "point_history",
+    functionFragment: "pointHistory",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -186,9 +189,8 @@ interface VeInterface extends ethers.utils.Interface {
     functionFragment: "setApprovalForAll",
     values: [string, boolean]
   ): string;
-  encodeFunctionData(functionFragment: "setVoter", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "slope_changes",
+    functionFragment: "slopeChanges",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "supply", values?: undefined): string;
@@ -223,20 +225,19 @@ interface VeInterface extends ethers.utils.Interface {
     values: [string, string, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "user_point_epoch",
+    functionFragment: "userPointEpoch",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "user_point_history",
+    functionFragment: "userPointHistory",
     values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "user_point_history__ts",
+    functionFragment: "userPointHistoryTs",
     values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "version", values?: undefined): string;
   encodeFunctionData(functionFragment: "voted", values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: "voter", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "voting",
     values: [BigNumberish]
@@ -248,7 +249,10 @@ interface VeInterface extends ethers.utils.Interface {
 
   decodeFunctionResult(functionFragment: "abstain", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "attach", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "attachToken",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "attachments",
     data: BytesLike
@@ -271,35 +275,33 @@ interface VeInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "checkpoint", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "controller", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "createLock", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "create_lock",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "create_lock_for",
+    functionFragment: "createLockFor",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "depositFor", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "deposit_for",
+    functionFragment: "detachToken",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "detach", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "epoch", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getApproved",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "get_last_user_slope",
+    functionFragment: "getLastUserSlope",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "increase_amount",
+    functionFragment: "increaseAmount",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "increase_unlock_time",
+    functionFragment: "increaseUnlockTime",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -311,19 +313,16 @@ interface VeInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "locked", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "locked__end",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "lockedEnd", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "merge", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "ownerOf", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "ownership_change",
+    functionFragment: "ownershipChange",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "point_history",
+    functionFragment: "pointHistory",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -334,9 +333,8 @@ interface VeInterface extends ethers.utils.Interface {
     functionFragment: "setApprovalForAll",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "setVoter", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "slope_changes",
+    functionFragment: "slopeChanges",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "supply", data: BytesLike): Result;
@@ -368,20 +366,19 @@ interface VeInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "user_point_epoch",
+    functionFragment: "userPointEpoch",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "user_point_history",
+    functionFragment: "userPointHistory",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "user_point_history__ts",
+    functionFragment: "userPointHistoryTs",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "version", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "voted", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "voter", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "voting", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
@@ -424,7 +421,7 @@ export type DepositEvent = TypedEvent<
     tokenId: BigNumber;
     value: BigNumber;
     locktime: BigNumber;
-    deposit_type: number;
+    depositType: number;
     ts: BigNumber;
   }
 >;
@@ -501,7 +498,7 @@ export class Ve extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    attach(
+    attachToken(
       _tokenId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -536,28 +533,30 @@ export class Ve extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    create_lock(
+    controller(overrides?: CallOverrides): Promise<[string]>;
+
+    createLock(
       _value: BigNumberish,
-      _lock_duration: BigNumberish,
+      _lockDuration: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    create_lock_for(
+    createLockFor(
       _value: BigNumberish,
-      _lock_duration: BigNumberish,
+      _lockDuration: BigNumberish,
       _to: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
 
-    deposit_for(
+    depositFor(
       _tokenId: BigNumberish,
       _value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    detach(
+    detachToken(
       _tokenId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -569,20 +568,20 @@ export class Ve extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    get_last_user_slope(
+    getLastUserSlope(
       _tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    increase_amount(
+    increaseAmount(
       _tokenId: BigNumberish,
       _value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    increase_unlock_time(
+    increaseUnlockTime(
       _tokenId: BigNumberish,
-      _lock_duration: BigNumberish,
+      _lockDuration: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -603,7 +602,7 @@ export class Ve extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber, BigNumber] & { amount: BigNumber; end: BigNumber }>;
 
-    locked__end(
+    lockedEnd(
       _tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
@@ -621,21 +620,23 @@ export class Ve extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    ownership_change(
+    ownershipChange(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    point_history(
-      arg0: BigNumberish,
+    pointHistory(
+      _loc: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber, BigNumber, BigNumber] & {
-        bias: BigNumber;
-        slope: BigNumber;
-        ts: BigNumber;
-        blk: BigNumber;
-      }
+      [
+        [BigNumber, BigNumber, BigNumber, BigNumber] & {
+          bias: BigNumber;
+          slope: BigNumber;
+          ts: BigNumber;
+          blk: BigNumber;
+        }
+      ]
     >;
 
     "safeTransferFrom(address,address,uint256)"(
@@ -659,12 +660,7 @@ export class Ve extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setVoter(
-      _voter: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    slope_changes(
+    slopeChanges(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
@@ -710,25 +706,27 @@ export class Ve extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    user_point_epoch(
+    userPointEpoch(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    user_point_history(
-      arg0: BigNumberish,
-      arg1: BigNumberish,
+    userPointHistory(
+      _tokenId: BigNumberish,
+      _loc: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber, BigNumber, BigNumber] & {
-        bias: BigNumber;
-        slope: BigNumber;
-        ts: BigNumber;
-        blk: BigNumber;
-      }
+      [
+        [BigNumber, BigNumber, BigNumber, BigNumber] & {
+          bias: BigNumber;
+          slope: BigNumber;
+          ts: BigNumber;
+          blk: BigNumber;
+        }
+      ]
     >;
 
-    user_point_history__ts(
+    userPointHistoryTs(
       _tokenId: BigNumberish,
       _idx: BigNumberish,
       overrides?: CallOverrides
@@ -737,8 +735,6 @@ export class Ve extends BaseContract {
     version(overrides?: CallOverrides): Promise<[string]>;
 
     voted(arg0: BigNumberish, overrides?: CallOverrides): Promise<[boolean]>;
-
-    voter(overrides?: CallOverrides): Promise<[string]>;
 
     voting(
       _tokenId: BigNumberish,
@@ -762,7 +758,7 @@ export class Ve extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  attach(
+  attachToken(
     _tokenId: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -797,28 +793,30 @@ export class Ve extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  create_lock(
+  controller(overrides?: CallOverrides): Promise<string>;
+
+  createLock(
     _value: BigNumberish,
-    _lock_duration: BigNumberish,
+    _lockDuration: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  create_lock_for(
+  createLockFor(
     _value: BigNumberish,
-    _lock_duration: BigNumberish,
+    _lockDuration: BigNumberish,
     _to: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   decimals(overrides?: CallOverrides): Promise<number>;
 
-  deposit_for(
+  depositFor(
     _tokenId: BigNumberish,
     _value: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  detach(
+  detachToken(
     _tokenId: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -830,20 +828,20 @@ export class Ve extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
-  get_last_user_slope(
+  getLastUserSlope(
     _tokenId: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  increase_amount(
+  increaseAmount(
     _tokenId: BigNumberish,
     _value: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  increase_unlock_time(
+  increaseUnlockTime(
     _tokenId: BigNumberish,
-    _lock_duration: BigNumberish,
+    _lockDuration: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -864,7 +862,7 @@ export class Ve extends BaseContract {
     overrides?: CallOverrides
   ): Promise<[BigNumber, BigNumber] & { amount: BigNumber; end: BigNumber }>;
 
-  locked__end(
+  lockedEnd(
     _tokenId: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
@@ -879,13 +877,13 @@ export class Ve extends BaseContract {
 
   ownerOf(_tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-  ownership_change(
+  ownershipChange(
     arg0: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  point_history(
-    arg0: BigNumberish,
+  pointHistory(
+    _loc: BigNumberish,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber, BigNumber] & {
@@ -917,12 +915,7 @@ export class Ve extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setVoter(
-    _voter: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  slope_changes(
+  slopeChanges(
     arg0: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
@@ -965,14 +958,14 @@ export class Ve extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  user_point_epoch(
+  userPointEpoch(
     arg0: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  user_point_history(
-    arg0: BigNumberish,
-    arg1: BigNumberish,
+  userPointHistory(
+    _tokenId: BigNumberish,
+    _loc: BigNumberish,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber, BigNumber] & {
@@ -983,7 +976,7 @@ export class Ve extends BaseContract {
     }
   >;
 
-  user_point_history__ts(
+  userPointHistoryTs(
     _tokenId: BigNumberish,
     _idx: BigNumberish,
     overrides?: CallOverrides
@@ -992,8 +985,6 @@ export class Ve extends BaseContract {
   version(overrides?: CallOverrides): Promise<string>;
 
   voted(arg0: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
-
-  voter(overrides?: CallOverrides): Promise<string>;
 
   voting(
     _tokenId: BigNumberish,
@@ -1014,7 +1005,10 @@ export class Ve extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    attach(_tokenId: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    attachToken(
+      _tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     attachments(
       arg0: BigNumberish,
@@ -1044,28 +1038,33 @@ export class Ve extends BaseContract {
 
     checkpoint(overrides?: CallOverrides): Promise<void>;
 
-    create_lock(
+    controller(overrides?: CallOverrides): Promise<string>;
+
+    createLock(
       _value: BigNumberish,
-      _lock_duration: BigNumberish,
+      _lockDuration: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    create_lock_for(
+    createLockFor(
       _value: BigNumberish,
-      _lock_duration: BigNumberish,
+      _lockDuration: BigNumberish,
       _to: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<number>;
 
-    deposit_for(
+    depositFor(
       _tokenId: BigNumberish,
       _value: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    detach(_tokenId: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    detachToken(
+      _tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     epoch(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1074,20 +1073,20 @@ export class Ve extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
-    get_last_user_slope(
+    getLastUserSlope(
       _tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    increase_amount(
+    increaseAmount(
       _tokenId: BigNumberish,
       _value: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    increase_unlock_time(
+    increaseUnlockTime(
       _tokenId: BigNumberish,
-      _lock_duration: BigNumberish,
+      _lockDuration: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1108,7 +1107,7 @@ export class Ve extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber, BigNumber] & { amount: BigNumber; end: BigNumber }>;
 
-    locked__end(
+    lockedEnd(
       _tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -1123,13 +1122,13 @@ export class Ve extends BaseContract {
 
     ownerOf(_tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-    ownership_change(
+    ownershipChange(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    point_history(
-      arg0: BigNumberish,
+    pointHistory(
+      _loc: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber] & {
@@ -1161,9 +1160,7 @@ export class Ve extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setVoter(_voter: string, overrides?: CallOverrides): Promise<void>;
-
-    slope_changes(
+    slopeChanges(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -1209,14 +1206,14 @@ export class Ve extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    user_point_epoch(
+    userPointEpoch(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    user_point_history(
-      arg0: BigNumberish,
-      arg1: BigNumberish,
+    userPointHistory(
+      _tokenId: BigNumberish,
+      _loc: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber] & {
@@ -1227,7 +1224,7 @@ export class Ve extends BaseContract {
       }
     >;
 
-    user_point_history__ts(
+    userPointHistoryTs(
       _tokenId: BigNumberish,
       _idx: BigNumberish,
       overrides?: CallOverrides
@@ -1236,8 +1233,6 @@ export class Ve extends BaseContract {
     version(overrides?: CallOverrides): Promise<string>;
 
     voted(arg0: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
-
-    voter(overrides?: CallOverrides): Promise<string>;
 
     voting(_tokenId: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
@@ -1286,7 +1281,7 @@ export class Ve extends BaseContract {
       tokenId?: null,
       value?: null,
       locktime?: BigNumberish | null,
-      deposit_type?: null,
+      depositType?: null,
       ts?: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber, BigNumber, number, BigNumber],
@@ -1295,7 +1290,7 @@ export class Ve extends BaseContract {
         tokenId: BigNumber;
         value: BigNumber;
         locktime: BigNumber;
-        deposit_type: number;
+        depositType: number;
         ts: BigNumber;
       }
     >;
@@ -1305,7 +1300,7 @@ export class Ve extends BaseContract {
       tokenId?: null,
       value?: null,
       locktime?: BigNumberish | null,
-      deposit_type?: null,
+      depositType?: null,
       ts?: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber, BigNumber, number, BigNumber],
@@ -1314,7 +1309,7 @@ export class Ve extends BaseContract {
         tokenId: BigNumber;
         value: BigNumber;
         locktime: BigNumber;
-        deposit_type: number;
+        depositType: number;
         ts: BigNumber;
       }
     >;
@@ -1386,7 +1381,7 @@ export class Ve extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    attach(
+    attachToken(
       _tokenId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -1421,28 +1416,30 @@ export class Ve extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    create_lock(
+    controller(overrides?: CallOverrides): Promise<BigNumber>;
+
+    createLock(
       _value: BigNumberish,
-      _lock_duration: BigNumberish,
+      _lockDuration: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    create_lock_for(
+    createLockFor(
       _value: BigNumberish,
-      _lock_duration: BigNumberish,
+      _lockDuration: BigNumberish,
       _to: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
 
-    deposit_for(
+    depositFor(
       _tokenId: BigNumberish,
       _value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    detach(
+    detachToken(
       _tokenId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -1454,20 +1451,20 @@ export class Ve extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    get_last_user_slope(
+    getLastUserSlope(
       _tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    increase_amount(
+    increaseAmount(
       _tokenId: BigNumberish,
       _value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    increase_unlock_time(
+    increaseUnlockTime(
       _tokenId: BigNumberish,
-      _lock_duration: BigNumberish,
+      _lockDuration: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1485,7 +1482,7 @@ export class Ve extends BaseContract {
 
     locked(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
-    locked__end(
+    lockedEnd(
       _tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -1503,13 +1500,13 @@ export class Ve extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    ownership_change(
+    ownershipChange(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    point_history(
-      arg0: BigNumberish,
+    pointHistory(
+      _loc: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1534,12 +1531,7 @@ export class Ve extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setVoter(
-      _voter: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    slope_changes(
+    slopeChanges(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -1585,18 +1577,18 @@ export class Ve extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    user_point_epoch(
+    userPointEpoch(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    user_point_history(
-      arg0: BigNumberish,
-      arg1: BigNumberish,
+    userPointHistory(
+      _tokenId: BigNumberish,
+      _loc: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    user_point_history__ts(
+    userPointHistoryTs(
       _tokenId: BigNumberish,
       _idx: BigNumberish,
       overrides?: CallOverrides
@@ -1605,8 +1597,6 @@ export class Ve extends BaseContract {
     version(overrides?: CallOverrides): Promise<BigNumber>;
 
     voted(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
-
-    voter(overrides?: CallOverrides): Promise<BigNumber>;
 
     voting(
       _tokenId: BigNumberish,
@@ -1631,7 +1621,7 @@ export class Ve extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    attach(
+    attachToken(
       _tokenId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
@@ -1669,28 +1659,30 @@ export class Ve extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    create_lock(
+    controller(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    createLock(
       _value: BigNumberish,
-      _lock_duration: BigNumberish,
+      _lockDuration: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    create_lock_for(
+    createLockFor(
       _value: BigNumberish,
-      _lock_duration: BigNumberish,
+      _lockDuration: BigNumberish,
       _to: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    deposit_for(
+    depositFor(
       _tokenId: BigNumberish,
       _value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    detach(
+    detachToken(
       _tokenId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
@@ -1702,20 +1694,20 @@ export class Ve extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    get_last_user_slope(
+    getLastUserSlope(
       _tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    increase_amount(
+    increaseAmount(
       _tokenId: BigNumberish,
       _value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    increase_unlock_time(
+    increaseUnlockTime(
       _tokenId: BigNumberish,
-      _lock_duration: BigNumberish,
+      _lockDuration: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1736,7 +1728,7 @@ export class Ve extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    locked__end(
+    lockedEnd(
       _tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -1754,13 +1746,13 @@ export class Ve extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    ownership_change(
+    ownershipChange(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    point_history(
-      arg0: BigNumberish,
+    pointHistory(
+      _loc: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1785,12 +1777,7 @@ export class Ve extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    setVoter(
-      _voter: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    slope_changes(
+    slopeChanges(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -1836,18 +1823,18 @@ export class Ve extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    user_point_epoch(
+    userPointEpoch(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    user_point_history(
-      arg0: BigNumberish,
-      arg1: BigNumberish,
+    userPointHistory(
+      _tokenId: BigNumberish,
+      _loc: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    user_point_history__ts(
+    userPointHistoryTs(
       _tokenId: BigNumberish,
       _idx: BigNumberish,
       overrides?: CallOverrides
@@ -1859,8 +1846,6 @@ export class Ve extends BaseContract {
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
-
-    voter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     voting(
       _tokenId: BigNumberish,

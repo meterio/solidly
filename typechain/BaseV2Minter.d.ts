@@ -22,12 +22,12 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 interface BaseV2MinterInterface extends ethers.utils.Interface {
   functions: {
     "DEFAULT_ADMIN_ROLE()": FunctionFragment;
+    "VE_DIST_RATIO_MAX()": FunctionFragment;
     "_token()": FunctionFragment;
     "_ve()": FunctionFragment;
-    "_ve_dist()": FunctionFragment;
-    "_voter()": FunctionFragment;
-    "active_period()": FunctionFragment;
+    "activeperiod()": FunctionFragment;
     "adminSetVeRatio(uint256)": FunctionFragment;
+    "controller()": FunctionFragment;
     "getRoleAdmin(bytes32)": FunctionFragment;
     "getRoleMember(bytes32,uint256)": FunctionFragment;
     "getRoleMemberCount(bytes32)": FunctionFragment;
@@ -36,26 +36,31 @@ interface BaseV2MinterInterface extends ethers.utils.Interface {
     "hasRole(bytes32,address)": FunctionFragment;
     "renounceRole(bytes32,address)": FunctionFragment;
     "revokeRole(bytes32,address)": FunctionFragment;
-    "update_period()": FunctionFragment;
-    "ve_dist_ratio()": FunctionFragment;
-    "ve_dist_ratio_max()": FunctionFragment;
+    "updatePeriod()": FunctionFragment;
+    "veDistRatio()": FunctionFragment;
   };
 
   encodeFunctionData(
     functionFragment: "DEFAULT_ADMIN_ROLE",
     values?: undefined
   ): string;
+  encodeFunctionData(
+    functionFragment: "VE_DIST_RATIO_MAX",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "_token", values?: undefined): string;
   encodeFunctionData(functionFragment: "_ve", values?: undefined): string;
-  encodeFunctionData(functionFragment: "_ve_dist", values?: undefined): string;
-  encodeFunctionData(functionFragment: "_voter", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "active_period",
+    functionFragment: "activeperiod",
     values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "adminSetVeRatio",
     values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "controller",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getRoleAdmin",
@@ -90,15 +95,11 @@ interface BaseV2MinterInterface extends ethers.utils.Interface {
     values: [BytesLike, string]
   ): string;
   encodeFunctionData(
-    functionFragment: "update_period",
+    functionFragment: "updatePeriod",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "ve_dist_ratio",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "ve_dist_ratio_max",
+    functionFragment: "veDistRatio",
     values?: undefined
   ): string;
 
@@ -106,18 +107,21 @@ interface BaseV2MinterInterface extends ethers.utils.Interface {
     functionFragment: "DEFAULT_ADMIN_ROLE",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "VE_DIST_RATIO_MAX",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "_token", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "_ve", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "_ve_dist", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "_voter", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "active_period",
+    functionFragment: "activeperiod",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "adminSetVeRatio",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "controller", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getRoleAdmin",
     data: BytesLike
@@ -142,15 +146,11 @@ interface BaseV2MinterInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "update_period",
+    functionFragment: "updatePeriod",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "ve_dist_ratio",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "ve_dist_ratio_max",
+    functionFragment: "veDistRatio",
     data: BytesLike
   ): Result;
 
@@ -176,8 +176,8 @@ export type RoleRevokedEvent = TypedEvent<
 export type SendEvent = TypedEvent<
   [string, BigNumber, BigNumber] & {
     sender: string;
-    ve_dist_amount: BigNumber;
-    voter_amount: BigNumber;
+    veDistAmount: BigNumber;
+    voterAmount: BigNumber;
   }
 >;
 
@@ -227,20 +227,20 @@ export class BaseV2Minter extends BaseContract {
   functions: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>;
 
+    VE_DIST_RATIO_MAX(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     _token(overrides?: CallOverrides): Promise<[string]>;
 
     _ve(overrides?: CallOverrides): Promise<[string]>;
 
-    _ve_dist(overrides?: CallOverrides): Promise<[string]>;
-
-    _voter(overrides?: CallOverrides): Promise<[string]>;
-
-    active_period(overrides?: CallOverrides): Promise<[BigNumber]>;
+    activeperiod(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     adminSetVeRatio(
-      _ve_dist_ratio: BigNumberish,
+      _veDistRatio: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    controller(overrides?: CallOverrides): Promise<[string]>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<[string]>;
 
@@ -285,31 +285,29 @@ export class BaseV2Minter extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    update_period(
+    updatePeriod(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    ve_dist_ratio(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    ve_dist_ratio_max(overrides?: CallOverrides): Promise<[BigNumber]>;
+    veDistRatio(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
   DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+
+  VE_DIST_RATIO_MAX(overrides?: CallOverrides): Promise<BigNumber>;
 
   _token(overrides?: CallOverrides): Promise<string>;
 
   _ve(overrides?: CallOverrides): Promise<string>;
 
-  _ve_dist(overrides?: CallOverrides): Promise<string>;
-
-  _voter(overrides?: CallOverrides): Promise<string>;
-
-  active_period(overrides?: CallOverrides): Promise<BigNumber>;
+  activeperiod(overrides?: CallOverrides): Promise<BigNumber>;
 
   adminSetVeRatio(
-    _ve_dist_ratio: BigNumberish,
+    _veDistRatio: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  controller(overrides?: CallOverrides): Promise<string>;
 
   getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
 
@@ -354,31 +352,29 @@ export class BaseV2Minter extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  update_period(
+  updatePeriod(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  ve_dist_ratio(overrides?: CallOverrides): Promise<BigNumber>;
-
-  ve_dist_ratio_max(overrides?: CallOverrides): Promise<BigNumber>;
+  veDistRatio(overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+
+    VE_DIST_RATIO_MAX(overrides?: CallOverrides): Promise<BigNumber>;
 
     _token(overrides?: CallOverrides): Promise<string>;
 
     _ve(overrides?: CallOverrides): Promise<string>;
 
-    _ve_dist(overrides?: CallOverrides): Promise<string>;
-
-    _voter(overrides?: CallOverrides): Promise<string>;
-
-    active_period(overrides?: CallOverrides): Promise<BigNumber>;
+    activeperiod(overrides?: CallOverrides): Promise<BigNumber>;
 
     adminSetVeRatio(
-      _ve_dist_ratio: BigNumberish,
+      _veDistRatio: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    controller(overrides?: CallOverrides): Promise<string>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
 
@@ -423,11 +419,9 @@ export class BaseV2Minter extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    update_period(overrides?: CallOverrides): Promise<BigNumber>;
+    updatePeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
-    ve_dist_ratio(overrides?: CallOverrides): Promise<BigNumber>;
-
-    ve_dist_ratio_max(overrides?: CallOverrides): Promise<BigNumber>;
+    veDistRatio(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {
@@ -469,40 +463,40 @@ export class BaseV2Minter extends BaseContract {
 
     "Send(address,uint256,uint256)"(
       sender?: string | null,
-      ve_dist_amount?: null,
-      voter_amount?: null
+      veDistAmount?: null,
+      voterAmount?: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
-      { sender: string; ve_dist_amount: BigNumber; voter_amount: BigNumber }
+      { sender: string; veDistAmount: BigNumber; voterAmount: BigNumber }
     >;
 
     Send(
       sender?: string | null,
-      ve_dist_amount?: null,
-      voter_amount?: null
+      veDistAmount?: null,
+      voterAmount?: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
-      { sender: string; ve_dist_amount: BigNumber; voter_amount: BigNumber }
+      { sender: string; veDistAmount: BigNumber; voterAmount: BigNumber }
     >;
   };
 
   estimateGas: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
 
+    VE_DIST_RATIO_MAX(overrides?: CallOverrides): Promise<BigNumber>;
+
     _token(overrides?: CallOverrides): Promise<BigNumber>;
 
     _ve(overrides?: CallOverrides): Promise<BigNumber>;
 
-    _ve_dist(overrides?: CallOverrides): Promise<BigNumber>;
-
-    _voter(overrides?: CallOverrides): Promise<BigNumber>;
-
-    active_period(overrides?: CallOverrides): Promise<BigNumber>;
+    activeperiod(overrides?: CallOverrides): Promise<BigNumber>;
 
     adminSetVeRatio(
-      _ve_dist_ratio: BigNumberish,
+      _veDistRatio: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    controller(overrides?: CallOverrides): Promise<BigNumber>;
 
     getRoleAdmin(
       role: BytesLike,
@@ -550,13 +544,11 @@ export class BaseV2Minter extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    update_period(
+    updatePeriod(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    ve_dist_ratio(overrides?: CallOverrides): Promise<BigNumber>;
-
-    ve_dist_ratio_max(overrides?: CallOverrides): Promise<BigNumber>;
+    veDistRatio(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -564,20 +556,20 @@ export class BaseV2Minter extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    VE_DIST_RATIO_MAX(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     _token(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     _ve(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    _ve_dist(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    _voter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    active_period(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    activeperiod(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     adminSetVeRatio(
-      _ve_dist_ratio: BigNumberish,
+      _veDistRatio: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    controller(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getRoleAdmin(
       role: BytesLike,
@@ -625,12 +617,10 @@ export class BaseV2Minter extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    update_period(
+    updatePeriod(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    ve_dist_ratio(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    ve_dist_ratio_max(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    veDistRatio(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

@@ -23,7 +23,6 @@ interface IGaugeInterface extends ethers.utils.Interface {
   functions: {
     "claimFees()": FunctionFragment;
     "getReward(address,address[])": FunctionFragment;
-    "left(address)": FunctionFragment;
     "notifyRewardAmount(address,uint256)": FunctionFragment;
   };
 
@@ -32,7 +31,6 @@ interface IGaugeInterface extends ethers.utils.Interface {
     functionFragment: "getReward",
     values: [string, string[]]
   ): string;
-  encodeFunctionData(functionFragment: "left", values: [string]): string;
   encodeFunctionData(
     functionFragment: "notifyRewardAmount",
     values: [string, BigNumberish]
@@ -40,7 +38,6 @@ interface IGaugeInterface extends ethers.utils.Interface {
 
   decodeFunctionResult(functionFragment: "claimFees", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getReward", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "left", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "notifyRewardAmount",
     data: BytesLike
@@ -103,8 +100,6 @@ export class IGauge extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    left(token: string, overrides?: CallOverrides): Promise<[BigNumber]>;
-
     notifyRewardAmount(
       token: string,
       amount: BigNumberish,
@@ -121,8 +116,6 @@ export class IGauge extends BaseContract {
     tokens: string[],
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
-
-  left(token: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   notifyRewardAmount(
     token: string,
@@ -142,8 +135,6 @@ export class IGauge extends BaseContract {
       tokens: string[],
       overrides?: CallOverrides
     ): Promise<void>;
-
-    left(token: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     notifyRewardAmount(
       token: string,
@@ -165,8 +156,6 @@ export class IGauge extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    left(token: string, overrides?: CallOverrides): Promise<BigNumber>;
-
     notifyRewardAmount(
       token: string,
       amount: BigNumberish,
@@ -183,11 +172,6 @@ export class IGauge extends BaseContract {
       account: string,
       tokens: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    left(
-      token: string,
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     notifyRewardAmount(

@@ -68,25 +68,6 @@ const _abi = [
         name: "token",
         type: "address",
       },
-    ],
-    name: "left",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "token",
-        type: "address",
-      },
       {
         internalType: "uint256",
         name: "amount",

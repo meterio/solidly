@@ -21,25 +21,25 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface IVeDistInterface extends ethers.utils.Interface {
   functions: {
-    "checkpoint_token()": FunctionFragment;
-    "checkpoint_total_supply()": FunctionFragment;
+    "checkpointToken()": FunctionFragment;
+    "checkpointTotalSupply()": FunctionFragment;
   };
 
   encodeFunctionData(
-    functionFragment: "checkpoint_token",
+    functionFragment: "checkpointToken",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "checkpoint_total_supply",
+    functionFragment: "checkpointTotalSupply",
     values?: undefined
   ): string;
 
   decodeFunctionResult(
-    functionFragment: "checkpoint_token",
+    functionFragment: "checkpointToken",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "checkpoint_total_supply",
+    functionFragment: "checkpointTotalSupply",
     data: BytesLike
   ): Result;
 
@@ -90,47 +90,47 @@ export class IVeDist extends BaseContract {
   interface: IVeDistInterface;
 
   functions: {
-    checkpoint_token(
+    checkpointToken(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    checkpoint_total_supply(
+    checkpointTotalSupply(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
-  checkpoint_token(
+  checkpointToken(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  checkpoint_total_supply(
+  checkpointTotalSupply(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    checkpoint_token(overrides?: CallOverrides): Promise<void>;
+    checkpointToken(overrides?: CallOverrides): Promise<void>;
 
-    checkpoint_total_supply(overrides?: CallOverrides): Promise<void>;
+    checkpointTotalSupply(overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {};
 
   estimateGas: {
-    checkpoint_token(
+    checkpointToken(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    checkpoint_total_supply(
+    checkpointTotalSupply(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    checkpoint_token(
+    checkpointToken(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    checkpoint_total_supply(
+    checkpointTotalSupply(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

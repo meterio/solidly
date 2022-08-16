@@ -1,11 +1,8 @@
+## Dystopia
+[![codecov](https://codecov.io/gh/dystopia-exchange/dystopia-contracts/branch/master/graph/badge.svg?token=U94WAFLRT7)](https://codecov.io/gh/dystopia-exchange/dystopia-contracts)
 
 
-![alt text](header.png)
-
-[![codecov](https://codecov.io/gh/andrecronje/solidly/branch/master/graph/badge.svg?token=8AZBHZII04)](https://codecov.io/gh/andrecronje/solidly)
-
-
-Solidly allows low cost, near 0 slippage trades on uncorrelated or tightly correlated assets. The protocol incentivizes fees instead of liquidity. Liquidity providers (LPs) are given incentives in the form of `token`, the amount received is calculated as follows;
+Dystopia allows low cost, near 0 slippage trades on uncorrelated or tightly correlated assets. The protocol incentivizes fees instead of liquidity. Liquidity providers (LPs) are given incentives in the form of `token`, the amount received is calculated as follows;
 
 * 100% of weekly distribution weighted on votes from ve-token holders
 
@@ -15,9 +12,9 @@ LPs with 0 ve* balance, will earn a maximum of 40%.
 
 ## AMM
 
-What differentiates Solidly's AMM;
+What differentiates Dystopia's AMM;
 
-Solidly AMMs are compatible with all the standard features as popularized by Uniswap V2, these include;
+Dystopia AMMs are compatible with all the standard features as popularized by Uniswap V2, these include;
 
 * Lazy LP management
 * Fungible LP positions
@@ -27,7 +24,7 @@ Solidly AMMs are compatible with all the standard features as popularized by Uni
 * Direct LP rewards via `skim`
 * xy>=k
 
-Solidly adds on the following features;
+Dystopia adds on the following features;
 
 * 0 upkeep 30 minute TWAPs. This means no additional upkeep is required, you can quote directly from the pair
 * Fee split. Fees do not auto accrue, this allows external protocols to be able to profit from the fee claim
@@ -44,7 +41,7 @@ Solidly adds on the following features;
 
 Vested Escrow (ve), this is the core voting mechanism of the system, used by `BaseV1Factory` for gauge rewards and gauge voting.
 
-This is based off of ve(3,3) as proposed [here](https://andrecronje.medium.com/ve-3-3-44466eaa088b)
+This is based off of ve(3,3)
 
 * `deposit_for` deposits on behalf of
 * `emit Transfer` to allow compatibility with third party explorers
@@ -143,79 +140,77 @@ function vote(address[] calldata _poolVote, uint[] calldata _weights) external
 function distribute(address token) external
 ```
 
-### veNFT distribution recipients
+### veDYST distribution recipients
 
-| Name | Address | Qty |
-| :--- | :--- | :--- |
-| Multichain | 0x5bDacBaE440A2F30af96147DE964CC97FE283305 | 800000 |
-| 0xDAO | 0xa96D2F0978E317e7a97aDFf7b5A76F4600916021 | 2376588 |
-| SpookySwap | 0x95478C4F7D22D1048F46100001c2C69D2BA57380 | 1331994 |
-| Yearn Finance | 0xC0E2830724C946a6748dDFE09753613cd38f6767 | 1118072 |
-| veDAO | 0x3293cB515Dbc8E0A8Ab83f1E5F5f3CC2F6bbc7ba | 1070472 |
-| Curve | 0xffFfBBB50c131E664Ef375421094995C59808c97 | 1023840 |
-| Tomb Finance | 0x02517411F32ac2481753aD3045cA19D58e448A01 | 864361 |
-| Geist Finance | 0xf332789fae0d1d6f058bfb040b3c060d76d06574 | 812928 |
-| Beefy Finance | 0xdFf234670038dEfB2115Cf103F86dA5fB7CfD2D2 | 795726 |
-| RenVM | 0x0f2A144d711E7390d72BD474653170B201D504C8 | 763362 |
-| Synapse | 0x224002428cF0BA45590e0022DF4b06653058F22F | 727329 |
-| Radial | 0x26D70e4871EF565ef8C428e8782F1890B9255367 | 688233 |
-| Iron Bank | 0xA5fC0BbfcD05827ed582869b7254b6f141BA84Eb | 681101 |
-| SpiritSwap | 0x4D5362dd18Ea4Ba880c829B0152B7Ba371741E59 | 677507 |
-| Scream | 0x1e26D95599797f1cD24577ea91D99a9c97cf9C09 | 676304 |
-| Abracadabra | 0xb4ad8B57Bd6963912c80FCbb6Baea99988543c1c | 642992 |
-| SushiSwap | 0xF9E7d4c6d36ca311566f46c81E572102A2DC9F52 | 609195 |
-| Frax | 0xE838c61635dd1D41952c68E47159329443283d90 | 598412 |
-| Reaper Farm | 0x111731A388743a75CF60CCA7b140C58e41D83635 | 591573 |
-| Beethoven X | 0x0edfcc1b8d082cd46d13db694b849d7d8151c6d5 | 587431 |
-| Hundred Finance | 0xD0Bb8e4E4Dd5FDCD5D54f78263F5Ec8f33da4C95 | 542785 |
-| Morpheus Swap | 0x9685c79e7572faF11220d0F3a1C1ffF8B74fDc65 | 536754 |
-| Saddle | 0xa70b1d5956DAb595E47a1Be7dE8FaA504851D3c5 | 518240 |
-| Liquid Driver | 0x06917EFCE692CAD37A77a50B9BEEF6f4Cdd36422 | 511920 |
-| Tarot | 0x5b0390bccCa1F040d8993eB6e4ce8DeD93721765 | 452870 |
+| Name             | Address                                      | Qty           |
+|:-----------------|:---------------------------------------------|:--------------|
+| PolygonDAO       | 0x342952B86Bea9F2225f14D9f0dddDE070D1d0cC1   | 11,000,000.00 |
+| FRAX             | 0xDCB5A4b6Ee39447D700F4FA3303B1d1c25Ea9cA7   | 3,000,000.00  |
+| MAI              | 0x3FEACf904b152b1880bDE8BF04aC9Eb636fEE4d8   | 1,000,000.00  |
+| Aavegotchi       | 0xD4151c984e6CF33E04FFAAF06c3374B2926Ecc64   | 192,307.69    |
+| Adamant Finance  | 0x59cbff972fe0c19c881354a9cde52aca704da848   | 192,307.69    |
+| Beefy Finance    | 0xe37dD9A535c1D3c9fC33e3295B7e08bD1C42218D   | 192,307.69    |
+| CompliFi         | 0xa2722e04A1C70756AD297695e3c409507dc01341   | 192,307.69    |
+| Gains Network    | 0xeEc0974A7DBD8341A0aA07Ea95C61745aa691Cd9   | 192,307.69    |
+| GotchiVault      | 0x3F2c32b452c235218d6e1c3988E4B1F5F74afD4a   | 192,307.69    |
+| Impermax Finance | 0x3f81e3d58ff74B8b692e4936c310D3A5f333cF28   | 192,307.69    |
+| InsurAce         | 0xe96DAADd5d03F2f067965a466228f6D2CF4b3bD2   | 192,307.69    |
+| Jarvis Network   | 0x2709fa6FA31BD336455d4F96DdFC505b3ACA5A68   | 192,307.69    |
+| Klima DAO        | 0x65A5076C0BA74e5f3e069995dc3DAB9D197d995c   | 192,307.69    |
+| Kogefarm         | 0xb26adCEE4aDE6812b036b96d77A7E997Ddd0F611   | 192,307.69    |
+| Market           | 0xd6f81D154D0532906140ef37268BC8eD2A17e008   | 192,307.69    |
+| Mimo Defi        | 0x4A0b0189035D3d710aa9DA8a13174Dd904c77148   | 192,307.69    |
+| Multichain       | 0xe0c92587b8b2C1a8Bd069F1f0eB990fD42a2198F   | 192,307.69    |
+| pNetwork         | 0x6e321232bD0C4A223355B06eB6BeFB9975f5618e   | 192,307.69    |
+| PoolTogether     | 0x3feE50d2888F2F7106fcdC0120295EBA3ae59245   | 192,307.69    |
+| Ramp             | 0xB63428448De118A7A6B6622556BaDAcB409eA961   | 192,307.69    |
+| Solo Top         | 0xC1B43205C21071aF382587f9519d238240d8B4F3   | 192,307.69    |
+| Sphere Finance   | 0x20D61737f972EEcB0aF5f0a85ab358Cd083Dd56a   | 192,307.69    |
+| StakeDAO         | 0xaA8B91ba8d78A0dc9a74FaBc54B6c4CC76191B0c   | 192,307.69    |
+| Synapse          | 0xBdD38B2eaae34C9FCe187909e81e75CBec0dAA7A   | 192,307.69    |
+| Tetu             | 0xcc16d636dD05b52FF1D8B9CE09B09BC62b11412B   | 192,307.69    |
+| Tidal Finance    | 0x42B5bb174CfA09012581425EAF62De1d1185ac7C   | 192,307.69    |
+| Vesq             | 0x4F64c22FB06ab877Bf63f7064fA21C5c51cc85bf   | 192,307.69    |
+| Goodghosting     | 0xcc7b93e2aa199785ebd57ca563ecea7314afa875   | 192,307.69    |
+| OtterClam        | 0x929A27c46041196e1a49C7B459d63eC9A20cd879   | 192,307.69    |
 
-### Testnet deployment
 
-| Name | Address |
-| :--- | :--- |
-| wFTM| [0x27Ce41c3cb9AdB5Edb2d8bE253A1c6A64Db8c96d](https://testnet.ftmscan.com/address/0x27Ce41c3cb9AdB5Edb2d8bE253A1c6A64Db8c96d#code) |
-| USDT| [0x8ad96050318043166114884b59E2fc82210273b3](https://testnet.ftmscan.com/address/0x8ad96050318043166114884b59E2fc82210273b3#code) |
-| MIM | [0x976e33B07565b0c05B08b2e13AfFD3113e3D178d](https://testnet.ftmscan.com/address/0x976e33B07565b0c05B08b2e13AfFD3113e3D178d#code) |
-| Solid | [0x0DB76C03fFF8F9f8d6600ca1f9aC004FDB73d442](https://testnet.ftmscan.com/address/0x0DB76C03fFF8F9f8d6600ca1f9aC004FDB73d442#code) |
+### Mumbai deployment
 
-| Name | Address |
-| :--- | :--- |
-| BaseV1Factory | [0x7dbA586e00D868EeFA13fC549B63D62b4a45a244](https://testnet.ftmscan.com/address/0x7dbA586e00D868EeFA13fC549B63D62b4a45a244#code) |
-| BaseV1BribeFactory | [0xEc41c3165bc34eb5BDC66043FE3ac14617e4121c](https://testnet.ftmscan.com/address/0xEc41c3165bc34eb5BDC66043FE3ac14617e4121c#code) |
-| BaseV1GaugesFactory | [0x3CE2B6952be35024411F6dE5A8626aA052E81C06](https://testnet.ftmscan.com/address/0x3CE2B6952be35024411F6dE5A8626aA052E81C06#code) |
-| BaseV1Router01 | [0xD1D173c5d1de3175B32d3dDCB265BD00Ea9fEDf5](https://testnet.ftmscan.com/address/0xD1D173c5d1de3175B32d3dDCB265BD00Ea9fEDf5#code) |
-| BaseV1Voter | [0xDA0eBF84F7A52A06EaeB0409F139D6442262F056](https://testnet.ftmscan.com/address/0xDA0eBF84F7A52A06EaeB0409F139D6442262F056#code) |
-| veNFT | [0x74a91F1cEe46A20f5a15183aB54AEe89b015C21f](https://testnet.ftmscan.com/address/0x74a91F1cEe46A20f5a15183aB54AEe89b015C21f#code) |
-| veNFT-dist | [0xACCF9d3b4084f85540D24e0aad0bE2c5F13BCDE2](https://testnet.ftmscan.com/address/0xACCF9d3b4084f85540D24e0aad0bE2c5F13BCDE2#code) |
-| BaseV1Minter | [0x17C2074bb32d2B532ab479b6815ca1B50ff00024](https://testnet.ftmscan.com/address/0x17C2074bb32d2B532ab479b6815ca1B50ff00024#code) |
+| Name   | Address                                                                                                                                |
+|:-------|:---------------------------------------------------------------------------------------------------------------------------------------|
+| wMATIC | [0xe02f20BB33F8Bfb48eB907523435CA886e139A08](https://mumbai.polygonscan.com/address/0xe02f20BB33F8Bfb48eB907523435CA886e139A08#code)   |
+| USDT   | [0x801FC386bd0a7998EE162ffF32b793D0624f3476](https://mumbai.polygonscan.com/address/0x801FC386bd0a7998EE162ffF32b793D0624f3476#code)   |
+| MIM    | [0xe0695CD828B63C0E4b70fdD44d0f066560EE8CfE](https://mumbai.polygonscan.com/address/0xe0695CD828B63C0E4b70fdD44d0f066560EE8CfE#code)   |
+| DAI    | [0x1ac7b60D5dDeB00DF64C992c8c760463250Ca158](https://mumbai.polygonscan.com/address/0x1ac7b60D5dDeB00DF64C992c8c760463250Ca158#code)   |
 
-### Mainnet
+| Name                 | Address                                                                                                                               |
+|:---------------------|:--------------------------------------------------------------------------------------------------------------------------------------|
+| DystFactory          | [0xD0692d6C30cd7a383f227Ba1cB28EeCE2F050926](https://mumbai.polygonscan.com/address/0xD0692d6C30cd7a383f227Ba1cB28EeCE2F050926#code)  |
+| DystRouter01         | [0xe9EdEb5576ea876014e76A496B4c564756ddDAEF](https://mumbai.polygonscan.com/address/0xe9EdEb5576ea876014e76A496B4c564756ddDAEF#code)  |
+| GovernanceTreasury   | [0x463cA34bC5530819EE1467A18C1c48a1bB306B74](https://mumbai.polygonscan.com/address/0x463cA34bC5530819EE1467A18C1c48a1bB306B74#code)  |
+| BribeFactory         | [0x0C6868831c504Fb0bB61A54FEfC6464804380508](https://mumbai.polygonscan.com/address/0x0C6868831c504Fb0bB61A54FEfC6464804380508#code)  |
+| GaugesFactory        | [0xC9d5917A0cb82450Cd687AF31eCAaC967D7F121C](https://mumbai.polygonscan.com/address/0xC9d5917A0cb82450Cd687AF31eCAaC967D7F121C#code)  |
+| DYST                 | [0xD8a4054d63fCb0030BC73E2323344Ae59A19E92b](https://mumbai.polygonscan.com/address/0xD8a4054d63fCb0030BC73E2323344Ae59A19E92b#code)  |
+| DystMinter           | [0x08d7607b2FD46ae255040014a39CDC2094e55901](https://mumbai.polygonscan.com/address/0x08d7607b2FD46ae255040014a39CDC2094e55901#code)  |
+| DystVoter            | [0x75e1e98650c119c4E3dCE3070CE6A5397Ed70c6a](https://mumbai.polygonscan.com/address/0x75e1e98650c119c4E3dCE3070CE6A5397Ed70c6a#code)  |
+| Ve                   | [0xa4EB2E1284D9E30fb656Fe6b34c1680Ef5d4cBFC](https://mumbai.polygonscan.com/address/0xa4EB2E1284D9E30fb656Fe6b34c1680Ef5d4cBFC#code)  |
+| VeDist               | [0x0B62ad43837A69Ad60289EEea7C6e907e759F6E8](https://mumbai.polygonscan.com/address/0x0B62ad43837A69Ad60289EEea7C6e907e759F6E8#code)  |
+| Controller           | [0xC363F3D4e1C005bf5321040653A088F71Bb974Ab](https://mumbai.polygonscan.com/address/0xC363F3D4e1C005bf5321040653A088F71Bb974Ab#code)  |
 
-| Name | Address |
-| :--- | :--- |
-| wFTM| [0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83](https://ftmscan.com/address/0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83#code) |
-| Solid | [0x888EF71766ca594DED1F0FA3AE64eD2941740A20](https://ftmscan.com/address/0x888EF71766ca594DED1F0FA3AE64eD2941740A20#code) |
-| BaseV1Factory | [0x3fAaB499b519fdC5819e3D7ed0C26111904cbc28](https://ftmscan.com/address/0x3fAaB499b519fdC5819e3D7ed0C26111904cbc28#code) |
-| BaseV1BribeFactory | [0xD0333A1A1AbFD68B362c5aA71B95392745381379](https://ftmscan.com/address/0xD0333A1A1AbFD68B362c5aA71B95392745381379#code) |
-| BaseV1GaugesFactory | [0x25d220723ED3D9C55fDb9CfDddF044b52639ccae](https://ftmscan.com/address/0x25d220723ED3D9C55fDb9CfDddF044b52639ccae#code) |
-| BaseV1Router01 | [0xa38cd27185a464914D3046f0AB9d43356B34829D](https://ftmscan.com/address/0xa38cd27185a464914D3046f0AB9d43356B34829D#code) |
-| BaseV1Voter | [0xdC819F5d05a6859D2faCbB4A44E5aB105762dbaE](https://ftmscan.com/address/0xdC819F5d05a6859D2faCbB4A44E5aB105762dbaE#code) |
-| veNFT | [0xcBd8fEa77c2452255f59743f55A3Ea9d83b3c72b](https://ftmscan.com/address/0xcBd8fEa77c2452255f59743f55A3Ea9d83b3c72b#code) |
-| veNFT-dist | [0xA5CEfAC8966452a78d6692837b2ba83d19b57d07](https://ftmscan.com/address/0xA5CEfAC8966452a78d6692837b2ba83d19b57d07#code) |
-| BaseV1Minter | [0xC4209c19b183e72A037b2D1Fb11fbe522054A90D](https://ftmscan.com/address/0xC4209c19b183e72A037b2D1Fb11fbe522054A90D#code) |
 
-## Security
+### Polygon deployment
 
-- [Immunefi Bug Bounty Program](https://immunefi.com/bounty/solidly/)  
-- [Bug Bounty Program](https://github.com/andrecronje/solidly/blob/master/SECURITY.md)  
-
-* [MythX: voter.sol](https://github.com/andrecronje/solidly/blob/master/audits/17faf962f99a7e7e3f26f8bc.pdf)
-* [MythX: ve.sol](https://github.com/andrecronje/solidly/blob/master/audits/4094394a6bc512d57672533c.pdf)
-* [MythX: gauges.sol](https://github.com/andrecronje/solidly/blob/master/audits/4212b799deea3d9dd8f8620e.pdf)
-* [MythX: core.sol](https://github.com/andrecronje/solidly/blob/master/audits/79effbd69276f2d16698b72d.pdf)
-* [MythX: minter.sol](https://github.com/andrecronje/solidly/blob/master/audits/dea98051d23c85bcaa80dc5a.pdf)
-* [PeckShield](https://github.com/andrecronje/solidly/blob/master/audits/e456a816-3802-4384-894c-825a4177245a.pdf)
+| Name                | Address                                                                                                                   |
+|:--------------------|:--------------------------------------------------------------------------------------------------------------------------|
+| DystFactory         | [0x1d21Db6cde1b18c7E47B0F7F42f4b3F68b9beeC9](https://polygonscan.com/address/0x1d21Db6cde1b18c7E47B0F7F42f4b3F68b9beeC9)  |
+| DystRouter01        | [0xbE75Dd16D029c6B32B7aD57A0FD9C1c20Dd2862e](https://polygonscan.com/address/0xbE75Dd16D029c6B32B7aD57A0FD9C1c20Dd2862e)  |
+| GovernanceTreasury  | [0xBd51042D3A9EF62d4d93013315AE96A0c1760d7E](https://polygonscan.com/address/0xBd51042D3A9EF62d4d93013315AE96A0c1760d7E)  |
+| BribeFactory        | [0x7adD42D9c53Df14C1bC2507034F63b0AC924345F](https://polygonscan.com/address/0x7adD42D9c53Df14C1bC2507034F63b0AC924345F)  |
+| GaugesFactory       | [0x719BfE5213AF9c2523E9f46b86cc70EB8b7F530F](https://polygonscan.com/address/0x719BfE5213AF9c2523E9f46b86cc70EB8b7F530F)  |
+| DYST                | [0x39aB6574c289c3Ae4d88500eEc792AB5B947A5Eb](https://polygonscan.com/address/0x39aB6574c289c3Ae4d88500eEc792AB5B947A5Eb)  |
+| DystMinter          | [0xAda8e498cbb580937F72b6FEa696cAB1EE9E22B2](https://polygonscan.com/address/0xAda8e498cbb580937F72b6FEa696cAB1EE9E22B2)  |
+| DystVoter           | [0x649BdF58B09A0Cd4Ac848b42c4B5e1390A72A49A](https://polygonscan.com/address/0x649BdF58B09A0Cd4Ac848b42c4B5e1390A72A49A)  |
+| veDYST              | [0x060fa7aD32C510F12550c7a967999810dafC5697](https://polygonscan.com/address/0x060fa7aD32C510F12550c7a967999810dafC5697)  |
+| VeDist              | [0x3EfB1b284a3EBa3955c53b728a2Cc4182a07e92F](https://polygonscan.com/address/0x3EfB1b284a3EBa3955c53b728a2Cc4182a07e92F)  |
+| Controller          | [0x7377eA6Afb77Ba013B23306154691c231824522a](https://polygonscan.com/address/0x7377eA6Afb77Ba013B23306154691c231824522a)  |
