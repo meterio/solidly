@@ -3,22 +3,22 @@ import {ethers} from "hardhat";
 import {Verify} from "../../Verify";
 import {Misc} from "../../Misc";
 import {BigNumber} from "ethers";
-import {MaticTestnetAddresses} from "../../addresses/MaticTestnetAddresses";
+import {MeterTestnetAddresses} from "../../addresses/MeterTestnetAddresses";
 import {writeFileSync} from "fs";
 import {parseUnits} from "ethers/lib/utils";
-import {MaticAddresses} from "../../addresses/MaticAddresses";
+import {MeterAddresses} from "../../addresses/MeterAddresses";
 
 
 const voterTokens = [
-  MaticAddresses.WMATIC_TOKEN,
-  MaticAddresses.WETH_TOKEN,
-  MaticAddresses.USDC_TOKEN,
-  MaticAddresses.WBTC_TOKEN,
-  MaticAddresses.FRAX_TOKEN,
-  MaticAddresses.DAI_TOKEN,
-  MaticAddresses.USDT_TOKEN,
-  MaticAddresses.UST_TOKEN,
-  MaticAddresses.MAI_TOKEN,
+  MeterAddresses.WMTR_TOKEN,
+  MeterAddresses.WETH_TOKEN,
+  MeterAddresses.USDC_TOKEN,
+  MeterAddresses.WBTC_TOKEN,
+  MeterAddresses.FRAX_TOKEN,
+  MeterAddresses.DAI_TOKEN,
+  MeterAddresses.USDT_TOKEN,
+  MeterAddresses.UST_TOKEN,
+  MeterAddresses.MAI_TOKEN,
 ];
 
 const claimants = [
@@ -107,9 +107,9 @@ async function main() {
     veDist,
     voter,
     minter,
-  ] = await Deploy.deployDystSystem(
+  ] = await Deploy.deployVoltSystem(
     signer,
-    MaticTestnetAddresses.WMATIC_TOKEN,
+    MeterTestnetAddresses.WMTR_TOKEN,
     voterTokens,
     claimants,
     claimantsAmounts,

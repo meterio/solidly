@@ -1,8 +1,9 @@
-import {ethers} from "hardhat";
-import {Logger} from "tslog";
+import { ethers } from "hardhat";
+import { Logger } from "tslog";
 import Common from "ethereumjs-common";
 import logSettings from "../log_settings";
-import {BigNumber, ContractTransaction} from "ethers";
+import { BigNumber, ContractTransaction } from "ethers";
+import { writeFileSync, mkdirSync, existsSync, readFileSync } from "fs";
 
 // tslint:disable-next-line:no-var-requires
 const hre = require("hardhat");
@@ -10,10 +11,10 @@ const log: Logger = new Logger(logSettings);
 
 const MATIC_CHAIN = Common.forCustomChain(
   'mainnet', {
-    name: 'matic',
-    networkId: 137,
-    chainId: 137
-  },
+  name: 'matic',
+  networkId: 137,
+  chainId: 137
+},
   'petersburg'
 );
 
@@ -94,6 +95,36 @@ export class Misc {
     return ethers.getSigner(address);
   }
 
+  public static saveFile(
+    chainId: number,
+    name: string,
+    address: string
+  ) {
+    const nameArr = name.split(":");
+    const contractName = nameArr.length > 1 ? nameArr[1] : nameArr[0];
+    const path = `./deployments/${chainId}/`;
+    const file = `${contractName}.json`;
+
+    mkdirSync(path, { recursive: true });
+
+    writeFileSync(path + file, JSON.stringify({
+      address: address,
+      contract: name
+    }));
+  }
+
+  public static getContract(chainId: number, name: string) {
+    const nameArr = name.split(":");
+    const contractName = nameArr.length > 1 ? nameArr[1] : nameArr[0];
+    const path = `./deployments/${chainId}/`;
+    const latest = `${contractName}.json`;
+
+    if (existsSync(path + latest)) {
+      return JSON.parse(readFileSync(path + latest).toString());
+    } else {
+      return { address: ethers.constants.AddressZero };
+    }
+  }
 
   // ****************** WAIT ******************
 

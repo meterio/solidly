@@ -73,9 +73,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.DystMinter__factory>;
     getContractFactory(
-      name: "BaseV2Minter",
+      name: "Minter",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.BaseV2Minter__factory>;
+    ): Promise<Contracts.Minter__factory>;
     getContractFactory(
       name: "Volt",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -213,9 +213,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.BrokenWMATIC__factory>;
     getContractFactory(
-      name: "BrokenWMATIC",
+      name: "BrokenWMTR",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.BrokenWMATIC__factory>;
+    ): Promise<Contracts.BrokenWMTR__factory>;
     getContractFactory(
       name: "ContractTestHelper",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -333,10 +333,10 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.DystMinter>;
     getContractAt(
-      name: "BaseV2Minter",
+      name: "Minter",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.BaseV2Minter>;
+    ): Promise<Contracts.Minter>;
     getContractAt(
       name: "Volt",
       address: string,
@@ -508,10 +508,10 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.BrokenWMATIC>;
     getContractAt(
-      name: "BrokenWMATIC",
+      name: "BrokenWMTR",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.BrokenWMATIC>;
+    ): Promise<Contracts.BrokenWMTR>;
     getContractAt(
       name: "ContractTestHelper",
       address: string,

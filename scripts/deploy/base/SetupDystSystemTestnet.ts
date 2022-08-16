@@ -3,10 +3,10 @@ import {ethers} from "hardhat";
 import {Verify} from "../../Verify";
 import {Misc} from "../../Misc";
 import {BigNumber} from "ethers";
-import {MaticTestnetAddresses} from "../../addresses/MaticTestnetAddresses";
+import {MaticTestnetAddresses} from "../../addresses/MeterTestnetAddresses";
 import {writeFileSync} from "fs";
 import {parseUnits} from "ethers/lib/utils";
-import {MaticAddresses} from "../../addresses/MaticAddresses";
+import {MaticAddresses} from "../../addresses/MeterAddresses";
 
 
 const voterTokens = [

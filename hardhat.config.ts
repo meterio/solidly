@@ -9,7 +9,8 @@ import "hardhat-contract-sizer";
 import "hardhat-gas-reporter";
 import "hardhat-tracer";
 import "hardhat-etherscan-abi";
-import "solidity-coverage"
+import "solidity-coverage";
+import "hardhat-deploy";
 
 dotEnvConfig();
 // tslint:disable-next-line:no-var-requires
@@ -35,6 +36,14 @@ const argv = require('yargs/yargs')()
     ftmRpcUrl: {
       type: "string",
       default: ''
+    },
+    meterTestRpcUrl: {
+      type: "string",
+      default: 'https://rpctest.meter.io'
+    },
+    meterMainRpcUrl: {
+      type: "string",
+      default: 'https://rpc.meter.io'
     },
     networkScanKey: {
       type: "string",
@@ -106,6 +115,20 @@ export default {
       timeout: 99999,
       accounts: [argv.privateKey],
     },
+    metertest: {
+      url: argv.meterTestRpcUrl,
+      chainId: 83,
+      timeout: 99999,
+      gasPrice: 500000000000,
+      accounts: [process.env.PRIVATE_KEY_0, process.env.PRIVATE_KEY_1],
+    },
+    metermain: {
+      url: argv.meterMainRpcUrl,
+      chainId: 82,
+      timeout: 99999,
+      gasPrice: 500000000000,
+      accounts: [process.env.PRIVATE_KEY_0, process.env.PRIVATE_KEY_1],
+    },
   },
   etherscan: {
     apiKey: argv.networkScanKey
@@ -118,6 +141,21 @@ export default {
           optimizer: {
             enabled: true,
             runs: 200,
+          },
+          outputSelection: {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
           }
         }
       },

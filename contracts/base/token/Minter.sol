@@ -10,7 +10,7 @@ import "../../interface/IVeDist.sol";
 import "../../interface/IController.sol";
 import "../../lib/AccessControl.sol";
 
-contract BaseV2Minter is AccessControl {
+contract Minter is AccessControl {
     uint256 internal constant _MONTH = 86400 * 7 * 4; // allows minting once per month
     uint256 public veDistRatio;
     uint256 public constant VE_DIST_RATIO_MAX = 10000;
