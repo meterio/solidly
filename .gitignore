@@ -4,7 +4,6 @@ package-lock.json
 
 #Hardhat files
 cache
-deployments
 coverage
 coverage.json
 
