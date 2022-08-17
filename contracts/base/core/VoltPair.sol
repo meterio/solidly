@@ -220,7 +220,7 @@ contract VoltPair is IERC20, IPair, Reentrancy {
     /// @dev Accrue fees on token0
     function _update0(uint amount) internal {
         uint toTreasury;
-        address treasury = IFactory(msg.sender).treasury();
+        address treasury = IFactory(factory).treasury();
         if (treasury != address(0)) {
             toTreasury = amount / TREASURY_FEE;
             // transfer the fees out to PairFees and Treasury
@@ -241,7 +241,7 @@ contract VoltPair is IERC20, IPair, Reentrancy {
     /// @dev Accrue fees on token1
     function _update1(uint amount) internal {
         uint toTreasury;
-        address treasury = IFactory(msg.sender).treasury();
+        address treasury = IFactory(factory).treasury();
         if (treasury != address(0)) {
             toTreasury = amount / TREASURY_FEE;
             // transfer the fees out to PairFees and Treasury

@@ -25,6 +25,7 @@ interface IPairInterface extends ethers.utils.Interface {
     "claimFees()": FunctionFragment;
     "getAmountOut(uint256,address)": FunctionFragment;
     "getReserves()": FunctionFragment;
+    "metadata()": FunctionFragment;
     "mint(address)": FunctionFragment;
     "permit(address,address,uint256,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "stable()": FunctionFragment;
@@ -44,6 +45,7 @@ interface IPairInterface extends ethers.utils.Interface {
     functionFragment: "getReserves",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "metadata", values?: undefined): string;
   encodeFunctionData(functionFragment: "mint", values: [string]): string;
   encodeFunctionData(
     functionFragment: "permit",
@@ -76,6 +78,7 @@ interface IPairInterface extends ethers.utils.Interface {
     functionFragment: "getReserves",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "metadata", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "permit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "stable", data: BytesLike): Result;
@@ -156,6 +159,20 @@ export class IPair extends BaseContract {
       }
     >;
 
+    metadata(
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber, boolean, string, string] & {
+        dec0: BigNumber;
+        dec1: BigNumber;
+        r0: BigNumber;
+        r1: BigNumber;
+        st: boolean;
+        t0: string;
+        t1: string;
+      }
+    >;
+
     mint(
       to: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -211,6 +228,20 @@ export class IPair extends BaseContract {
       _reserve0: BigNumber;
       _reserve1: BigNumber;
       _blockTimestampLast: number;
+    }
+  >;
+
+  metadata(
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber, BigNumber, boolean, string, string] & {
+      dec0: BigNumber;
+      dec1: BigNumber;
+      r0: BigNumber;
+      r1: BigNumber;
+      st: boolean;
+      t0: string;
+      t1: string;
     }
   >;
 
@@ -272,6 +303,20 @@ export class IPair extends BaseContract {
       }
     >;
 
+    metadata(
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber, boolean, string, string] & {
+        dec0: BigNumber;
+        dec1: BigNumber;
+        r0: BigNumber;
+        r1: BigNumber;
+        st: boolean;
+        t0: string;
+        t1: string;
+      }
+    >;
+
     mint(to: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     permit(
@@ -321,6 +366,8 @@ export class IPair extends BaseContract {
     ): Promise<BigNumber>;
 
     getReserves(overrides?: CallOverrides): Promise<BigNumber>;
+
+    metadata(overrides?: CallOverrides): Promise<BigNumber>;
 
     mint(
       to: string,
@@ -372,6 +419,8 @@ export class IPair extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     getReserves(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    metadata(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     mint(
       to: string,

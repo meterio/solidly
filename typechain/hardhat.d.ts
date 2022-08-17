@@ -177,6 +177,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.AccessControl__factory>;
     getContractFactory(
+      name: "SolidlyLibrary",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.SolidlyLibrary__factory>;
+    getContractFactory(
       name: "Migrator",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Migrator__factory>;
@@ -434,6 +438,11 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.AccessControl>;
+    getContractAt(
+      name: "SolidlyLibrary",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.SolidlyLibrary>;
     getContractAt(
       name: "Migrator",
       address: string,

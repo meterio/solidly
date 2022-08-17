@@ -17,9 +17,6 @@ async function main() {
   await Misc.wait(5);
 
   await Verify.verify(token.address);
-  // await Verify.verifyWithArgs(core[0].address, [core[2].address]);
-  // await Verify.verifyWithArgs(core[1].address, [core[0].address, MaticAddresses.WMATIC_TOKEN]);
-
 }
 
 main()

@@ -17,7 +17,8 @@ import {
   GovernanceTreasury,
   Token,
   Ve,
-  VeDist
+  VeDist,
+  SolidlyLibrary
 } from "../../typechain";
 import { Misc } from "../Misc";
 import { CoreAddresses } from "./CoreAddresses";
@@ -54,12 +55,14 @@ export class Deploy {
       _override = {
         from: signer.address,
         args: args,
-        libraries: librariesObj
+        libraries: librariesObj,
+        skipIfAlreadyDeployed: true
       }
     } else {
       _override = {
         from: signer.address,
-        args: args
+        args: args,
+        skipIfAlreadyDeployed: false
       }
     }
     const result = await deploy(name, _override);
@@ -107,6 +110,10 @@ export class Deploy {
 
   public static async deployVeDist(signer: SignerWithAddress, ve: string) {
     return (await Deploy.deployContract(signer, 'VeDist', ve)) as VeDist;
+  }
+
+  public static async deployLibrary(signer: SignerWithAddress, router: string) {
+    return (await Deploy.deployContract(signer, 'SolidlyLibrary', router)) as SolidlyLibrary;
   }
 
   public static async deployVoltVoter(
