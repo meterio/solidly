@@ -1,7 +1,7 @@
 import {
   Bribe,
   Bribe__factory,
-  DystPair,
+  VoltPair,
   Gauge,
   Gauge__factory,
   IERC20__factory,
@@ -37,9 +37,9 @@ describe("voter tests", function () {
   let mim: Token;
   let dai: Token;
   let wmatic: Token;
-  let mimUstPair: DystPair;
-  let mimDaiPair: DystPair;
-  let ustDaiPair: DystPair;
+  let mimUstPair: VoltPair;
+  let mimDaiPair: VoltPair;
+  let ustDaiPair: VoltPair;
 
   let gaugeMimUst: Gauge;
   let gaugeMimDai: Gauge;

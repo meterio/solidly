@@ -1,7 +1,7 @@
 import {
-  DystFactory,
-  DystPair__factory,
-  DystRouter01,
+  VoltFactory,
+  VoltPair__factory,
+  VoltRouter01,
   Migrator,
   Token,
   UniswapV2Factory,
@@ -28,8 +28,8 @@ describe("migrator tests", function () {
 
   let owner: SignerWithAddress;
   let owner2: SignerWithAddress;
-  let factory: DystFactory;
-  let router: DystRouter01;
+  let factory: VoltFactory;
+  let router: VoltRouter01;
 
   let wmatic: Token;
   let ust: Token;
@@ -45,8 +45,8 @@ describe("migrator tests", function () {
     [owner, owner2] = await ethers.getSigners();
     wmatic = await Deploy.deployContract(owner, 'Token', 'WMATIC', 'WMATIC', 18, owner.address) as Token;
 
-    factory = await Deploy.deployDystFactory(owner, owner.address);
-    router = await Deploy.deployDystRouter01(owner, factory.address, wmatic.address);
+    factory = await Deploy.deployVoltFactory(owner, owner.address);
+    router = await Deploy.deployVoltRouter01(owner, factory.address, wmatic.address);
 
     [ust, mim, dai] = await TestHelper.createMockTokensAndMint(owner);
     await ust.transfer(owner2.address, utils.parseUnits('100', 6));
@@ -93,7 +93,7 @@ describe("migrator tests", function () {
       s
     } = await TestHelper.permitForPair(
       owner,
-      DystPair__factory.connect(oldPair.address, owner),
+      VoltPair__factory.connect(oldPair.address, owner),
       migrator.address,
       oldPairBalance
     );
@@ -110,7 +110,7 @@ describe("migrator tests", function () {
     );
 
     const pair = await factory.getPair(mim.address, ust.address, true);
-    const bal = await DystPair__factory.connect(pair, owner).balanceOf(owner.address);
+    const bal = await VoltPair__factory.connect(pair, owner).balanceOf(owner.address);
     // initial liquidity gap
     TestHelper.closer(bal, oldPairBalance, parseUnits('1', 6));
 
@@ -132,7 +132,7 @@ describe("migrator tests", function () {
       s: s1
     } = await TestHelper.permitForPair(
       owner,
-      DystPair__factory.connect(oldPair.address, owner),
+      VoltPair__factory.connect(oldPair.address, owner),
       migrator.address,
       oldPairBalance
     );
@@ -148,12 +148,12 @@ describe("migrator tests", function () {
       v1, r1, s1
     );
 
-    const bal2 = await DystPair__factory.connect(pair, owner).balanceOf(owner.address);
+    const bal2 = await VoltPair__factory.connect(pair, owner).balanceOf(owner.address);
 
     const ustBal = await ust.balanceOf(owner.address);
     const mimBal = await mim.balanceOf(owner.address);
-    await DystPair__factory.connect(pair, owner).transfer(pair, bal2);
-    await DystPair__factory.connect(pair, owner).burn(owner.address);
+    await VoltPair__factory.connect(pair, owner).transfer(pair, bal2);
+    await VoltPair__factory.connect(pair, owner).burn(owner.address);
     const ustBalGap = (await ust.balanceOf(owner.address)).sub(ustBal);
     const mimBalGap = (await mim.balanceOf(owner.address)).sub(mimBal);
 
@@ -162,7 +162,7 @@ describe("migrator tests", function () {
 
     expect(await ust.balanceOf(migrator.address)).is.eq(0);
     expect(await mim.balanceOf(migrator.address)).is.eq(0);
-    expect(await DystPair__factory.connect(pair, owner).balanceOf(migrator.address)).is.eq(0);
+    expect(await VoltPair__factory.connect(pair, owner).balanceOf(migrator.address)).is.eq(0);
     expect(await oldPair.balanceOf(migrator.address)).is.eq(0);
   });
 
@@ -181,7 +181,7 @@ describe("migrator tests", function () {
       s
     } = await TestHelper.permitForPair(
       owner,
-      DystPair__factory.connect(oldPair.address, owner),
+      VoltPair__factory.connect(oldPair.address, owner),
       migrator.address,
       oldPairBalance
     );
@@ -198,7 +198,7 @@ describe("migrator tests", function () {
     );
 
     const pair = await factory.getPair(mim.address, ust.address, true);
-    const bal = await DystPair__factory.connect(pair, owner).balanceOf(owner.address);
+    const bal = await VoltPair__factory.connect(pair, owner).balanceOf(owner.address);
     // initial liquidity gap
     TestHelper.closer(bal, oldPairBalance, parseUnits('1', 6));
 
@@ -230,7 +230,7 @@ describe("migrator tests", function () {
       s: s1
     } = await TestHelper.permitForPair(
       owner,
-      DystPair__factory.connect(oldPair.address, owner),
+      VoltPair__factory.connect(oldPair.address, owner),
       migrator.address,
       oldPairBalance
     );
@@ -272,7 +272,7 @@ describe("migrator tests", function () {
       s: s2
     } = await TestHelper.permitForPair(
       owner,
-      DystPair__factory.connect(oldPair.address, owner),
+      VoltPair__factory.connect(oldPair.address, owner),
       migrator.address,
       oldPairBalance
     );
@@ -290,14 +290,14 @@ describe("migrator tests", function () {
 
     // *** EXIT AND CHECK ***
 
-    const bal2 = await DystPair__factory.connect(pair, owner).balanceOf(owner.address);
+    const bal2 = await VoltPair__factory.connect(pair, owner).balanceOf(owner.address);
 
-    await DystPair__factory.connect(pair, owner).transfer(pair, bal2);
-    await DystPair__factory.connect(pair, owner).burn(owner.address);
+    await VoltPair__factory.connect(pair, owner).transfer(pair, bal2);
+    await VoltPair__factory.connect(pair, owner).burn(owner.address);
 
     expect(await ust.balanceOf(migrator.address)).is.eq(0);
     expect(await mim.balanceOf(migrator.address)).is.eq(0);
-    expect(await DystPair__factory.connect(pair, owner).balanceOf(migrator.address)).is.eq(0);
+    expect(await VoltPair__factory.connect(pair, owner).balanceOf(migrator.address)).is.eq(0);
     expect(await oldPair.balanceOf(migrator.address)).is.eq(0);
   });
 
@@ -326,7 +326,7 @@ describe("migrator tests", function () {
       s
     } = await TestHelper.permitForPair(
       owner,
-      DystPair__factory.connect(oldPair.address, owner),
+      VoltPair__factory.connect(oldPair.address, owner),
       migrator.address,
       oldPairBalance.div(10)
     );

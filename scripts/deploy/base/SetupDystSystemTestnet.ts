@@ -117,7 +117,7 @@ async function main() {
     veDist,
     voter,
     minter,
-  ] = await Deploy.deployDystSystem(
+  ] = await Deploy.deployVoltSystem(
     signer,
     MaticTestnetAddresses.WMATIC_TOKEN,
     voterTokens,

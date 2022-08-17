@@ -1,9 +1,10 @@
-import { ethers, web3 } from "hardhat";
+import { ethers, web3, deployments } from "hardhat";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { Logger } from "tslog";
 import logSettings from "../../log_settings";
 import { BigNumber, ContractFactory, utils } from "ethers";
-import { Libraries } from "hardhat-deploy/dist/types";
+import { Libraries, DeployOptions } from "hardhat-deploy/dist/types";
+import { parseUnits } from "ethers/lib/utils";
 import {
   BribeFactory,
   Controller,
@@ -39,36 +40,33 @@ export class Deploy {
   ) {
     log.info(`Deploying ${name}`);
     log.info("Account balance: " + utils.formatUnits(await signer.getBalance(), 18));
+    const { deploy } = deployments;
 
     const gasPrice = await web3.eth.getGasPrice();
     log.info("Gas price: " + gasPrice);
     const lib: string | undefined = libraries.get(name);
-    let _factory;
+    let _override: DeployOptions;
     if (lib) {
       log.info('DEPLOY LIBRARY', lib, 'for', name);
       const libAddress = (await Deploy.deployContract(signer, lib)).address;
       const librariesObj: Libraries = {};
       librariesObj[lib] = libAddress;
-      _factory = (await ethers.getContractFactory(
-        name,
-        {
-          signer,
-          libraries: librariesObj
-        }
-      )) as T;
+      _override = {
+        from: signer.address,
+        args: args,
+        libraries: librariesObj
+      }
     } else {
-      _factory = (await ethers.getContractFactory(
-        name,
-        signer
-      )) as T;
+      _override = {
+        from: signer.address,
+        args: args
+      }
     }
-    const instance = await _factory.deploy(...args);
-    log.info('Deploy tx:', instance.deployTransaction.hash);
-    await instance.deployed();
-
-    const receipt = await ethers.provider.getTransactionReceipt(instance.deployTransaction.hash);
-    log.info('Receipt', receipt.contractAddress)
-    return _factory.attach(receipt.contractAddress);
+    const result = await deploy(name, _override);
+    const instance = await ethers.getContractAt(name, result.address, signer);
+    log.info('Deploy tx:', result.transactionHash);
+    log.info('Receipt', result.address)
+    return instance;
   }
 
   public static async deployVolt(signer: SignerWithAddress) {
@@ -145,10 +143,8 @@ export class Deploy {
     signer: SignerWithAddress,
     networkToken: string,
     voterTokens: string[],
-    minterClaimants: string[],
-    minterClaimantsAmounts: BigNumber[],
-    minterSum: BigNumber,
-    warmingUpPeriod = 2
+    initialHolder: string[],
+    initialAmount: string
   ) {
     const [baseFactory, router] = await Deploy.deployDex(signer, networkToken);
 
@@ -164,7 +160,9 @@ export class Deploy {
     ] = await Deploy.deployVoltSystem(
       signer,
       voterTokens,
-      baseFactory.address
+      baseFactory.address,
+      initialHolder,
+      initialAmount
     );
 
     return new CoreAddresses(
@@ -194,7 +192,9 @@ export class Deploy {
   public static async deployVoltSystem(
     signer: SignerWithAddress,
     voterTokens: string[],
-    baseFactory: string
+    baseFactory: string,
+    initialHolder: string[],
+    initialAmount: string
   ) {
     const controller = await Deploy.deployContract(signer, 'Controller') as Controller;
     const token = await Deploy.deployVolt(signer);
@@ -208,18 +208,15 @@ export class Deploy {
 
     const minter = await Deploy.deployVoltMinter(signer, ve.address, controller.address);
 
-    await Misc.runAndWait(() => token.setMinter(minter.address));
+    for (let i = 0; i < initialHolder.length; i++) {
+      await Misc.runAndWait(() => token.mint(initialHolder[i], parseUnits(initialAmount)));
+    }
     await Misc.runAndWait(() => veDist.setDepositor(minter.address));
     await Misc.runAndWait(() => controller.setVeDist(veDist.address));
     await Misc.runAndWait(() => controller.setVoter(voter.address));
     await Misc.runAndWait(() => minter.grantRole(ethers.constants.HashZero, voter.address));
-
+    voterTokens.push(token.address);
     await Misc.runAndWait(() => voter.initialize(voterTokens, minter.address));
-    // await Misc.runAndWait(() => minter.initialize(
-    //   minterClaimants,
-    //   minterClaimantsAmounts,
-    //   minterSum
-    // ));
 
     return [
       controller,

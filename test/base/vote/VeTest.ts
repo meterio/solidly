@@ -2,7 +2,7 @@ import {
   Bribe,
   Bribe__factory,
   ContractTestHelper,
-  DystPair,
+  VoltPair,
   Gauge,
   Gauge__factory,
   Token
@@ -35,7 +35,7 @@ describe("ve tests", function () {
   let ust: Token;
   let mim: Token;
   let dai: Token;
-  let pair: DystPair;
+  let pair: VoltPair;
 
   let gauge: Gauge;
   let bribe: Bribe;

@@ -1,7 +1,7 @@
 /* tslint:disable:variable-name no-shadowed-variable ban-types no-var-requires no-any */
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { network } from "hardhat";
-import {Controller, Dyst, DystMinter, Token, Ve, VeDist } from "../../typechain";
+import {Controller, Volt, VoltMinter, Token, Ve, VeDist } from "../../typechain";
 import {Deploy} from "../../scripts/deploy/Deploy";
 
 const { expect } = require("chai");
@@ -26,30 +26,30 @@ const { ethers } = require("hardhat");
 describe("minter old tests", function () {
 
   let token;
-  let ve_underlying:Dyst;
+  let ve_underlying:Volt;
   let ve:Ve;
   let owner:SignerWithAddress;
-  let minter:DystMinter;
+  let minter:VoltMinter;
   let ve_dist:VeDist;
 
   it("deploy base", async function () {
     [owner] = await ethers.getSigners(0);
     token = await ethers.getContractFactory("Token");
-    const Dyst = await ethers.getContractFactory("Dyst");
+    const Volt = await ethers.getContractFactory("Volt");
     const controllerCtr = await ethers.getContractFactory("Controller");
     const controller = await controllerCtr.deploy() as Controller;
     const mim = await token.deploy('MIM', 'MIM', 18, owner.address);
     await mim.mint(owner.address, ethers.BigNumber.from("1000000000000000000000000000000"));
-    ve_underlying = await Dyst.deploy();
+    ve_underlying = await Volt.deploy();
     const vecontract = await ethers.getContractFactory("Ve");
     ve = await vecontract.deploy(ve_underlying.address, controller.address);
     await ve_underlying.mint(owner.address, ethers.BigNumber.from("10000000000000000000000000"));
     const treasury = await Deploy.deployGovernanceTreasury(owner);
-    const DystFactory = await ethers.getContractFactory("DystFactory");
-    const factory = await DystFactory.deploy(treasury.address);
+    const VoltFactory = await ethers.getContractFactory("VoltFactory");
+    const factory = await VoltFactory.deploy(treasury.address);
     await factory.deployed();
-    const DystRouter01 = await ethers.getContractFactory("DystRouter01");
-    const router = await DystRouter01.deploy(factory.address, owner.address);
+    const VoltRouter01 = await ethers.getContractFactory("VoltRouter01");
+    const router = await VoltRouter01.deploy(factory.address, owner.address);
     await router.deployed();
     const GaugeFactory = await ethers.getContractFactory("GaugeFactory");
     const gauges_factory = await GaugeFactory.deploy();
@@ -57,8 +57,8 @@ describe("minter old tests", function () {
     const BribeFactory = await ethers.getContractFactory("BribeFactory");
     const bribe_factory = await BribeFactory.deploy();
     await bribe_factory.deployed();
-    const DystVoter = await ethers.getContractFactory("DystVoter");
-    const voter = await DystVoter.deploy(ve.address, factory.address, gauges_factory.address, bribe_factory.address);
+    const VoltVoter = await ethers.getContractFactory("VoltVoter");
+    const voter = await VoltVoter.deploy(ve.address, factory.address, gauges_factory.address, bribe_factory.address);
     await voter.deployed();
 
     await voter.initialize([mim.address, ve_underlying.address],owner.address);
@@ -71,7 +71,7 @@ describe("minter old tests", function () {
     await controller.setVeDist(ve_dist.address)
     await controller.setVoter(voter.address)
 
-    const Minter = await ethers.getContractFactory("DystMinter");
+    const Minter = await ethers.getContractFactory("VoltMinter");
     minter = await Minter.deploy(ve.address, controller.address, 2);
     await minter.deployed();
     await ve_dist.setDepositor(minter.address);

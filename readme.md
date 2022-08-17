@@ -186,7 +186,7 @@ function distribute(address token) external
 
 | Name                 | Address                                                                                                                               |
 |:---------------------|:--------------------------------------------------------------------------------------------------------------------------------------|
-| DystFactory          | [0xD0692d6C30cd7a383f227Ba1cB28EeCE2F050926](https://mumbai.polygonscan.com/address/0xD0692d6C30cd7a383f227Ba1cB28EeCE2F050926#code)  |
+| VoltFactory          | [0xD0692d6C30cd7a383f227Ba1cB28EeCE2F050926](https://mumbai.polygonscan.com/address/0xD0692d6C30cd7a383f227Ba1cB28EeCE2F050926#code)  |
 | DystRouter01         | [0xe9EdEb5576ea876014e76A496B4c564756ddDAEF](https://mumbai.polygonscan.com/address/0xe9EdEb5576ea876014e76A496B4c564756ddDAEF#code)  |
 | GovernanceTreasury   | [0x463cA34bC5530819EE1467A18C1c48a1bB306B74](https://mumbai.polygonscan.com/address/0x463cA34bC5530819EE1467A18C1c48a1bB306B74#code)  |
 | BribeFactory         | [0x0C6868831c504Fb0bB61A54FEfC6464804380508](https://mumbai.polygonscan.com/address/0x0C6868831c504Fb0bB61A54FEfC6464804380508#code)  |
@@ -203,7 +203,7 @@ function distribute(address token) external
 
 | Name                | Address                                                                                                                   |
 |:--------------------|:--------------------------------------------------------------------------------------------------------------------------|
-| DystFactory         | [0x1d21Db6cde1b18c7E47B0F7F42f4b3F68b9beeC9](https://polygonscan.com/address/0x1d21Db6cde1b18c7E47B0F7F42f4b3F68b9beeC9)  |
+| VoltFactory         | [0x1d21Db6cde1b18c7E47B0F7F42f4b3F68b9beeC9](https://polygonscan.com/address/0x1d21Db6cde1b18c7E47B0F7F42f4b3F68b9beeC9)  |
 | DystRouter01        | [0xbE75Dd16D029c6B32B7aD57A0FD9C1c20Dd2862e](https://polygonscan.com/address/0xbE75Dd16D029c6B32B7aD57A0FD9C1c20Dd2862e)  |
 | GovernanceTreasury  | [0xBd51042D3A9EF62d4d93013315AE96A0c1760d7E](https://polygonscan.com/address/0xBd51042D3A9EF62d4d93013315AE96A0c1760d7E)  |
 | BribeFactory        | [0x7adD42D9c53Df14C1bC2507034F63b0AC924345F](https://polygonscan.com/address/0x7adD42D9c53Df14C1bC2507034F63b0AC924345F)  |

@@ -1,6 +1,6 @@
 import {
-  DystMinter__factory,
-  DystPair,
+  VoltMinter__factory,
+  VoltPair,
   Bribe,
   Bribe__factory,
   Gauge,
@@ -40,7 +40,7 @@ describe("emission tests", function () {
   let ust: Token;
   let mim: Token;
   let dai: Token;
-  let mimUstPair: DystPair;
+  let mimUstPair: VoltPair;
 
   let gaugeMimUst: Gauge;
 
@@ -288,12 +288,12 @@ async function emissionLoop(
     const tx = await gauge.getReward(owner.address, [core.token.address]);
     const receipt = await tx.wait(1);
     // tslint:disable-next-line
-    const log = receipt.events?.find((l: any) => l.topics[0] === DystMinter__factory.createInterface().getEventTopic('Mint'));
+    const log = receipt.events?.find((l: any) => l.topics[0] === VoltMinter__factory.createInterface().getEventTopic('Mint'));
     let weekly = '-1';
     let growth = '-1';
     if (log) {
-      weekly = formatUnits(DystMinter__factory.createInterface().parseLog(log).args[1]);
-      growth = formatUnits(DystMinter__factory.createInterface().parseLog(log).args[2]);
+      weekly = formatUnits(VoltMinter__factory.createInterface().parseLog(log).args[1]);
+      growth = formatUnits(VoltMinter__factory.createInterface().parseLog(log).args[2]);
     }
 
     const tokenBalance = await core.token.balanceOf(owner.address);

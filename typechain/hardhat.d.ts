@@ -13,14 +13,6 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
-      name: "DystFactory",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.DystFactory__factory>;
-    getContractFactory(
-      name: "DystPair",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.DystPair__factory>;
-    getContractFactory(
       name: "GovernanceTreasury",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.GovernanceTreasury__factory>;
@@ -36,10 +28,6 @@ declare module "hardhat/types/runtime" {
       name: "VoltPair",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.VoltPair__factory>;
-    getContractFactory(
-      name: "DystRouter01",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.DystRouter01__factory>;
     getContractFactory(
       name: "VoltRouter01",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -65,10 +53,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MultiRewardsPoolBase__factory>;
     getContractFactory(
-      name: "Dyst",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Dyst__factory>;
-    getContractFactory(
       name: "DystMinter",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.DystMinter__factory>;
@@ -80,10 +64,6 @@ declare module "hardhat/types/runtime" {
       name: "Volt",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Volt__factory>;
-    getContractFactory(
-      name: "DystVoter",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.DystVoter__factory>;
     getContractFactory(
       name: "Ve",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -189,10 +169,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IVoter__factory>;
     getContractFactory(
-      name: "IWMATIC",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IWMATIC__factory>;
-    getContractFactory(
       name: "IWMTR",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IWMTR__factory>;
@@ -208,10 +184,6 @@ declare module "hardhat/types/runtime" {
       name: "BrokenToken",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.BrokenToken__factory>;
-    getContractFactory(
-      name: "BrokenWMATIC",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.BrokenWMATIC__factory>;
     getContractFactory(
       name: "BrokenWMTR",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -258,16 +230,6 @@ declare module "hardhat/types/runtime" {
     ): Promise<Contracts.UniswapV2Pair__factory>;
 
     getContractAt(
-      name: "DystFactory",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.DystFactory>;
-    getContractAt(
-      name: "DystPair",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.DystPair>;
-    getContractAt(
       name: "GovernanceTreasury",
       address: string,
       signer?: ethers.Signer
@@ -287,11 +249,6 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.VoltPair>;
-    getContractAt(
-      name: "DystRouter01",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.DystRouter01>;
     getContractAt(
       name: "VoltRouter01",
       address: string,
@@ -323,11 +280,6 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.MultiRewardsPoolBase>;
     getContractAt(
-      name: "Dyst",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Dyst>;
-    getContractAt(
       name: "DystMinter",
       address: string,
       signer?: ethers.Signer
@@ -342,11 +294,6 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Volt>;
-    getContractAt(
-      name: "DystVoter",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.DystVoter>;
     getContractAt(
       name: "Ve",
       address: string,
@@ -478,11 +425,6 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IVoter>;
     getContractAt(
-      name: "IWMATIC",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IWMATIC>;
-    getContractAt(
       name: "IWMTR",
       address: string,
       signer?: ethers.Signer
@@ -502,11 +444,6 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.BrokenToken>;
-    getContractAt(
-      name: "BrokenWMATIC",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.BrokenWMATIC>;
     getContractAt(
       name: "BrokenWMTR",
       address: string,
