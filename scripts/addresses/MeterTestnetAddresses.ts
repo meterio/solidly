@@ -12,11 +12,11 @@ export class MeterTestnetAddresses {
   public static USDC_TOKEN = "0x8ae4c669f147737085a23d578c1da94d3e39879f".toLowerCase();
   public static MTRG_TOKEN = "0x8a419ef4941355476cf04933e90bf3bbf2f73814".toLowerCase();
   public static ETH_TOKEN = "0xe8876830e7cc85dae8ce31b0802313caf856886f".toLowerCase();
-  public static WBTC_TOKEN = "0x90cd3092f2104bb09ddb777805a34a3dbd951178".toLowerCase();
+  public static WBTC_TOKEN = "0xcfd9102a2675e0d898982f1fd1dd0264aaa901da".toLowerCase();
   public static SUUSD_TOKEN = "0x37d982D96AC985a4Fa9522383De5010109F0627C".toLowerCase();
   public static SUETH_TOKEN = "0x4b0D849E5BF7f62bcBb0B7C364DDDA552c2c3a8a".toLowerCase();
   public static SUBTC_TOKEN = "0x0477763b021E0f30680b7266a264d1044FE77A4d".toLowerCase();
   public static SUMER_TOKEN = "0xF67C5F20B95b7604EBB65A53E50ebd38300da8EE".toLowerCase();
-  public static VOLT_TOKEN = "0x2A4923e0F87aE81174f83CbC23f1d4Ef4eF59b01".toLowerCase();
+  public static VOLT_TOKEN = "0xd134685d7571AA093E1F4523FEeBBc56914134ff".toLowerCase();
 
 }
