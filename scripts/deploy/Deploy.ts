@@ -237,4 +237,35 @@ export class Deploy {
     ];
   }
 
+  public static async updateVoltSystem(
+    signer: SignerWithAddress,
+    controllerAddr: string,
+    tokenAddr:string,
+    baseFactory: string,
+    veAddr: string,
+    voterTokens: string[]
+  ) {
+    const controller = await ethers.getContractAt('Controller',controllerAddr,signer ) as Controller;
+    const veDist = await Deploy.deployVeDist(signer, veAddr);
+
+    const gaugesFactory = await Deploy.deployGaugeFactory(signer);
+    const bribesFactory = await Deploy.deployBribeFactory(signer);
+    const voter = await Deploy.deployVoltVoter(signer, veAddr, baseFactory, gaugesFactory.address, bribesFactory.address);
+    const minter = await Deploy.deployVoltMinter(signer, veAddr, controller.address);
+
+    await Misc.runAndWait(() => veDist.setDepositor(minter.address));
+    await Misc.runAndWait(() => controller.setVeDist(veDist.address));
+    await Misc.runAndWait(() => controller.setVoter(voter.address));
+    await Misc.runAndWait(() => minter.grantRole(ethers.constants.HashZero, voter.address));
+    voterTokens.push(tokenAddr);
+    await Misc.runAndWait(() => voter.initialize(voterTokens, minter.address));
+
+    return [
+      veDist,
+      gaugesFactory,
+      bribesFactory,
+      voter,
+      minter,
+    ];
+  }
 }
