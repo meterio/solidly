@@ -15,9 +15,9 @@ contract Gauge is IGauge, MultiRewardsPoolBase {
     using SafeERC20 for IERC20;
 
     /// @dev The ve token used for gauges
-    address public immutable ve;
-    address public immutable bribe;
-    address public immutable voter;
+    address public ve;
+    address public bribe;
+    address public voter;
 
     mapping(address => uint) public tokenIds;
 

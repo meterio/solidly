@@ -17,7 +17,7 @@ abstract contract MultiRewardsPoolBase is Reentrancy, IMultiRewardsPool {
     address public operator;
 
     /// @dev The LP token that needs to be staked for rewards
-    address public immutable override underlying;
+    address public override underlying;
 
     uint public override derivedSupply;
     mapping(address => uint) public override derivedBalances;

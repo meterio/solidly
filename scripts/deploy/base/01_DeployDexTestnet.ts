@@ -1,6 +1,7 @@
 import { Deploy } from "../Deploy";
 import { ethers } from "hardhat";
 import { Misc } from "../../Misc";
+import { Verify } from "../../Verify";
 import { MeterTestnetAddresses } from "../../addresses/MeterTestnetAddresses";
 
 async function main() {
@@ -16,6 +17,8 @@ async function main() {
   Misc.saveFile(await signer.getChainId(), "Factory", factory.address);
   Misc.saveFile(await signer.getChainId(), "Router", router.address);
 
+  await Verify.verify(factory.address);
+  await Verify.verify(router.address);
 }
 
 main()

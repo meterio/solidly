@@ -12,8 +12,8 @@ import "./MultiRewardsPoolBase.sol";
 ///        that were received from the user (goes hand in hand with Gauges.vote())
 contract Bribe is IBribe, MultiRewardsPoolBase {
     /// @dev Only voter can modify balances (since it only happens on vote())
-    address public immutable voter;
-    address public immutable ve;
+    address public voter;
+    address public ve;
 
     // Assume that will be created from voter contract through factory
     constructor(address _voter, address[] memory _allowedRewardTokens)

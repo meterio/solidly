@@ -11,11 +11,11 @@ contract PairFees {
     using SafeERC20 for IERC20;
 
     /// @dev The pair it is bonded to
-    address internal immutable pair;
+    address internal pair;
     /// @dev Token0 of pair, saved localy and statically for gas optimization
-    address internal immutable token0;
+    address internal token0;
     /// @dev Token1 of pair, saved localy and statically for gas optimization
-    address internal immutable token1;
+    address internal token1;
 
     constructor(address _token0, address _token1) {
         pair = msg.sender;

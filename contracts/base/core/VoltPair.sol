@@ -22,20 +22,20 @@ contract VoltPair is IERC20, IPair, Reentrancy {
     uint8 public constant decimals = 18;
 
     /// @dev Used to denote stable or volatile pair
-    bool public immutable stable;
+    bool public stable;
 
     uint public override totalSupply = 0;
 
     mapping(address => mapping(address => uint)) public override allowance;
     mapping(address => uint) public override balanceOf;
 
-    bytes32 public immutable DOMAIN_SEPARATOR;
+    bytes32 public DOMAIN_SEPARATOR;
     // keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
     bytes32 public constant PERMIT_TYPEHASH =
         0x6e71edae12b1b97f4d1f60370fef10105fa2faae0126114a169c64845d6126c9;
     uint internal constant _FEE_PRECISION = 1e32;
     mapping(address => uint) public nonces;
-    uint public immutable chainId;
+    uint public chainId;
 
     uint internal constant MINIMUM_LIQUIDITY = 10**3;
     /// @dev 50% of swap fee
@@ -43,15 +43,15 @@ contract VoltPair is IERC20, IPair, Reentrancy {
     /// @dev Capture oracle reading every 30 minutes
     uint internal constant PERIOD_SIZE = 1800;
 
-    address public immutable override token0;
-    address public immutable override token1;
-    address public immutable fees;
-    address public immutable factory;
+    address public override token0;
+    address public override token1;
+    address public fees;
+    address public factory;
 
     Observation[] public observations;
 
-    uint internal immutable decimals0;
-    uint internal immutable decimals1;
+    uint internal decimals0;
+    uint internal decimals1;
 
     uint public reserve0;
     uint public reserve1;
