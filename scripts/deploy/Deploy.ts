@@ -18,7 +18,8 @@ import {
   Token,
   Ve,
   VeDist,
-  SolidlyLibrary
+  SolidlyLibrary,
+  VoltPair
 } from "../../typechain";
 import { Misc } from "../Misc";
 import { CoreAddresses } from "./CoreAddresses";
@@ -114,6 +115,10 @@ export class Deploy {
 
   public static async deployLibrary(signer: SignerWithAddress, router: string) {
     return (await Deploy.deployContract(signer, 'SolidlyLibrary', router)) as SolidlyLibrary;
+  }
+
+  public static async deployPair(signer: SignerWithAddress) {
+    return (await Deploy.deployContract(signer, 'VoltPair')) as VoltPair;
   }
 
   public static async deployVoltVoter(

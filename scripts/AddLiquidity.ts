@@ -6,7 +6,6 @@ import { parseUnits } from "ethers/lib/utils";
 
 async function main() {
   const signers = await ethers.getSigners();
-  console.log(signers);
   const signer = signers[2];
 
   const routerJson = Misc.getContract(await signer.getChainId(), "Router");
