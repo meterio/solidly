@@ -1,0 +1,264 @@
+{
+  "address": "0xc1f988F1fc1FE3701BfB64FAD03BC9838Bf33577",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "value",
+          "type": "address"
+        }
+      ],
+      "name": "SetGovernance",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "value",
+          "type": "address"
+        }
+      ],
+      "name": "SetVeDist",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "value",
+          "type": "address"
+        }
+      ],
+      "name": "SetVoter",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "acceptGovernance",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "governance",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_governance",
+          "type": "address"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pendingGovernance",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_value",
+          "type": "address"
+        }
+      ],
+      "name": "setGovernance",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_value",
+          "type": "address"
+        }
+      ],
+      "name": "setVeDist",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_value",
+          "type": "address"
+        }
+      ],
+      "name": "setVoter",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "veDist",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "voter",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x89bde3e51d7e7763b063059d1bf79fd5b13db930f962bd4f778816a47fa979f8",
+  "receipt": {
+    "to": null,
+    "from": "0x175FB9401BB5E360FF3c0Ef00097116944128930",
+    "contractAddress": "0xc1f988F1fc1FE3701BfB64FAD03BC9838Bf33577",
+    "transactionIndex": 0,
+    "gasUsed": "376177",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x0120c5ede4641d472de611870e35baa3e842ffdc277e24c00832c956104853e6",
+    "transactionHash": "0x89bde3e51d7e7763b063059d1bf79fd5b13db930f962bd4f778816a47fa979f8",
+    "logs": [
+      {
+        "transactionIndex": 0,
+        "blockNumber": 18925037,
+        "transactionHash": "0x89bde3e51d7e7763b063059d1bf79fd5b13db930f962bd4f778816a47fa979f8",
+        "address": "0xc1f988F1fc1FE3701BfB64FAD03BC9838Bf33577",
+        "topics": [
+          "0xb35bf4274d4295009f1ec66ed3f579db287889444366c03d3a695539372e8951"
+        ],
+        "data": "0x000000000000000000000000175fb9401bb5e360ff3c0ef00097116944128930",
+        "logIndex": 0,
+        "blockHash": "0x0120c5ede4641d472de611870e35baa3e842ffdc277e24c00832c956104853e6"
+      }
+    ],
+    "blockNumber": 18925037,
+    "cumulativeGasUsed": "376177",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "3b3b283a31496f0704cc082007acea88",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"value\",\"type\":\"address\"}],\"name\":\"SetGovernance\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"value\",\"type\":\"address\"}],\"name\":\"SetVeDist\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"value\",\"type\":\"address\"}],\"name\":\"SetVoter\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"acceptGovernance\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"governance\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_governance\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pendingGovernance\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_value\",\"type\":\"address\"}],\"name\":\"setGovernance\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_value\",\"type\":\"address\"}],\"name\":\"setVeDist\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_value\",\"type\":\"address\"}],\"name\":\"setVoter\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"veDist\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"voter\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/ControllerUpgradeable.sol\":\"ControllerUpgradeable\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/ControllerUpgradeable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.13;\\n\\nimport \\\"./interface/IController.sol\\\";\\nimport \\\"./lib/Initializable.sol\\\";\\n\\ncontract ControllerUpgradeable is IController, Initializable {\\n    address public governance;\\n    address public pendingGovernance;\\n\\n    address public veDist;\\n    address public voter;\\n\\n    event SetGovernance(address value);\\n    event SetVeDist(address value);\\n    event SetVoter(address value);\\n\\n    function initialize(address _governance) public initializer {\\n        governance = _governance;\\n    }\\n\\n    modifier onlyGov() {\\n        require(msg.sender == governance, \\\"Not gov\\\");\\n        _;\\n    }\\n\\n    function setGovernance(address _value) external onlyGov {\\n        pendingGovernance = _value;\\n        emit SetGovernance(_value);\\n    }\\n\\n    function acceptGovernance() external {\\n        require(msg.sender == pendingGovernance, \\\"Not pending gov\\\");\\n        governance = pendingGovernance;\\n    }\\n\\n    function setVeDist(address _value) external onlyGov {\\n        veDist = _value;\\n        emit SetVeDist(_value);\\n    }\\n\\n    function setVoter(address _value) external onlyGov {\\n        voter = _value;\\n        emit SetVoter(_value);\\n    }\\n}\\n\",\"keccak256\":\"0xa3a3142f1af7aaa304ac7ad841f2b0ecd2830b5fd3a0ec8f87446e76611314aa\",\"license\":\"MIT\"},\"contracts/interface/IController.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.13;\\n\\ninterface IController {\\n    function veDist() external view returns (address);\\n\\n    function voter() external view returns (address);\\n}\\n\",\"keccak256\":\"0xcf1f651f1b13563a71728782dfb82970719e4feb46141d0f46f6aa2159983900\",\"license\":\"MIT\"},\"contracts/lib/Address.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.5.0) (utils/Address.sol)\\n\\npragma solidity ^0.8.13;\\n\\n/**\\n * @dev Collection of functions related to the address type\\n */\\nlibrary Address {\\n    /**\\n     * @dev Returns true if `account` is a contract.\\n     *\\n     * [IMPORTANT]\\n     * ====\\n     * It is unsafe to assume that an address for which this function returns\\n     * false is an externally-owned account (EOA) and not a contract.\\n     *\\n     * Among others, `isContract` will return false for the following\\n     * types of addresses:\\n     *\\n     *  - an externally-owned account\\n     *  - a contract in construction\\n     *  - an address where a contract will be created\\n     *  - an address where a contract lived, but was destroyed\\n     * ====\\n     *\\n     * [IMPORTANT]\\n     * ====\\n     * You shouldn't rely on `isContract` to protect against flash loan attacks!\\n     *\\n     * Preventing calls from contracts is highly discouraged. It breaks composability, breaks support for smart wallets\\n     * like Gnosis Safe, and does not provide security since it can be circumvented by calling from a contract\\n     * constructor.\\n     * ====\\n     */\\n    function isContract(address account) internal view returns (bool) {\\n        // This method relies on extcodesize/address.code.length, which returns 0\\n        // for contracts in construction, since the code is only stored at the end\\n        // of the constructor execution.\\n\\n        return account.code.length > 0;\\n    }\\n\\n    function functionCall(\\n        address target,\\n        bytes memory data,\\n        string memory errorMessage\\n    ) internal returns (bytes memory) {\\n        require(isContract(target), \\\"Address: call to non-contract\\\");\\n        (bool success, bytes memory returndata) = target.call(data);\\n        return verifyCallResult(success, returndata, errorMessage);\\n    }\\n\\n    /**\\n     * @dev Tool to verifies that a low level call was successful, and revert if it wasn't, either by bubbling the\\n     * revert reason using the provided one.\\n     *\\n     * _Available since v4.3._\\n     */\\n    function verifyCallResult(\\n        bool success,\\n        bytes memory returndata,\\n        string memory errorMessage\\n    ) internal pure returns (bytes memory) {\\n        if (success) {\\n            return returndata;\\n        } else {\\n            // Look for revert reason and bubble it up if present\\n            if (returndata.length > 0) {\\n                // The easiest way to bubble the revert reason is using memory via assembly\\n                assembly {\\n                    let returndata_size := mload(returndata)\\n                    revert(add(32, returndata), returndata_size)\\n                }\\n            } else {\\n                revert(errorMessage);\\n            }\\n        }\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],\\n     * but performing a delegate call.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function functionDelegateCall(address target, bytes memory data)\\n        internal\\n        returns (bytes memory)\\n    {\\n        return\\n            functionDelegateCall(\\n                target,\\n                data,\\n                \\\"Address: low-level delegate call failed\\\"\\n            );\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],\\n     * but performing a delegate call.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function functionDelegateCall(\\n        address target,\\n        bytes memory data,\\n        string memory errorMessage\\n    ) internal returns (bytes memory) {\\n        require(isContract(target), \\\"Address: delegate call to non-contract\\\");\\n\\n        (bool success, bytes memory returndata) = target.delegatecall(data);\\n        return verifyCallResult(success, returndata, errorMessage);\\n    }\\n}\\n\",\"keccak256\":\"0x284fcdaef2f20ec54759bfb0821ee3a3459a1f0bc302b29e7fcc3c2f42e728df\",\"license\":\"MIT\"},\"contracts/lib/Initializable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.5.0) (proxy/utils/Initializable.sol)\\n\\npragma solidity ^0.8.13;\\n\\nimport \\\"./Address.sol\\\";\\n\\n/**\\n * @dev This is a base contract to aid in writing upgradeable contracts, or any kind of contract that will be deployed\\n * behind a proxy. Since proxied contracts do not make use of a constructor, it's common to move constructor logic to an\\n * external initializer function, usually called `initialize`. It then becomes necessary to protect this initializer\\n * function so it can only be called once. The {initializer} modifier provided by this contract will have this effect.\\n *\\n * TIP: To avoid leaving the proxy in an uninitialized state, the initializer function should be called as early as\\n * possible by providing the encoded function call as the `_data` argument to {ERC1967Proxy-constructor}.\\n *\\n * CAUTION: When used with inheritance, manual care must be taken to not invoke a parent initializer twice, or to ensure\\n * that all initializers are idempotent. This is not verified automatically as constructors are by Solidity.\\n *\\n * [CAUTION]\\n * ====\\n * Avoid leaving a contract uninitialized.\\n *\\n * An uninitialized contract can be taken over by an attacker. This applies to both a proxy and its implementation\\n * contract, which may impact the proxy. To initialize the implementation contract, you can either invoke the\\n * initializer manually, or you can include a constructor to automatically mark it as initialized when it is deployed:\\n *\\n * [.hljs-theme-light.nopadding]\\n * ```\\n * /// @custom:oz-upgrades-unsafe-allow constructor\\n * constructor() initializer {}\\n * ```\\n * ====\\n */\\nabstract contract Initializable {\\n    /**\\n     * @dev Indicates that the contract has been initialized.\\n     */\\n    bool private _initialized;\\n\\n    /**\\n     * @dev Indicates that the contract is in the process of being initialized.\\n     */\\n    bool private _initializing;\\n\\n    /**\\n     * @dev Modifier to protect an initializer function from being invoked twice.\\n     */\\n    modifier initializer() {\\n        // If the contract is initializing we ignore whether _initialized is set in order to support multiple\\n        // inheritance patterns, but we only do this in the context of a constructor, because in other contexts the\\n        // contract may have been reentered.\\n        require(_initializing ? _isConstructor() : !_initialized, \\\"Initializable: contract is already initialized\\\");\\n\\n        bool isTopLevelCall = !_initializing;\\n        if (isTopLevelCall) {\\n            _initializing = true;\\n            _initialized = true;\\n        }\\n\\n        _;\\n\\n        if (isTopLevelCall) {\\n            _initializing = false;\\n        }\\n    }\\n\\n    /**\\n     * @dev Modifier to protect an initialization function so that it can only be invoked by functions with the\\n     * {initializer} modifier, directly or indirectly.\\n     */\\n    modifier onlyInitializing() {\\n        require(_initializing, \\\"Initializable: contract is not initializing\\\");\\n        _;\\n    }\\n\\n    function _isConstructor() private view returns (bool) {\\n        return !Address.isContract(address(this));\\n    }\\n}\\n\",\"keccak256\":\"0x38183be1332f4c833a8279b7d913f523431e50aa59f4f513020b82628c7d6c0e\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506104bc806100206000396000f3fe608060405234801561001057600080fd5b50600436106100935760003560e01c80635aa6e675116100665780635aa6e675146100f7578063ab033ea914610110578063c13270f114610123578063c4d66de814610136578063f39c38a01461014957600080fd5b8063238efcbc1461009857806327e65278146100a257806346c96aac146100b55780634bc2a657146100e4575b600080fd5b6100a061015c565b005b6100a06100b0366004610435565b6101d8565b6003546100c8906001600160a01b031681565b6040516001600160a01b03909116815260200160405180910390f35b6100a06100f2366004610435565b61025d565b6000546100c8906201000090046001600160a01b031681565b6100a061011e366004610435565b6102db565b6002546100c8906001600160a01b031681565b6100a0610144366004610435565b610359565b6001546100c8906001600160a01b031681565b6001546001600160a01b031633146101ad5760405162461bcd60e51b815260206004820152600f60248201526e2737ba103832b73234b7339033b7bb60891b60448201526064015b60405180910390fd5b6001546000805462010000600160b01b0319166001600160a01b039092166201000002919091179055565b6000546201000090046001600160a01b031633146102085760405162461bcd60e51b81526004016101a490610465565b600280546001600160a01b0319166001600160a01b0383169081179091556040519081527f427d619a0a9852319231312bf3a2f7e361f12399aae2c315cc710a8055cc6ba3906020015b60405180910390a150565b6000546201000090046001600160a01b0316331461028d5760405162461bcd60e51b81526004016101a490610465565b600380546001600160a01b0319166001600160a01b0383169081179091556040519081527fc6ff127433b785c51da9ae4088ee184c909b1a55b9afd82ae6c64224d3bc15d290602001610252565b6000546201000090046001600160a01b0316331461030b5760405162461bcd60e51b81526004016101a490610465565b600180546001600160a01b0319166001600160a01b0383169081179091556040519081527f24a8c4807b324a269a51827c3446b8ac1cc13810d7d0c0ca1efafabddd7b621990602001610252565b600054610100900460ff166103745760005460ff1615610378565b303b155b6103db5760405162461bcd60e51b815260206004820152602e60248201527f496e697469616c697a61626c653a20636f6e747261637420697320616c72656160448201526d191e481a5b9a5d1a585b1a5e995960921b60648201526084016101a4565b600054610100900460ff161580156103fd576000805461ffff19166101011790555b6000805462010000600160b01b031916620100006001600160a01b038516021790558015610431576000805461ff00191690555b5050565b60006020828403121561044757600080fd5b81356001600160a01b038116811461045e57600080fd5b9392505050565b6020808252600790820152662737ba1033b7bb60c91b60408201526060019056fea2646970667358221220f0cff9dcecb497f40eca407d45fb273e51c5cddcf9a91b1557f17f182cf6353364736f6c634300080d0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100935760003560e01c80635aa6e675116100665780635aa6e675146100f7578063ab033ea914610110578063c13270f114610123578063c4d66de814610136578063f39c38a01461014957600080fd5b8063238efcbc1461009857806327e65278146100a257806346c96aac146100b55780634bc2a657146100e4575b600080fd5b6100a061015c565b005b6100a06100b0366004610435565b6101d8565b6003546100c8906001600160a01b031681565b6040516001600160a01b03909116815260200160405180910390f35b6100a06100f2366004610435565b61025d565b6000546100c8906201000090046001600160a01b031681565b6100a061011e366004610435565b6102db565b6002546100c8906001600160a01b031681565b6100a0610144366004610435565b610359565b6001546100c8906001600160a01b031681565b6001546001600160a01b031633146101ad5760405162461bcd60e51b815260206004820152600f60248201526e2737ba103832b73234b7339033b7bb60891b60448201526064015b60405180910390fd5b6001546000805462010000600160b01b0319166001600160a01b039092166201000002919091179055565b6000546201000090046001600160a01b031633146102085760405162461bcd60e51b81526004016101a490610465565b600280546001600160a01b0319166001600160a01b0383169081179091556040519081527f427d619a0a9852319231312bf3a2f7e361f12399aae2c315cc710a8055cc6ba3906020015b60405180910390a150565b6000546201000090046001600160a01b0316331461028d5760405162461bcd60e51b81526004016101a490610465565b600380546001600160a01b0319166001600160a01b0383169081179091556040519081527fc6ff127433b785c51da9ae4088ee184c909b1a55b9afd82ae6c64224d3bc15d290602001610252565b6000546201000090046001600160a01b0316331461030b5760405162461bcd60e51b81526004016101a490610465565b600180546001600160a01b0319166001600160a01b0383169081179091556040519081527f24a8c4807b324a269a51827c3446b8ac1cc13810d7d0c0ca1efafabddd7b621990602001610252565b600054610100900460ff166103745760005460ff1615610378565b303b155b6103db5760405162461bcd60e51b815260206004820152602e60248201527f496e697469616c697a61626c653a20636f6e747261637420697320616c72656160448201526d191e481a5b9a5d1a585b1a5e995960921b60648201526084016101a4565b600054610100900460ff161580156103fd576000805461ffff19166101011790555b6000805462010000600160b01b031916620100006001600160a01b038516021790558015610431576000805461ff00191690555b5050565b60006020828403121561044757600080fd5b81356001600160a01b038116811461045e57600080fd5b9392505050565b6020808252600790820152662737ba1033b7bb60c91b60408201526060019056fea2646970667358221220f0cff9dcecb497f40eca407d45fb273e51c5cddcf9a91b1557f17f182cf6353364736f6c634300080d0033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 26510,
+        "contract": "contracts/ControllerUpgradeable.sol:ControllerUpgradeable",
+        "label": "_initialized",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_bool"
+      },
+      {
+        "astId": 26513,
+        "contract": "contracts/ControllerUpgradeable.sol:ControllerUpgradeable",
+        "label": "_initializing",
+        "offset": 1,
+        "slot": "0",
+        "type": "t_bool"
+      },
+      {
+        "astId": 120,
+        "contract": "contracts/ControllerUpgradeable.sol:ControllerUpgradeable",
+        "label": "governance",
+        "offset": 2,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 122,
+        "contract": "contracts/ControllerUpgradeable.sol:ControllerUpgradeable",
+        "label": "pendingGovernance",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_address"
+      },
+      {
+        "astId": 124,
+        "contract": "contracts/ControllerUpgradeable.sol:ControllerUpgradeable",
+        "label": "veDist",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_address"
+      },
+      {
+        "astId": 126,
+        "contract": "contracts/ControllerUpgradeable.sol:ControllerUpgradeable",
+        "label": "voter",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_address"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      }
+    }
+  }
+}

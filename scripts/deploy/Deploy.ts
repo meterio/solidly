@@ -19,7 +19,12 @@ import {
   Ve,
   VeDist,
   SolidlyLibrary,
-  VoltPair
+  VoltPair,
+  ControllerUpgradeable,
+  VeUpgradeable,
+  VeDistUpgradeable,
+  VoltVoterUpgradeable,
+  MinterUpgradeable
 } from "../../typechain";
 import { Misc } from "../Misc";
 import { CoreAddresses } from "./CoreAddresses";
@@ -245,12 +250,12 @@ export class Deploy {
   public static async updateVoltSystem(
     signer: SignerWithAddress,
     controllerAddr: string,
-    tokenAddr:string,
+    tokenAddr: string,
     baseFactory: string,
     veAddr: string,
     voterTokens: string[]
   ) {
-    const controller = await ethers.getContractAt('Controller',controllerAddr,signer ) as Controller;
+    const controller = await ethers.getContractAt('Controller', controllerAddr, signer) as Controller;
     const veDist = await Deploy.deployVeDist(signer, veAddr);
 
     const gaugesFactory = await Deploy.deployGaugeFactory(signer);
@@ -271,6 +276,63 @@ export class Deploy {
       bribesFactory,
       voter,
       minter,
+    ];
+  }
+
+  public static async deployUpgradeableSystem(
+    deployer: SignerWithAddress,
+    admin: SignerWithAddress,
+    tokenAddr: string,
+    baseFactory: string
+  ) {
+    const controllerImpl = await Deploy.deployContract(deployer, 'ControllerUpgradeable') as ControllerUpgradeable;
+    const controllerProxy = await Deploy.deployContract(deployer, "TransparentUpgradeableProxy",
+      controllerImpl.address,
+      deployer.address,
+      controllerImpl.interface.encodeFunctionData("initialize", [admin.address])
+    );
+    const veImpl = await Deploy.deployContract(deployer, "VeUpgradeable") as VeUpgradeable;
+    const veProxy = await Deploy.deployContract(deployer, "TransparentUpgradeableProxy",
+      veImpl.address,
+      deployer.address,
+      veImpl.interface.encodeFunctionData("initialize", [tokenAddr, controllerProxy.address])
+    );
+    const gaugesFactory = await Deploy.deployGaugeFactory(deployer);
+    const bribesFactory = await Deploy.deployBribeFactory(deployer);
+
+    const veDistImpl = await Deploy.deployContract(deployer, "VeDistUpgradeable") as VeDistUpgradeable;
+    const veDistProxy = await Deploy.deployContract(deployer, "TransparentUpgradeableProxy",
+      veDistImpl.address,
+      deployer.address,
+      veDistImpl.interface.encodeFunctionData("initialize", [veProxy.address, admin.address])
+    ) as VeDistUpgradeable;
+    const voterImpl = await Deploy.deployContract(deployer, "VoltVoterUpgradeable") as VoltVoterUpgradeable;
+    const voterProxy = await Deploy.deployContract(deployer, "TransparentUpgradeableProxy",
+      voterImpl.address,
+      deployer.address,
+      voterImpl.interface.encodeFunctionData("initialize", [veProxy.address, baseFactory, gaugesFactory.address, bribesFactory.address, admin.address])
+    );
+
+    const minterImpl = await Deploy.deployContract(deployer, "MinterUpgradeable") as MinterUpgradeable;
+    const minterProxy = await Deploy.deployContract(deployer, "TransparentUpgradeableProxy",
+      minterImpl.address,
+      deployer.address,
+      minterImpl.interface.encodeFunctionData("initialize", [veProxy.address, controllerProxy.address, admin.address])
+    ) as MinterUpgradeable;
+
+    return [
+      controllerImpl,
+      controllerProxy,
+      gaugesFactory,
+      bribesFactory,
+      veImpl,
+      veProxy,
+      veDistImpl,
+      veDistProxy,
+      voterImpl,
+      voterProxy,
+      minterImpl,
+      minterProxy,
     ];
   }
 }

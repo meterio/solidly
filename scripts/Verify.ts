@@ -28,6 +28,13 @@ export class Verify {
       log.info('error verify ' + e);
     }
   }
+  public static async verifyAll() {
+    try {
+      await hre.run("sourcify")
+    } catch (e) {
+      log.info('error verify ' + e);
+    }
+  }
 
   // tslint:disable-next-line:no-any
   public static async verifyWithArgs(address: string, args: any[]) {

@@ -61,6 +61,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Minter__factory>;
     getContractFactory(
+      name: "MinterUpgradeable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MinterUpgradeable__factory>;
+    getContractFactory(
       name: "Volt",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Volt__factory>;
@@ -73,13 +77,29 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.VeDist__factory>;
     getContractFactory(
+      name: "VeDistUpgradeable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.VeDistUpgradeable__factory>;
+    getContractFactory(
+      name: "VeUpgradeable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.VeUpgradeable__factory>;
+    getContractFactory(
       name: "VoltVoter",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.VoltVoter__factory>;
     getContractFactory(
+      name: "VoltVoterUpgradeable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.VoltVoterUpgradeable__factory>;
+    getContractFactory(
       name: "Controller",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Controller__factory>;
+    getContractFactory(
+      name: "ControllerUpgradeable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ControllerUpgradeable__factory>;
     getContractFactory(
       name: "IBribe",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -184,6 +204,22 @@ declare module "hardhat/types/runtime" {
       name: "Migrator",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Migrator__factory>;
+    getContractFactory(
+      name: "ERC1967Proxy",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC1967Proxy__factory>;
+    getContractFactory(
+      name: "ERC1967Upgrade",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC1967Upgrade__factory>;
+    getContractFactory(
+      name: "Proxy",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Proxy__factory>;
+    getContractFactory(
+      name: "TransparentUpgradeableProxy",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.TransparentUpgradeableProxy__factory>;
     getContractFactory(
       name: "BrokenToken",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -294,6 +330,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.Minter>;
     getContractAt(
+      name: "MinterUpgradeable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.MinterUpgradeable>;
+    getContractAt(
       name: "Volt",
       address: string,
       signer?: ethers.Signer
@@ -309,15 +350,35 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.VeDist>;
     getContractAt(
+      name: "VeDistUpgradeable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.VeDistUpgradeable>;
+    getContractAt(
+      name: "VeUpgradeable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.VeUpgradeable>;
+    getContractAt(
       name: "VoltVoter",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.VoltVoter>;
     getContractAt(
+      name: "VoltVoterUpgradeable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.VoltVoterUpgradeable>;
+    getContractAt(
       name: "Controller",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Controller>;
+    getContractAt(
+      name: "ControllerUpgradeable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ControllerUpgradeable>;
     getContractAt(
       name: "IBribe",
       address: string,
@@ -448,6 +509,26 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Migrator>;
+    getContractAt(
+      name: "ERC1967Proxy",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC1967Proxy>;
+    getContractAt(
+      name: "ERC1967Upgrade",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC1967Upgrade>;
+    getContractAt(
+      name: "Proxy",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Proxy>;
+    getContractAt(
+      name: "TransparentUpgradeableProxy",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.TransparentUpgradeableProxy>;
     getContractAt(
       name: "BrokenToken",
       address: string,
