@@ -7,7 +7,7 @@ import { Verify } from "../../Verify";
 
 async function main() {
   const [deployer, admin] = await ethers.getSigners();
-
+  
   const factoryJson = Misc.getContract(await deployer.getChainId(), "Factory");
   const tokenJson = Misc.getContract(await deployer.getChainId(), "Token");
   if (factoryJson.address != ethers.constants.AddressZero && tokenJson.address != ethers.constants.AddressZero) {
@@ -85,6 +85,8 @@ async function main() {
     Misc.saveFile(await deployer.getChainId(), "VeDistImpl", veDistImpl.address);
     Misc.saveFile(await deployer.getChainId(), "VeDist", veDistProxy.address);
     Misc.saveFile(await deployer.getChainId(), "VoterImpl", voterImpl.address);
+    Misc.saveFile(await deployer.getChainId(), "Voter", voterProxy.address);
+    Misc.saveFile(await deployer.getChainId(), "MinterImpl", minterImpl.address);
     Misc.saveFile(await deployer.getChainId(), "Minter", minterProxy.address);
 
     await Misc.wait(5);

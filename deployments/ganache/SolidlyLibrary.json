@@ -1,0 +1,244 @@
+{
+  "address": "0x5B6bAdE464b672ca3492f9e9BAef2Cb73AD44B81",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_router",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amountIn",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "tokenIn",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "tokenOut",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "stable",
+          "type": "bool"
+        }
+      ],
+      "name": "getAmountOut",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenIn",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "tokenOut",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "stable",
+          "type": "bool"
+        }
+      ],
+      "name": "getMinimumValue",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenIn",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "tokenOut",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "stable",
+          "type": "bool"
+        }
+      ],
+      "name": "getSample",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amountIn",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "tokenIn",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "tokenOut",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "stable",
+          "type": "bool"
+        }
+      ],
+      "name": "getTradeDiff",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "a",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "b",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amountIn",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "tokenIn",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "pair",
+          "type": "address"
+        }
+      ],
+      "name": "getTradeDiff",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "a",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "b",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x580d40e08768461d742a4a70b93a2d6f87dd19e3c0fec60b916dcf4688285106",
+  "receipt": {
+    "to": null,
+    "from": "0x1381C573b97Bf393A81fA42760DD21E109d8092B",
+    "contractAddress": "0x5B6bAdE464b672ca3492f9e9BAef2Cb73AD44B81",
+    "transactionIndex": 0,
+    "gasUsed": "903348",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x5c82a1d32395a75e9ec022df10c730ea642051f4d457cb1fabf6c4aab8ba584c",
+    "transactionHash": "0x580d40e08768461d742a4a70b93a2d6f87dd19e3c0fec60b916dcf4688285106",
+    "logs": [],
+    "blockNumber": 16,
+    "cumulativeGasUsed": "903348",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x0872B14C6fc1dF9b9070ECbEd22547627d012A58"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "3b3b283a31496f0704cc082007acea88",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_router\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenIn\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenOut\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"stable\",\"type\":\"bool\"}],\"name\":\"getAmountOut\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenIn\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenOut\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"stable\",\"type\":\"bool\"}],\"name\":\"getMinimumValue\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenIn\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenOut\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"stable\",\"type\":\"bool\"}],\"name\":\"getSample\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenIn\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenOut\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"stable\",\"type\":\"bool\"}],\"name\":\"getTradeDiff\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"a\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"b\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenIn\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"pair\",\"type\":\"address\"}],\"name\":\"getTradeDiff\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"a\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"b\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/lib/SolidlyLibrary.sol\":\"SolidlyLibrary\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/interface/IPair.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.13;\\n\\ninterface IPair {\\n    // Structure to capture time period obervations every 30 minutes, used for local oracles\\n    struct Observation {\\n        uint timestamp;\\n        uint reserve0Cumulative;\\n        uint reserve1Cumulative;\\n    }\\n\\n    function permit(\\n        address owner,\\n        address spender,\\n        uint value,\\n        uint deadline,\\n        uint8 v,\\n        bytes32 r,\\n        bytes32 s\\n    ) external;\\n\\n    function swap(\\n        uint amount0Out,\\n        uint amount1Out,\\n        address to,\\n        bytes calldata data\\n    ) external;\\n\\n    function burn(address to) external returns (uint amount0, uint amount1);\\n\\n    function mint(address to) external returns (uint liquidity);\\n\\n    function getReserves()\\n        external\\n        view\\n        returns (\\n            uint112 _reserve0,\\n            uint112 _reserve1,\\n            uint32 _blockTimestampLast\\n        );\\n\\n    function getAmountOut(uint, address) external view returns (uint);\\n\\n    function claimFees() external returns (uint, uint);\\n\\n    function tokens() external view returns (address, address);\\n\\n    function token0() external view returns (address);\\n\\n    function token1() external view returns (address);\\n\\n    function stable() external view returns (bool);\\n\\n    function metadata()\\n        external\\n        view\\n        returns (\\n            uint dec0,\\n            uint dec1,\\n            uint r0,\\n            uint r1,\\n            bool st,\\n            address t0,\\n            address t1\\n        );\\n}\\n\",\"keccak256\":\"0x978d3132f8f5f6752533d94a3024f25ced205df57475d5e2d7c09f301dd7c762\",\"license\":\"MIT\"},\"contracts/interface/IRouter.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.13;\\n\\ninterface IRouter {\\n    struct Route {\\n        address from;\\n        address to;\\n        bool stable;\\n    }\\n\\n    function factory() external view returns (address);\\n\\n    function WMTR() external view returns (address);\\n\\n    function addLiquidity(\\n        address tokenA,\\n        address tokenB,\\n        bool stable,\\n        uint amountADesired,\\n        uint amountBDesired,\\n        uint amountAMin,\\n        uint amountBMin,\\n        address to,\\n        uint deadline\\n    )\\n        external\\n        returns (\\n            uint amountA,\\n            uint amountB,\\n            uint liquidity\\n        );\\n\\n    function addLiquidityMTR(\\n        address token,\\n        bool stable,\\n        uint amountTokenDesired,\\n        uint amountTokenMin,\\n        uint amountMTRMin,\\n        address to,\\n        uint deadline\\n    )\\n        external\\n        payable\\n        returns (\\n            uint amountToken,\\n            uint amountMTR,\\n            uint liquidity\\n        );\\n\\n    function removeLiquidity(\\n        address tokenA,\\n        address tokenB,\\n        bool stable,\\n        uint liquidity,\\n        uint amountAMin,\\n        uint amountBMin,\\n        address to,\\n        uint deadline\\n    ) external returns (uint amountA, uint amountB);\\n\\n    function removeLiquidityMTR(\\n        address token,\\n        bool stable,\\n        uint liquidity,\\n        uint amountTokenMin,\\n        uint amountMTRMin,\\n        address to,\\n        uint deadline\\n    ) external returns (uint amountToken, uint amountMTR);\\n\\n    function removeLiquidityWithPermit(\\n        address tokenA,\\n        address tokenB,\\n        bool stable,\\n        uint liquidity,\\n        uint amountAMin,\\n        uint amountBMin,\\n        address to,\\n        uint deadline,\\n        bool approveMax,\\n        uint8 v,\\n        bytes32 r,\\n        bytes32 s\\n    ) external returns (uint amountA, uint amountB);\\n\\n    function removeLiquidityMTRWithPermit(\\n        address token,\\n        bool stable,\\n        uint liquidity,\\n        uint amountTokenMin,\\n        uint amountMTRMin,\\n        address to,\\n        uint deadline,\\n        bool approveMax,\\n        uint8 v,\\n        bytes32 r,\\n        bytes32 s\\n    ) external returns (uint amountToken, uint amountMTR);\\n\\n    function swapExactTokensForTokens(\\n        uint amountIn,\\n        uint amountOutMin,\\n        Route[] calldata routes,\\n        address to,\\n        uint deadline\\n    ) external returns (uint[] memory amounts);\\n\\n    function swapTokensForExactTokens(\\n        uint amountOut,\\n        uint amountInMax,\\n        Route[] calldata routes,\\n        address to,\\n        uint deadline\\n    ) external returns (uint[] memory amounts);\\n\\n    function swapExactMTRForTokens(\\n        uint amountOutMin,\\n        Route[] calldata routes,\\n        address to,\\n        uint deadline\\n    ) external payable returns (uint[] memory amounts);\\n\\n    function swapTokensForExactMTR(\\n        uint amountOut,\\n        uint amountInMax,\\n        Route[] calldata routes,\\n        address to,\\n        uint deadline\\n    ) external returns (uint[] memory amounts);\\n\\n    function swapExactTokensForMTR(\\n        uint amountIn,\\n        uint amountOutMin,\\n        Route[] calldata routes,\\n        address to,\\n        uint deadline\\n    ) external returns (uint[] memory amounts);\\n\\n    function swapMTRForExactTokens(\\n        uint amountOut,\\n        Route[] calldata routes,\\n        address to,\\n        uint deadline\\n    ) external payable returns (uint[] memory amounts);\\n\\n    function quoteRemoveLiquidity(\\n        address tokenA,\\n        address tokenB,\\n        bool stable,\\n        uint liquidity\\n    ) external view returns (uint amountA, uint amountB);\\n\\n    function quoteAddLiquidity(\\n        address tokenA,\\n        address tokenB,\\n        bool stable,\\n        uint amountADesired,\\n        uint amountBDesired\\n    )\\n        external\\n        view\\n        returns (\\n            uint amountA,\\n            uint amountB,\\n            uint liquidity\\n        );\\n\\n    function pairFor(\\n        address tokenA,\\n        address tokenB,\\n        bool stable\\n    ) external view returns (address pair);\\n\\n    function sortTokens(address tokenA, address tokenB)\\n        external\\n        pure\\n        returns (address token0, address token1);\\n\\n    function quoteLiquidity(\\n        uint amountA,\\n        uint reserveA,\\n        uint reserveB\\n    ) external pure returns (uint amountB);\\n\\n    function getAmountOut(\\n        uint amountIn,\\n        address tokenIn,\\n        address tokenOut\\n    ) external view returns (uint amount, bool stable);\\n\\n    function getAmountIn(\\n        uint amountOut,\\n        uint reserveIn,\\n        uint reserveOut\\n    ) external pure returns (uint amountIn, bool stable);\\n\\n    function getAmountsOut(uint amountIn, Route[] memory routes)\\n        external\\n        view\\n        returns (uint[] memory amounts);\\n\\n    function getAmountsIn(uint amountOut, Route[] memory routes)\\n        external\\n        view\\n        returns (uint[] memory amounts);\\n\\n    function getReserves(\\n        address tokenA,\\n        address tokenB,\\n        bool stable\\n    ) external view returns (uint reserveA, uint reserveB);\\n\\n    function getExactAmountOut(\\n        uint amountIn,\\n        address tokenIn,\\n        address tokenOut,\\n        bool stable\\n    ) external view returns (uint amount);\\n\\n    function isPair(address pair) external view returns (bool);\\n\\n    function swapExactTokensForTokensSimple(\\n        uint amountIn,\\n        uint amountOutMin,\\n        address tokenFrom,\\n        address tokenTo,\\n        bool stable,\\n        address to,\\n        uint deadline\\n    ) external returns (uint[] memory amounts);\\n\\n    function swapExactTokensForMTRSupportingFeeOnTransferTokens(\\n        uint amountIn,\\n        uint amountOutMin,\\n        Route[] calldata routes,\\n        address to,\\n        uint deadline\\n    ) external;\\n\\n    function swapExactMTRForTokensSupportingFeeOnTransferTokens(\\n        uint amountOutMin,\\n        Route[] calldata routes,\\n        address to,\\n        uint deadline\\n    ) external payable;\\n\\n    function swapExactTokensForTokensSupportingFeeOnTransferTokens(\\n        uint amountIn,\\n        uint amountOutMin,\\n        Route[] calldata routes,\\n        address to,\\n        uint deadline\\n    ) external;\\n\\n    function removeLiquidityMTRWithPermitSupportingFeeOnTransferTokens(\\n        address token,\\n        bool stable,\\n        uint liquidity,\\n        uint amountTokenMin,\\n        uint amountFTMMin,\\n        address to,\\n        uint deadline,\\n        bool approveMax,\\n        uint8 v,\\n        bytes32 r,\\n        bytes32 s\\n    ) external returns (uint amountToken, uint amountFTM);\\n\\n    function removeLiquidityMTRSupportingFeeOnTransferTokens(\\n        address token,\\n        bool stable,\\n        uint liquidity,\\n        uint amountTokenMin,\\n        uint amountFTMMin,\\n        address to,\\n        uint deadline\\n    ) external returns (uint amountToken, uint amountFTM);\\n}\\n\",\"keccak256\":\"0x6d5001ad31a4f70765767d8297bb1f2abe03b4c74f0c7f81054c69e6a62500e8\",\"license\":\"MIT\"},\"contracts/lib/SolidlyLibrary.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.13;\\nimport \\\"../interface/IPair.sol\\\";\\nimport \\\"../interface/IRouter.sol\\\";\\n\\ncontract SolidlyLibrary {\\n    IRouter internal router;\\n\\n    constructor(address _router) {\\n        router = IRouter(_router);\\n    }\\n\\n    function _f(uint256 x0, uint256 y) internal pure returns (uint256) {\\n        return\\n            (x0 * ((((y * y) / 1e18) * y) / 1e18)) /\\n            1e18 +\\n            (((((x0 * x0) / 1e18) * x0) / 1e18) * y) /\\n            1e18;\\n    }\\n\\n    function _d(uint256 x0, uint256 y) internal pure returns (uint256) {\\n        return\\n            (3 * x0 * ((y * y) / 1e18)) /\\n            1e18 +\\n            ((((x0 * x0) / 1e18) * x0) / 1e18);\\n    }\\n\\n    function _get_y(\\n        uint256 x0,\\n        uint256 xy,\\n        uint256 y\\n    ) internal pure returns (uint256) {\\n        for (uint256 i = 0; i < 255; i++) {\\n            uint256 y_prev = y;\\n            uint256 k = _f(x0, y);\\n            if (k < xy) {\\n                uint256 dy = ((xy - k) * 1e18) / _d(x0, y);\\n                y = y + dy;\\n            } else {\\n                uint256 dy = ((k - xy) * 1e18) / _d(x0, y);\\n                y = y - dy;\\n            }\\n            if (y > y_prev) {\\n                if (y - y_prev <= 1) {\\n                    return y;\\n                }\\n            } else {\\n                if (y_prev - y <= 1) {\\n                    return y;\\n                }\\n            }\\n        }\\n        return y;\\n    }\\n\\n    function getTradeDiff(\\n        uint256 amountIn,\\n        address tokenIn,\\n        address tokenOut,\\n        bool stable\\n    ) external view returns (uint256 a, uint256 b) {\\n        (\\n            uint256 dec0,\\n            uint256 dec1,\\n            uint256 r0,\\n            uint256 r1,\\n            bool st,\\n            address t0,\\n\\n        ) = IPair(router.pairFor(tokenIn, tokenOut, stable)).metadata();\\n        uint256 sample = tokenIn == t0 ? (r0 * dec1) / r1 : (r1 * dec0) / r0;\\n        a =\\n            (_getAmountOut(sample, tokenIn, r0, r1, t0, dec0, dec1, st) *\\n                1e18) /\\n            sample;\\n        b =\\n            (_getAmountOut(amountIn, tokenIn, r0, r1, t0, dec0, dec1, st) *\\n                1e18) /\\n            amountIn;\\n    }\\n\\n    function getTradeDiff(\\n        uint256 amountIn,\\n        address tokenIn,\\n        address pair\\n    ) external view returns (uint256 a, uint256 b) {\\n        (\\n            uint256 dec0,\\n            uint256 dec1,\\n            uint256 r0,\\n            uint256 r1,\\n            bool st,\\n            address t0,\\n\\n        ) = IPair(pair).metadata();\\n        uint256 sample = tokenIn == t0 ? (r0 * dec1) / r1 : (r1 * dec0) / r0;\\n        a =\\n            (_getAmountOut(sample, tokenIn, r0, r1, t0, dec0, dec1, st) *\\n                1e18) /\\n            sample;\\n        b =\\n            (_getAmountOut(amountIn, tokenIn, r0, r1, t0, dec0, dec1, st) *\\n                1e18) /\\n            amountIn;\\n    }\\n\\n    function getSample(\\n        address tokenIn,\\n        address tokenOut,\\n        bool stable\\n    ) external view returns (uint256) {\\n        (\\n            uint256 dec0,\\n            uint256 dec1,\\n            uint256 r0,\\n            uint256 r1,\\n            bool st,\\n            address t0,\\n\\n        ) = IPair(router.pairFor(tokenIn, tokenOut, stable)).metadata();\\n        uint256 sample = tokenIn == t0 ? (r0 * dec1) / r1 : (r1 * dec0) / r0;\\n        return\\n            (_getAmountOut(sample, tokenIn, r0, r1, t0, dec0, dec1, st) *\\n                1e18) / sample;\\n    }\\n\\n    function getMinimumValue(\\n        address tokenIn,\\n        address tokenOut,\\n        bool stable\\n    )\\n        external\\n        view\\n        returns (\\n            uint256,\\n            uint256,\\n            uint256\\n        )\\n    {\\n        (\\n            uint256 dec0,\\n            uint256 dec1,\\n            uint256 r0,\\n            uint256 r1,\\n            ,\\n            address t0,\\n\\n        ) = IPair(router.pairFor(tokenIn, tokenOut, stable)).metadata();\\n        uint256 sample = tokenIn == t0 ? (r0 * dec1) / r1 : (r1 * dec0) / r0;\\n        return (sample, r0, r1);\\n    }\\n\\n    function getAmountOut(\\n        uint256 amountIn,\\n        address tokenIn,\\n        address tokenOut,\\n        bool stable\\n    ) external view returns (uint256) {\\n        (\\n            uint256 dec0,\\n            uint256 dec1,\\n            uint256 r0,\\n            uint256 r1,\\n            bool st,\\n            address t0,\\n\\n        ) = IPair(router.pairFor(tokenIn, tokenOut, stable)).metadata();\\n        return\\n            (_getAmountOut(amountIn, tokenIn, r0, r1, t0, dec0, dec1, st) *\\n                1e18) / amountIn;\\n    }\\n\\n    function _getAmountOut(\\n        uint256 amountIn,\\n        address tokenIn,\\n        uint256 _reserve0,\\n        uint256 _reserve1,\\n        address token0,\\n        uint256 decimals0,\\n        uint256 decimals1,\\n        bool stable\\n    ) internal pure returns (uint256) {\\n        if (stable) {\\n            uint256 xy = _k(_reserve0, _reserve1, stable, decimals0, decimals1);\\n            _reserve0 = (_reserve0 * 1e18) / decimals0;\\n            _reserve1 = (_reserve1 * 1e18) / decimals1;\\n            (uint256 reserveA, uint256 reserveB) = tokenIn == token0\\n                ? (_reserve0, _reserve1)\\n                : (_reserve1, _reserve0);\\n            amountIn = tokenIn == token0\\n                ? (amountIn * 1e18) / decimals0\\n                : (amountIn * 1e18) / decimals1;\\n            uint256 y = reserveB - _get_y(amountIn + reserveA, xy, reserveB);\\n            return (y * (tokenIn == token0 ? decimals1 : decimals0)) / 1e18;\\n        } else {\\n            (uint256 reserveA, uint256 reserveB) = tokenIn == token0\\n                ? (_reserve0, _reserve1)\\n                : (_reserve1, _reserve0);\\n            return (amountIn * reserveB) / (reserveA + amountIn);\\n        }\\n    }\\n\\n    function _k(\\n        uint256 x,\\n        uint256 y,\\n        bool stable,\\n        uint256 decimals0,\\n        uint256 decimals1\\n    ) internal pure returns (uint256) {\\n        if (stable) {\\n            uint256 _x = (x * 1e18) / decimals0;\\n            uint256 _y = (y * 1e18) / decimals1;\\n            uint256 _a = (_x * _y) / 1e18;\\n            uint256 _b = ((_x * _x) / 1e18 + (_y * _y) / 1e18);\\n            return (_a * _b) / 1e18; // x3y+y3x >= k\\n        } else {\\n            return x * y; // xy >= k\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x8d47975c7b5f845333f9fd9c3053ed77af7ba427885baa979d25a84e75b29227\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50604051610f8b380380610f8b83398101604081905261002f91610054565b600080546001600160a01b0319166001600160a01b0392909216919091179055610084565b60006020828403121561006657600080fd5b81516001600160a01b038116811461007d57600080fd5b9392505050565b610ef8806100936000396000f3fe608060405234801561001057600080fd5b50600436106100575760003560e01c8063525007331461005c578063865db5e21461008f578063be3b428e146100b7578063da214231146100d8578063ec323c00146100eb575b600080fd5b61006f61006a366004610c99565b6100fe565b604080519384526020840192909252908201526060015b60405180910390f35b6100a261009d366004610ce4565b61024a565b60408051928352602083019190915201610086565b6100ca6100c5366004610c99565b6103f4565b604051908152602001610086565b6100ca6100e6366004610ce4565b61056e565b6100a26100f9366004610d37565b61069a565b6000805460405163260f701f60e11b815282918291829182918291829182916001600160a01b031690634c1ee03e9061013f908e908e908e90600401610d6e565b602060405180830381865afa15801561015c573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906101809190610d92565b6001600160a01b031663392f37e96040518163ffffffff1660e01b815260040160e060405180830381865afa1580156101bd573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906101e19190610daf565b5095505094509450945094506000816001600160a01b03168c6001600160a01b03161461022257836102138785610e39565b61021d9190610e58565b610237565b8261022d8686610e39565b6102379190610e58565b9c939b5091995091975050505050505050565b6000805460405163260f701f60e11b815282918291829182918291829182916001600160a01b031690634c1ee03e9061028b908e908e908e90600401610d6e565b602060405180830381865afa1580156102a8573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102cc9190610d92565b6001600160a01b031663392f37e96040518163ffffffff1660e01b815260040160e060405180830381865afa158015610309573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061032d9190610daf565b509550955095509550955095506000816001600160a01b03168c6001600160a01b03161461036f57846103608886610e39565b61036a9190610e58565b610384565b8361037a8787610e39565b6103849190610e58565b905080610397828e8888878d8d8b6107ce565b6103a990670de0b6b3a7640000610e39565b6103b39190610e58565b98508c6103c68e8e8888878d8d8b6107ce565b6103d890670de0b6b3a7640000610e39565b6103e29190610e58565b97505050505050505094509492505050565b6000805460405163260f701f60e11b81528291829182918291829182916001600160a01b0390911690634c1ee03e90610435908d908d908d90600401610d6e565b602060405180830381865afa158015610452573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104769190610d92565b6001600160a01b031663392f37e96040518163ffffffff1660e01b815260040160e060405180830381865afa1580156104b3573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104d79190610daf565b509550955095509550955095506000816001600160a01b03168b6001600160a01b031614610519578461050a8886610e39565b6105149190610e58565b61052e565b836105248787610e39565b61052e9190610e58565b905080610541828d8888878d8d8b6107ce565b61055390670de0b6b3a7640000610e39565b61055d9190610e58565b9750505050505050505b9392505050565b6000805460405163260f701f60e11b81528291829182918291829182916001600160a01b0390911690634c1ee03e906105af908d908d908d90600401610d6e565b602060405180830381865afa1580156105cc573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906105f09190610d92565b6001600160a01b031663392f37e96040518163ffffffff1660e01b815260040160e060405180830381865afa15801561062d573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906106519190610daf565b509550955095509550955095508a61066f8c8c8787868c8c8a6107ce565b61068190670de0b6b3a7640000610e39565b61068b9190610e58565b9b9a5050505050505050505050565b600080600080600080600080886001600160a01b031663392f37e96040518163ffffffff1660e01b815260040160e060405180830381865afa1580156106e4573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906107089190610daf565b509550955095509550955095506000816001600160a01b03168b6001600160a01b03161461074a578461073b8886610e39565b6107459190610e58565b61075f565b836107558787610e39565b61075f9190610e58565b905080610772828d8888878d8d8b6107ce565b61078490670de0b6b3a7640000610e39565b61078e9190610e58565b98508b6107a18d8d8888878d8d8b6107ce565b6107b390670de0b6b3a7640000610e39565b6107bd9190610e58565b975050505050505050935093915050565b600081156109145760006107e5888885888861096e565b9050846107fa89670de0b6b3a7640000610e39565b6108049190610e58565b97508361081988670de0b6b3a7640000610e39565b6108239190610e58565b9650600080876001600160a01b03168b6001600160a01b03161461084857888a61084b565b89895b91509150876001600160a01b03168b6001600160a01b03161461088a578561087b8d670de0b6b3a7640000610e39565b6108859190610e58565b6108a7565b8661089d8d670de0b6b3a7640000610e39565b6108a79190610e58565b9b5060006108bf6108b8848f610e7a565b8584610a5f565b6108c99083610e92565b9050670de0b6b3a7640000896001600160a01b03168d6001600160a01b0316146108f357886108f5565b875b6108ff9083610e39565b6109099190610e58565b945050505050610962565b600080866001600160a01b03168a6001600160a01b03161461093757878961093a565b88885b90925090506109498b83610e7a565b610953828d610e39565b61095d9190610e58565b925050505b98975050505050505050565b60008315610a495760008361098b88670de0b6b3a7640000610e39565b6109959190610e58565b90506000836109ac88670de0b6b3a7640000610e39565b6109b69190610e58565b90506000670de0b6b3a76400006109cd8385610e39565b6109d79190610e58565b90506000670de0b6b3a76400006109ee8480610e39565b6109f89190610e58565b670de0b6b3a7640000610a0b8680610e39565b610a159190610e58565b610a1f9190610e7a565b9050670de0b6b3a7640000610a348284610e39565b610a3e9190610e58565b945050505050610a56565b610a538587610e39565b90505b95945050505050565b6000805b60ff811015610b6557826000610a798783610b6e565b905085811015610ac9576000610a8f8887610c0b565b610a998389610e92565b610aab90670de0b6b3a7640000610e39565b610ab59190610e58565b9050610ac18187610e7a565b955050610b0b565b6000610ad58887610c0b565b610adf8884610e92565b610af190670de0b6b3a7640000610e39565b610afb9190610e58565b9050610b078187610e92565b9550505b81851115610b34576001610b1f8387610e92565b11610b2f57849350505050610567565b610b50565b6001610b408684610e92565b11610b5057849350505050610567565b50508080610b5d90610ea9565b915050610a63565b50909392505050565b6000670de0b6b3a764000082818581610b878280610e39565b610b919190610e58565b610b9b9190610e39565b610ba59190610e58565b610baf9190610e39565b610bb99190610e58565b670de0b6b3a7640000808481610bcf8280610e39565b610bd99190610e58565b610be39190610e39565b610bed9190610e58565b610bf79086610e39565b610c019190610e58565b6105679190610e7a565b6000670de0b6b3a76400008381610c228280610e39565b610c2c9190610e58565b610c369190610e39565b610c409190610e58565b670de0b6b3a764000080610c548580610e39565b610c5e9190610e58565b610c69866003610e39565b610bf79190610e39565b6001600160a01b0381168114610c8857600080fd5b50565b8015158114610c8857600080fd5b600080600060608486031215610cae57600080fd5b8335610cb981610c73565b92506020840135610cc981610c73565b91506040840135610cd981610c8b565b809150509250925092565b60008060008060808587031215610cfa57600080fd5b843593506020850135610d0c81610c73565b92506040850135610d1c81610c73565b91506060850135610d2c81610c8b565b939692955090935050565b600080600060608486031215610d4c57600080fd5b833592506020840135610d5e81610c73565b91506040840135610cd981610c73565b6001600160a01b039384168152919092166020820152901515604082015260600190565b600060208284031215610da457600080fd5b815161056781610c73565b600080600080600080600060e0888a031215610dca57600080fd5b875196506020880151955060408801519450606088015193506080880151610df181610c8b565b60a0890151909350610e0281610c73565b60c0890151909250610e1381610c73565b8091505092959891949750929550565b634e487b7160e01b600052601160045260246000fd5b6000816000190483118215151615610e5357610e53610e23565b500290565b600082610e7557634e487b7160e01b600052601260045260246000fd5b500490565b60008219821115610e8d57610e8d610e23565b500190565b600082821015610ea457610ea4610e23565b500390565b600060018201610ebb57610ebb610e23565b506001019056fea26469706673582212206e6a17e5743865505d1e440cd3223303a4862411f8ef9e00714f94d37b8e553464736f6c634300080d0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100575760003560e01c8063525007331461005c578063865db5e21461008f578063be3b428e146100b7578063da214231146100d8578063ec323c00146100eb575b600080fd5b61006f61006a366004610c99565b6100fe565b604080519384526020840192909252908201526060015b60405180910390f35b6100a261009d366004610ce4565b61024a565b60408051928352602083019190915201610086565b6100ca6100c5366004610c99565b6103f4565b604051908152602001610086565b6100ca6100e6366004610ce4565b61056e565b6100a26100f9366004610d37565b61069a565b6000805460405163260f701f60e11b815282918291829182918291829182916001600160a01b031690634c1ee03e9061013f908e908e908e90600401610d6e565b602060405180830381865afa15801561015c573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906101809190610d92565b6001600160a01b031663392f37e96040518163ffffffff1660e01b815260040160e060405180830381865afa1580156101bd573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906101e19190610daf565b5095505094509450945094506000816001600160a01b03168c6001600160a01b03161461022257836102138785610e39565b61021d9190610e58565b610237565b8261022d8686610e39565b6102379190610e58565b9c939b5091995091975050505050505050565b6000805460405163260f701f60e11b815282918291829182918291829182916001600160a01b031690634c1ee03e9061028b908e908e908e90600401610d6e565b602060405180830381865afa1580156102a8573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102cc9190610d92565b6001600160a01b031663392f37e96040518163ffffffff1660e01b815260040160e060405180830381865afa158015610309573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061032d9190610daf565b509550955095509550955095506000816001600160a01b03168c6001600160a01b03161461036f57846103608886610e39565b61036a9190610e58565b610384565b8361037a8787610e39565b6103849190610e58565b905080610397828e8888878d8d8b6107ce565b6103a990670de0b6b3a7640000610e39565b6103b39190610e58565b98508c6103c68e8e8888878d8d8b6107ce565b6103d890670de0b6b3a7640000610e39565b6103e29190610e58565b97505050505050505094509492505050565b6000805460405163260f701f60e11b81528291829182918291829182916001600160a01b0390911690634c1ee03e90610435908d908d908d90600401610d6e565b602060405180830381865afa158015610452573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104769190610d92565b6001600160a01b031663392f37e96040518163ffffffff1660e01b815260040160e060405180830381865afa1580156104b3573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104d79190610daf565b509550955095509550955095506000816001600160a01b03168b6001600160a01b031614610519578461050a8886610e39565b6105149190610e58565b61052e565b836105248787610e39565b61052e9190610e58565b905080610541828d8888878d8d8b6107ce565b61055390670de0b6b3a7640000610e39565b61055d9190610e58565b9750505050505050505b9392505050565b6000805460405163260f701f60e11b81528291829182918291829182916001600160a01b0390911690634c1ee03e906105af908d908d908d90600401610d6e565b602060405180830381865afa1580156105cc573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906105f09190610d92565b6001600160a01b031663392f37e96040518163ffffffff1660e01b815260040160e060405180830381865afa15801561062d573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906106519190610daf565b509550955095509550955095508a61066f8c8c8787868c8c8a6107ce565b61068190670de0b6b3a7640000610e39565b61068b9190610e58565b9b9a5050505050505050505050565b600080600080600080600080886001600160a01b031663392f37e96040518163ffffffff1660e01b815260040160e060405180830381865afa1580156106e4573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906107089190610daf565b509550955095509550955095506000816001600160a01b03168b6001600160a01b03161461074a578461073b8886610e39565b6107459190610e58565b61075f565b836107558787610e39565b61075f9190610e58565b905080610772828d8888878d8d8b6107ce565b61078490670de0b6b3a7640000610e39565b61078e9190610e58565b98508b6107a18d8d8888878d8d8b6107ce565b6107b390670de0b6b3a7640000610e39565b6107bd9190610e58565b975050505050505050935093915050565b600081156109145760006107e5888885888861096e565b9050846107fa89670de0b6b3a7640000610e39565b6108049190610e58565b97508361081988670de0b6b3a7640000610e39565b6108239190610e58565b9650600080876001600160a01b03168b6001600160a01b03161461084857888a61084b565b89895b91509150876001600160a01b03168b6001600160a01b03161461088a578561087b8d670de0b6b3a7640000610e39565b6108859190610e58565b6108a7565b8661089d8d670de0b6b3a7640000610e39565b6108a79190610e58565b9b5060006108bf6108b8848f610e7a565b8584610a5f565b6108c99083610e92565b9050670de0b6b3a7640000896001600160a01b03168d6001600160a01b0316146108f357886108f5565b875b6108ff9083610e39565b6109099190610e58565b945050505050610962565b600080866001600160a01b03168a6001600160a01b03161461093757878961093a565b88885b90925090506109498b83610e7a565b610953828d610e39565b61095d9190610e58565b925050505b98975050505050505050565b60008315610a495760008361098b88670de0b6b3a7640000610e39565b6109959190610e58565b90506000836109ac88670de0b6b3a7640000610e39565b6109b69190610e58565b90506000670de0b6b3a76400006109cd8385610e39565b6109d79190610e58565b90506000670de0b6b3a76400006109ee8480610e39565b6109f89190610e58565b670de0b6b3a7640000610a0b8680610e39565b610a159190610e58565b610a1f9190610e7a565b9050670de0b6b3a7640000610a348284610e39565b610a3e9190610e58565b945050505050610a56565b610a538587610e39565b90505b95945050505050565b6000805b60ff811015610b6557826000610a798783610b6e565b905085811015610ac9576000610a8f8887610c0b565b610a998389610e92565b610aab90670de0b6b3a7640000610e39565b610ab59190610e58565b9050610ac18187610e7a565b955050610b0b565b6000610ad58887610c0b565b610adf8884610e92565b610af190670de0b6b3a7640000610e39565b610afb9190610e58565b9050610b078187610e92565b9550505b81851115610b34576001610b1f8387610e92565b11610b2f57849350505050610567565b610b50565b6001610b408684610e92565b11610b5057849350505050610567565b50508080610b5d90610ea9565b915050610a63565b50909392505050565b6000670de0b6b3a764000082818581610b878280610e39565b610b919190610e58565b610b9b9190610e39565b610ba59190610e58565b610baf9190610e39565b610bb99190610e58565b670de0b6b3a7640000808481610bcf8280610e39565b610bd99190610e58565b610be39190610e39565b610bed9190610e58565b610bf79086610e39565b610c019190610e58565b6105679190610e7a565b6000670de0b6b3a76400008381610c228280610e39565b610c2c9190610e58565b610c369190610e39565b610c409190610e58565b670de0b6b3a764000080610c548580610e39565b610c5e9190610e58565b610c69866003610e39565b610bf79190610e39565b6001600160a01b0381168114610c8857600080fd5b50565b8015158114610c8857600080fd5b600080600060608486031215610cae57600080fd5b8335610cb981610c73565b92506020840135610cc981610c73565b91506040840135610cd981610c8b565b809150509250925092565b60008060008060808587031215610cfa57600080fd5b843593506020850135610d0c81610c73565b92506040850135610d1c81610c73565b91506060850135610d2c81610c8b565b939692955090935050565b600080600060608486031215610d4c57600080fd5b833592506020840135610d5e81610c73565b91506040840135610cd981610c73565b6001600160a01b039384168152919092166020820152901515604082015260600190565b600060208284031215610da457600080fd5b815161056781610c73565b600080600080600080600060e0888a031215610dca57600080fd5b875196506020880151955060408801519450606088015193506080880151610df181610c8b565b60a0890151909350610e0281610c73565b60c0890151909250610e1381610c73565b8091505092959891949750929550565b634e487b7160e01b600052601160045260246000fd5b6000816000190483118215151615610e5357610e53610e23565b500290565b600082610e7557634e487b7160e01b600052601260045260246000fd5b500490565b60008219821115610e8d57610e8d610e23565b500190565b600082821015610ea457610ea4610e23565b500390565b600060018201610ebb57610ebb610e23565b506001019056fea26469706673582212206e6a17e5743865505d1e440cd3223303a4862411f8ef9e00714f94d37b8e553464736f6c634300080d0033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 26863,
+        "contract": "contracts/lib/SolidlyLibrary.sol:SolidlyLibrary",
+        "label": "router",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_contract(IRouter)24624"
+      }
+    ],
+    "types": {
+      "t_contract(IRouter)24624": {
+        "encoding": "inplace",
+        "label": "contract IRouter",
+        "numberOfBytes": "20"
+      }
+    }
+  }
+}

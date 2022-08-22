@@ -21,6 +21,10 @@ const argv = require('yargs/yargs')()
       type: "number",
       default: 31337
     },
+    ganacheRpc: {
+      type: "string",
+      default: 'http://127.0.0.1:7545'
+    },
     maticRpcUrl: {
       type: "string",
       default: ''
@@ -128,6 +132,11 @@ export default {
       timeout: 99999,
       gasPrice: 500000000000,
       accounts: [process.env.PRIVATE_KEY_0, process.env.PRIVATE_KEY_1],
+    },
+    ganache: {
+      url: argv.ganacheRpc,
+      chainId: 1337,
+      accounts: [process.env.PRIVATE_KEY_0, "0x34cd0e9ec7a0ec36a37db424f720de58223f9cd52e0175c7a972a6a864eb86a5"],
     },
   },
   etherscan: {
